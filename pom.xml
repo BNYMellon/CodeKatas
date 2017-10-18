@@ -21,18 +21,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>bnymellon.codekatas</groupId>
-    <artifactId>codekatas</artifactId>
+    <artifactId>code-katas</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Code Kata Aggregator POM</name>
 
     <modules>
-        <module>calendarkata</module>
-        <module>codepointkata</module>
-        <module>deckofcardskata</module>
-        <module>donutkata</module>
-        <module>jmhkata</module>
-        <module>javalambdakata</module>
+        <module>calendar-kata</module>
+        <module>code-point-kata</module>
+        <module>deck-of-cards-kata</module>
+        <module>donut-kata</module>
+        <module>jmh-kata</module>
+        <module>java-lambda-kata</module>
     </modules>
 </project>

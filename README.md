@@ -13,12 +13,12 @@ I do and I understand.<br>
 
 ## Katalogue
 
-1. [Java Lambda Kata](./JavaLambdaKata) - Practice and learn Java 8 lambdas with simple exercises
-2. [Deck of Cards Kata](./DeckOfCardsKata) - Practice using Java 8 Streams, Eclipse Collections, 
+1. [Java Lambda Kata](./java-lambda-kata) - Practice and learn Java 8 lambdas with simple exercises
+2. [Deck of Cards Kata](./deck-of-cards-kata) - Practice using Java 8 Streams, Eclipse Collections, 
 Guava, Apache Commons and/or Vavr on a simple domain
 3. [Eclipse Collections Katas](https://github.com/eclipse/eclipse-collections-kata) - Practice and 
 learn Eclipse Collections Data Structures and Algorithms with two classic Katas
-4. [Donut Kata](./DonutKata) - Practice and learn more advanced Eclipse Collections APIs using Java or Kotlin
-5. [CodePoint Kata](./CodePointKata) - Read a secret message from a file into memory, translate it and then write out the revealed message to a file.
-6. [JMH Kata](./JMHKata) - Experiment with the Java Microbenchmark Harness by running and writing micro-benchmark performance comparisons.
-7. [Calendar Kata](./CalendarKata) - Practice and learn the APIs in the Java 8 Date/Time and ThreeTen-Extra libraries.
+4. [Donut Kata](./donut-kata) - Practice and learn more advanced Eclipse Collections APIs using Java or Kotlin
+5. [CodePoint Kata](./code-point-kata) - Read a secret message from a file into memory, translate it and then write out the revealed message to a file.
+6. [JMH Kata](./jmh-kata) - Experiment with the Java Microbenchmark Harness by running and writing micro-benchmark performance comparisons.
+7. [Calendar Kata](./calendar-kata) - Practice and learn the APIs in the Java 8 Date/Time and ThreeTen-Extra libraries.
