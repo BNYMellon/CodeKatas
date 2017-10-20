@@ -26,7 +26,7 @@ public class RollYourOwnFunctionalInterfaceTest
     {
         // TODO create a Functional Interface that accepts four ints and write a lambda which adds them together
         FourIntFunction function = () -> 0;
-        Assert.assertEquals(10, this.applyFourIntFunction(1, 2, 3,4, function));
+        Assert.assertEquals(10, this.applyFourIntFunction(1, 2, 3, 4, function));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class RollYourOwnFunctionalInterfaceTest
     {
         // TODO use the sam Functional Interface and write a lambda which multiplies them together
         FourIntFunction function = () -> 0;
-        Assert.assertEquals(16, this.applyFourIntFunction(2, 2, 2,2, function));
+        Assert.assertEquals(16, this.applyFourIntFunction(2, 2, 2, 2, function));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class RollYourOwnFunctionalInterfaceTest
     {
         // TODO use the sam Functional Interface and write a lambda which adds the first three together and divides by last
         FourIntFunction function = () -> 0;
-        Assert.assertEquals(3, this.applyFourIntFunction(1, 1, 1,1, function));
+        Assert.assertEquals(3, this.applyFourIntFunction(1, 1, 1, 1, function));
     }
 
     private int applyFourIntFunction(int one, int two, int three, int four, FourIntFunction function)

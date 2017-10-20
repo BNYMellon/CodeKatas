@@ -24,6 +24,12 @@
     <artifactId>code-point-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>CodePoint Kata</name>
+    <description>
+        The CodePoint code kata gives you an opportunity to learn about string manipulation and
+        reading from and writing to files in Java.
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

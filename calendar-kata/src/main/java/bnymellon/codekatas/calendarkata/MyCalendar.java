@@ -116,7 +116,7 @@ public class MyCalendar
     public String toString()
     {
         return "MyCalendar(" +
-                "meetings=" + meetings +
+                "meetings=" + this.meetings +
                 ')';
     }
 }

@@ -24,6 +24,12 @@
     <artifactId>donut-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>Donut Kata</name>
+    <description>
+        The Donut Kata is an advanced kata which can help developers
+        become familiar with lesser known APIs of Eclipse Collections.
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

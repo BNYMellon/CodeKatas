@@ -44,7 +44,7 @@ public class Delivery
 
     public ImmutableList<Donut> getDonuts()
     {
-        return donuts;
+        return this.donuts;
     }
 
     public LocalDate getDate()
@@ -71,8 +71,8 @@ public class Delivery
     public String toString()
     {
         return "Delivery(" +
-                "order=" + order +
-                ", donuts=" + donuts.toBag().toStringOfItemToCount() +
+                "order=" + this.order +
+                ", donuts=" + this.donuts.toBag().toStringOfItemToCount() +
                 ')';
     }
 }

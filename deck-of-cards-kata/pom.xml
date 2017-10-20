@@ -24,6 +24,12 @@
     <artifactId>deck-of-cards-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>Deck of Cards Kata</name>
+    <description>
+        The Deck of Cards Kata is an advanced kata which can help developers
+        become familiar with multiple Java Collection Frameworks.
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

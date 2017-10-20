@@ -40,18 +40,18 @@ public class Customer
         {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
+        if (o == null || this.getClass() != o.getClass())
         {
             return false;
         }
         Customer customer = (Customer) o;
-        return Objects.equals(name, customer.name);
+        return Objects.equals(this.name, customer.name);
     }
 
     @Override
     public int hashCode()
     {
-        return name != null ? name.hashCode() : 0;
+        return this.name != null ? this.name.hashCode() : 0;
     }
 
     public boolean named(String name)
@@ -91,7 +91,7 @@ public class Customer
     public String toString()
     {
         return "Customer(" +
-                "name='" + name + '\'' +
+                "name='" + this.name + '\'' +
                 ')';
     }
 }

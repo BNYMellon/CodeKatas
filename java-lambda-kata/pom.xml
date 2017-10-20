@@ -24,6 +24,12 @@
     <artifactId>java-lambda-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>Java Lambda Kata</name>
+    <description>
+        The Java Lambda Kata is meant to give a quick practical introduction to understanding and
+        leveraging lambdas in Java 8.
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

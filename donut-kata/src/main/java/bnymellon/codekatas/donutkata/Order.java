@@ -66,9 +66,9 @@ public class Order
     public String toString()
     {
         return "Order(" +
-                "customer=" + customer +
-                ", date=" + date +
-                ", counts=" + counts.toStringOfItemToCount() +
+                "customer=" + this.customer +
+                ", date=" + this.date +
+                ", counts=" + this.counts.toStringOfItemToCount() +
                 ')';
     }
 }

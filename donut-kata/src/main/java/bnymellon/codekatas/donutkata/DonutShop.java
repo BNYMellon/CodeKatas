@@ -174,8 +174,8 @@ public class DonutShop
     public String toString()
     {
         return "DonutShop(" +
-                "donuts=" + donuts.toStringOfItemToCount() +
-                ", deliveries=" + deliveries +
+                "donuts=" + this.donuts.toStringOfItemToCount() +
+                ", deliveries=" + this.deliveries +
                 ')';
     }
 }

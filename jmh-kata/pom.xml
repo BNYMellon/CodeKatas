@@ -24,6 +24,13 @@
     <artifactId>jmh-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>JMH Kata</name>
+    <description>
+        The JMH Kata is a simple project setup with some basic micro-benchmarks
+        that you can use as a model to try out your own Java micro-benchmarks using
+        the Java Micro-benchmark Harness (JMH).
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

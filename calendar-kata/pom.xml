@@ -24,6 +24,12 @@
     <artifactId>calendar-kata</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>Calendar Kata</name>
+    <description>
+        The Calendar Kata is an advanced kata which can help developers
+        become familiar with the Java 8 Date/Time and ThreeTen-Extra libraries
+    </description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

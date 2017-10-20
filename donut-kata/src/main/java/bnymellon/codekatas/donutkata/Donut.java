@@ -44,13 +44,13 @@ public class Donut
         {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
+        if (o == null || this.getClass() != o.getClass())
         {
             return false;
         }
         Donut donut = (Donut) o;
-        return Double.compare(donut.price, price) == 0 &&
-                type == donut.type;
+        return Double.compare(donut.price, this.price) == 0 &&
+                this.type == donut.type;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Donut
     {
         int result;
         long temp;
-        result = type.hashCode();
-        temp = Double.doubleToLongBits(price);
+        result = this.type.hashCode();
+        temp = Double.doubleToLongBits(this.price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
@@ -68,8 +68,8 @@ public class Donut
     public String toString()
     {
         return "Donut(" +
-                "type=" + type +
-                ", price=" + price +
+                "type=" + this.type +
+                ", price=" + this.price +
                 ')';
     }
 }
