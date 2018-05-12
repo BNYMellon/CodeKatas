@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,6 @@
 
 package bnymellon.codekatas.jmhkata;
 
-import java.util.Collection;
-import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.Multimap;
 import org.eclipse.collections.api.multimap.MutableMultimap;
@@ -34,7 +23,6 @@ import org.eclipse.collections.api.multimap.list.ListMultimap;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.api.set.primitive.MutableIntSet;
 import org.eclipse.collections.impl.collector.Collectors2;
-import org.eclipse.collections.impl.collector.SummaryStatistics;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.primitive.IntSets;
 import org.eclipse.collections.impl.parallel.ParallelIterate;
@@ -50,17 +38,28 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.util.Collection;
+import java.util.DoubleSummaryStatistics;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 @State(Scope.Thread)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(2)
-public class PersonJMHTest
+public class PersonJMHBenchmark
 {
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool();
 
     public static void main(String[] args) throws RunnerException
     {
-        Options options = new OptionsBuilder().include(".*" + PersonJMHTest.class.getSimpleName() + ".*")
+        Options options = new OptionsBuilder().include(".*" + PersonJMHBenchmark.class.getSimpleName() + ".*")
                 .forks(2)
                 .mode(Mode.Throughput)
                 .timeUnit(TimeUnit.SECONDS)
@@ -90,17 +89,6 @@ public class PersonJMHTest
         IntSummaryStatistics stats3 =
                 Person.getECPeople().parallelStream().mapToInt(Person::getAge).summaryStatistics();
         return new Object[]{stats1, stats2, stats3};
-    }
-
-    @Benchmark
-    public SummaryStatistics<Person> combinedStatisticsECSinglePassStream_parallel()
-    {
-        SummaryStatistics<Person> summaryStatistics = new SummaryStatistics<Person>()
-                .addDoubleFunction("height", Person::getHeightInInches)
-                .addDoubleFunction("weight", Person::getWeightInPounds)
-                .addIntFunction("age", Person::getAge);
-
-        return Person.getECPeople().parallelStream().collect(summaryStatistics.toCollector());
     }
 
     @Benchmark
@@ -217,28 +205,6 @@ public class PersonJMHTest
         IntSummaryStatistics stats3 =
                 Person.getECPeople().summarizeInt(Person::getAge);
         return new Object[]{stats1, stats2, stats3};
-    }
-
-    @Benchmark
-    public SummaryStatistics<Person> combinedStatisticsECSinglePassReduceInPlace_serial()
-    {
-        SummaryStatistics<Person> summaryStatistics = new SummaryStatistics<Person>()
-                .addDoubleFunction("height", Person::getHeightInInches)
-                .addDoubleFunction("weight", Person::getWeightInPounds)
-                .addIntFunction("age", Person::getAge);
-
-        return Person.getECPeople().reduceInPlace(summaryStatistics.toCollector());
-    }
-
-    @Benchmark
-    public SummaryStatistics<Person> combinedStatisticsECSinglePassStream_serial()
-    {
-        SummaryStatistics<Person> summaryStatistics = new SummaryStatistics<Person>()
-                .addDoubleFunction("height", Person::getHeightInInches)
-                .addDoubleFunction("weight", Person::getWeightInPounds)
-                .addIntFunction("age", Person::getAge);
-
-        return Person.getECPeople().stream().collect(summaryStatistics.toCollector());
     }
 
     @Benchmark

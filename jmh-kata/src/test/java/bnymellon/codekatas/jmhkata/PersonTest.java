@@ -23,55 +23,34 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * This is just a set of unit tests to validate the code is working as expected.
+ * This is a set of unit tests to validate the code is working as expected.
  */
 public class PersonTest
 {
     @Test
-    public void ageStatisticsJDK()
+    public void ageStatistics()
     {
-        IntSummaryStatistics stats =
-                Person.getJDKPeople().stream().mapToInt(Person::getAge).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
-    }
-
-    @Test
-    public void ageStatisticsEC()
-    {
-        IntSummaryStatistics stats =
-                Person.getECPeople().asLazy().collectInt(Person::getAge).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getJDKPeople().stream().mapToInt(Person::getAge).summaryStatistics().getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getECPeople().asLazy().collectInt(Person::getAge).summaryStatistics().getCount());
     }
 
     @Test
     public void weightStatisticsJDK()
     {
-        DoubleSummaryStatistics stats =
-                Person.getJDKPeople().stream().mapToDouble(Person::getWeightInPounds).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
-    }
-
-    @Test
-    public void weightStatisticsEC()
-    {
-        DoubleSummaryStatistics stats =
-                Person.getECPeople().asLazy().collectDouble(Person::getWeightInPounds).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getJDKPeople().stream().mapToDouble(Person::getWeightInPounds).summaryStatistics().getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getECPeople().asLazy().collectDouble(Person::getWeightInPounds).summaryStatistics().getCount());
     }
 
     @Test
     public void heightStatisticsJDK()
     {
-        DoubleSummaryStatistics stats =
-                Person.getJDKPeople().stream().mapToDouble(Person::getHeightInInches).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
-    }
-
-    @Test
-    public void heightStatisticsEC()
-    {
-        DoubleSummaryStatistics stats =
-                Person.getECPeople().asLazy().collectDouble(Person::getHeightInInches).summaryStatistics();
-        Assert.assertEquals(Person.NUMBER_OF_PEOPLE, stats.getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getJDKPeople().stream().mapToDouble(Person::getHeightInInches).summaryStatistics().getCount());
+        Assert.assertEquals(Person.NUMBER_OF_PEOPLE,
+                            Person.getECPeople().asLazy().collectDouble(Person::getHeightInInches).summaryStatistics().getCount());
     }
 }

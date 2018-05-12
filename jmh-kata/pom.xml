@@ -38,8 +38,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <eclipse-collections.version>9.0.0</eclipse-collections.version>
-        <jmh.version>1.19</jmh.version>
+        <eclipse-collections.version>9.1.0</eclipse-collections.version>
+        <jmh.version>1.21</jmh.version>
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -121,12 +121,6 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>${jmh.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjdk.jol</groupId>
-            <artifactId>jol-core</artifactId>
-            <version>0.8</version>
         </dependency>
 
         <dependency>

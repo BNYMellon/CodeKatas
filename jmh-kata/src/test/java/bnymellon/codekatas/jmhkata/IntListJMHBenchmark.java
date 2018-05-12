@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,7 @@
 
 package bnymellon.codekatas.jmhkata;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PrimitiveIterator;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
+import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.list.primitive.IntList;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.list.mutable.FastList;
@@ -40,33 +33,42 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jol.info.GraphLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PrimitiveIterator;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(2)
-public class IntListJMHTest
+public class IntListJMHBenchmark
 {
     private List<Integer> jdkList;
-    private IntList ecList;
+    private IntList ecIntList;
+    private MutableList<Integer> ecList;
+    private ExecutorService executor;
 
     @Setup
     public void setUp()
     {
+        this.executor = Executors.newWorkStealingPool();
         PrimitiveIterator.OfInt AGE_GENERATOR = new Random(1L).ints(-1000, 1000).iterator();
-        final FastList<Integer> integers = FastList.newWithNValues(1_000_000, AGE_GENERATOR::nextInt);
+        this.ecList = FastList.newWithNValues(1_000_000, AGE_GENERATOR::nextInt);
         this.jdkList = new ArrayList<>(1_000_000);
-        this.jdkList.addAll(integers);
-        this.ecList = integers.collectInt(i -> i, new IntArrayList(1_000_000));
-
-        System.out.println();
-        System.out.println("Memory for ArrayList    (bytes): " + ObjectSizeCalculator.getObjectSize(this.jdkList));
-        System.out.println("Memory for IntArrayList (bytes): " + ObjectSizeCalculator.getObjectSize(this.ecList));
+        this.jdkList.addAll(this.ecList);
+        this.ecIntList = this.ecList.collectInt(i -> i, new IntArrayList(1_000_000));
     }
 
     public static void main(String[] args) throws RunnerException
     {
-        Options options = new OptionsBuilder().include(".*" + IntListJMHTest.class.getSimpleName() + ".*")
+        Options options = new OptionsBuilder().include(".*" + IntListJMHBenchmark.class.getSimpleName() + ".*")
                 .forks(2)
                 .mode(Mode.Throughput)
                 .timeUnit(TimeUnit.SECONDS)
@@ -77,19 +79,31 @@ public class IntListJMHTest
     @Benchmark
     public long sumJDK()
     {
-        return this.jdkList.stream().mapToInt(i -> i).sum();
+        return this.jdkList.stream().mapToLong(i -> i).sum();
     }
 
     @Benchmark
     public long sumJDKParallel()
     {
-        return this.jdkList.stream().mapToInt(i -> i).sum();
+        return this.jdkList.parallelStream().mapToLong(i -> i).sum();
+    }
+
+    @Benchmark
+    public long sumECPrimitive()
+    {
+        return this.ecIntList.sum();
     }
 
     @Benchmark
     public long sumEC()
     {
-        return this.ecList.sum();
+        return this.ecList.sumOfInt(i -> i);
+    }
+
+    @Benchmark
+    public long sumECParallel()
+    {
+        return this.ecList.asParallel(this.executor, 100_000).sumOfInt(i -> i);
     }
 
     @Benchmark
@@ -107,7 +121,19 @@ public class IntListJMHTest
     @Benchmark
     public IntList filterECPrimitive()
     {
+        return this.ecIntList.select(i -> i % 2 == 0);
+    }
+
+    @Benchmark
+    public MutableList<Integer> filterEC()
+    {
         return this.ecList.select(i -> i % 2 == 0);
+    }
+
+    @Benchmark
+    public MutableList<Integer> filterECParallel()
+    {
+        return this.ecList.asParallel(this.executor, 100_000).select(i -> i % 2 == 0).toList();
     }
 
     @Benchmark
@@ -119,12 +145,24 @@ public class IntListJMHTest
     @Benchmark
     public List<Integer> transformJDKBoxedParallel()
     {
-        return this.jdkList.stream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList());
+        return this.jdkList.parallelStream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList());
     }
 
     @Benchmark
     public IntList transformECPrimitive()
     {
-        return this.ecList.collectInt(i -> i * 2, IntLists.mutable.empty());
+        return this.ecIntList.collectInt(i -> i * 2, IntLists.mutable.empty());
+    }
+
+    @Benchmark
+    public MutableList<Integer> transformEC()
+    {
+        return this.ecList.collect(i -> i * 2).toList();
+    }
+
+    @Benchmark
+    public MutableList<Integer> transformECParallel()
+    {
+        return this.ecList.asParallel(this.executor, 100_000).collect(i -> i * 2).toList();
     }
 }
