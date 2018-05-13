@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2017 BNY Mellon.
+  ~ Copyright 2018 BNY Mellon.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <kotlin.version>1.1.50</kotlin.version>
+        <kotlin.version>1.2.41</kotlin.version>
 
-        <eclipse-collections.version>9.0.0</eclipse-collections.version>
+        <eclipse-collections.version>9.1.0</eclipse-collections.version>
         <junit.version>4.12</junit.version>
     </properties>
 
