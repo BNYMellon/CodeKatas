@@ -16,6 +16,14 @@
 
 package bnymellon.codekatas.jmhkata;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.list.primitive.IntList;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
@@ -31,17 +39,8 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PrimitiveIterator;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+import org.openjdk.jmh.runner.options.TimeValue;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.Throughput)
@@ -58,8 +57,8 @@ public class IntListJMHBenchmark
     public void setUp()
     {
         this.executor = Executors.newWorkStealingPool();
-        PrimitiveIterator.OfInt AGE_GENERATOR = new Random(1L).ints(-1000, 1000).iterator();
-        this.ecList = FastList.newWithNValues(1_000_000, AGE_GENERATOR::nextInt);
+        var iterator = new Random(1L).ints(-1000, 1000).iterator();
+        this.ecList = FastList.newWithNValues(1_000_000, iterator::nextInt);
         this.jdkList = new ArrayList<>(1_000_000);
         this.jdkList.addAll(this.ecList);
         this.ecIntList = this.ecList.collectInt(i -> i, new IntArrayList(1_000_000));
@@ -67,8 +66,13 @@ public class IntListJMHBenchmark
 
     public static void main(String[] args) throws RunnerException
     {
-        Options options = new OptionsBuilder().include(".*" + IntListJMHBenchmark.class.getSimpleName() + ".*")
+        var options = new OptionsBuilder().include(".*" + IntListJMHBenchmark.class.getSimpleName() + ".*")
                 .forks(2)
+                .warmupIterations(10)
+                .warmupTime(TimeValue.seconds(5L))
+                .measurementIterations(10)
+                .measurementTime(TimeValue.seconds(5L))
+                .timeout(TimeValue.seconds(20))
                 .mode(Mode.Throughput)
                 .timeUnit(TimeUnit.SECONDS)
                 .build();

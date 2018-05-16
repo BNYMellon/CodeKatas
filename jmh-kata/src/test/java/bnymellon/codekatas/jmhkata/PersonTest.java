@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 
 package bnymellon.codekatas.jmhkata;
-
-import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
 
 import org.junit.Assert;
 import org.junit.Test;

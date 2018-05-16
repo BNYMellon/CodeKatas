@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,13 @@ class Donut(val type: DonutType, val price: Double)
             return false
         }
         val donut = other as Donut?
-        return java.lang.Double.compare(donut!!.price, price) == 0 && type == donut.type
+        return java.lang.Double.compare(donut!!.price, this.price) == 0 && this.type == donut.type
     }
 
     override fun hashCode(): Int
     {
-        var result: Int
-        val temp: Long
-        result = type.hashCode()
-        temp = java.lang.Double.doubleToLongBits(price)
+        var result: Int = this.type.hashCode()
+        val temp: Long = java.lang.Double.doubleToLongBits(this.price)
         result = 31 * result + (temp xor temp.ushr(32)).toInt()
         return result
     }
@@ -45,8 +43,8 @@ class Donut(val type: DonutType, val price: Double)
     override fun toString(): String
     {
         return "Donut(" +
-            "type=" + type +
-            ", price=" + price +
+            "type=" + this.type +
+            ", price=" + this.price +
             ')'
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,11 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
-import com.google.common.collect.ImmutableListMultimap;
 import org.junit.Assert;
 import org.junit.Test;
 
-import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
@@ -68,37 +62,37 @@ public class GoogleGuavaDeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        Deque<Card> jdkShuffle = this.jdkDeck.shuffle(new Random(1));
-        Deque<Card> ggShuffle = this.ggDeck.shuffle(new Random(1));
+        var jdkShuffle = this.jdkDeck.shuffle(new Random(1));
+        var ggShuffle = this.ggDeck.shuffle(new Random(1));
 
-        Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
-        Set<Card> ggHand = this.ggDeck.deal(ggShuffle, 5);
+        var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
+        var ggHand = this.ggDeck.deal(ggShuffle, 5);
         Assert.assertEquals(jdkHand, ggHand);
     }
 
     @Test
     public void shuffleAndDealHands()
     {
-        List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
-        List<Set<Card>> ggHands = this.ggDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var ggHands = this.ggDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(jdkHands, ggHands);
     }
 
     @Test
     public void dealHands()
     {
-        Deque<Card> jdkShuffled = this.jdkDeck.shuffle(new Random(1));
-        Deque<Card> ggShuffled = this.ggDeck.shuffle(new Random(1));
-        List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
-        List<Set<Card>> ggHands = this.ggDeck.dealHands(ggShuffled, 5, 5);
+        var jdkShuffled = this.jdkDeck.shuffle(new Random(1));
+        var ggShuffled = this.ggDeck.shuffle(new Random(1));
+        var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
+        var ggHands = this.ggDeck.dealHands(ggShuffled, 5, 5);
         Assert.assertEquals(jdkHands, ggHands);
     }
 
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, List<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        ImmutableListMultimap<Suit, Card> ggCardsBySuit = this.ggDeck.getCardsBySuit();
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        var ggCardsBySuit = this.ggDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ggCardsBySuit.get(Suit.CLUBS));
     }
 

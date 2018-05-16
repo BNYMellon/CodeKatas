@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
 
 package bnymellon.codekatas.codepointkata;
 
-import java.net.URL;
-
 import org.eclipse.collections.api.bag.primitive.CharBag;
-import org.eclipse.collections.api.bag.primitive.MutableCharBag;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.impl.factory.primitive.CharBags;
 import org.junit.Assert;
@@ -30,7 +27,7 @@ public class CodePointKataTest
     @Test
     public void translateTheSecretMessage() throws Exception
     {
-        URL resource = this.getClass().getClassLoader().getResource("codepoints.txt");
+        var url = this.getClass().getClassLoader().getResource("codepoints.txt");
         // Hint: Look at Paths.get(URI)
         // Hint: Look at Files.lines(Path) which returns a Stream<String>
 
@@ -48,7 +45,7 @@ public class CodePointKataTest
         // Hint: Look at CharAdapter.toBag() which returns a MutableCharBag.
         // Hint: Look at ImmutableList.collect(Function)
         // Hint: Look at ImmutableList.each(Procedure) or ImmutableList.injectInto(IV, Function2)
-        MutableCharBag characters = CharBags.mutable.empty();
+        var characters = CharBags.mutable.empty();
 
         Assert.assertTrue(this.expectedBagOfCharacters(characters));
 
@@ -92,8 +89,12 @@ public class CodePointKataTest
     @Test
     public void codePointsToHelloWorldHowAreYou()
     {
-        Assert.assertEquals("Hello World!", this.convertCodePointsToString(72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33));
-        Assert.assertEquals("How are you?", this.convertCodePointsToString(72, 111, 119, 32, 97, 114, 101, 32, 121, 111, 117, 63));
+        Assert.assertEquals(
+                "Hello World!",
+                this.convertCodePointsToString(72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33));
+        Assert.assertEquals(
+                "How are you?",
+                this.convertCodePointsToString(72, 111, 119, 32, 97, 114, 101, 32, 121, 111, 117, 63));
     }
 
     private String convertCodePointsToString(int... codePoints)

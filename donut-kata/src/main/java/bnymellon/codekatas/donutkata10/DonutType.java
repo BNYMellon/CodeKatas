@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.donutkatakotlin
+package bnymellon.codekatas.donutkata10;
 
-import org.eclipse.collections.impl.utility.ArrayIterate
+import org.eclipse.collections.impl.utility.ArrayIterate;
 
-enum class DonutType private constructor(private val abbreviation: String)
+public enum DonutType
 {
     BOSTON_CREAM("BC"),
     GLAZED("G"),
@@ -30,19 +30,20 @@ enum class DonutType private constructor(private val abbreviation: String)
     JELLY("J"),
     BAVARIAN_CREAM("BA");
 
-    private fun abbreviationEquals(abbreviation: String): Boolean
+    private String abbreviation;
+
+    DonutType(String abbreviation)
     {
-        return abbreviation == this.abbreviation
+        this.abbreviation = abbreviation;
     }
 
-    companion object
+    private boolean abbreviationEquals(String abbreviation)
     {
-        fun forAbbreviation(abbreviation: String): DonutType
-        {
-            return ArrayIterate.detectWith(
-                DonutType.values(),
-                { obj, abbr -> obj.abbreviationEquals(abbr) },
-                abbreviation)
-        }
+        return abbreviation.equals(this.abbreviation);
+    }
+
+    public static DonutType forAbbreviation(String abbreviation)
+    {
+        return ArrayIterate.detectWith(DonutType.values(), DonutType::abbreviationEquals, abbreviation);
     }
 }

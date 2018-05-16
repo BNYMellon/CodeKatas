@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,9 @@ class Order(val customer: Customer, val date: LocalDate, donutTypeCounts: String
     override fun toString(): String
     {
         return "Order(" +
-            "customer=" + customer +
-            ", date=" + date +
-            ", counts=" + counts.toStringOfItemToCount() +
+            "customer=" + this.customer +
+            ", date=" + this.date +
+            ", counts=" + this.counts.toStringOfItemToCount() +
             ')'
     }
 }

@@ -16,20 +16,11 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
-import org.eclipse.collections.api.list.ImmutableList;
-import org.eclipse.collections.api.multimap.list.ImmutableListMultimap;
-import org.eclipse.collections.api.set.MutableSet;
-import org.eclipse.collections.api.stack.MutableStack;
 import org.junit.Assert;
 import org.junit.Test;
 
-import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
@@ -71,37 +62,37 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        MutableStack<Card> ecShuffle = this.ecDeck.shuffle(new Random(1));
-        Deque<Card> jdkShuffle = this.jdkDeck.shuffle(new Random(1));
+        var ecShuffle = this.ecDeck.shuffle(new Random(1));
+        var jdkShuffle = this.jdkDeck.shuffle(new Random(1));
 
-        MutableSet<Card> ecHand = this.ecDeck.deal(ecShuffle, 5);
-        Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
+        var ecHand = this.ecDeck.deal(ecShuffle, 5);
+        var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Assert.assertEquals(jdkHand, ecHand);
     }
 
     @Test
     public void shuffleAndDealHands()
     {
-        ImmutableList<Set<Card>> ecHands = this.ecDeck.shuffleAndDeal(new Random(1), 5, 5);
-        List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var ecHands = this.ecDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(jdkHands, ecHands);
     }
 
     @Test
     public void dealHands()
     {
-        MutableStack<Card> ecShuffled = this.ecDeck.shuffle(new Random(1));
-        Deque<Card> jdkShuffled = this.jdkDeck.shuffle(new Random(1));
-        ImmutableList<Set<Card>> ecHands = this.ecDeck.dealHands(ecShuffled, 5, 5);
-        List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
+        var ecShuffled = this.ecDeck.shuffle(new Random(1));
+        var jdkShuffled = this.jdkDeck.shuffle(new Random(1));
+        var ecHands = this.ecDeck.dealHands(ecShuffled, 5, 5);
+        var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         Assert.assertEquals(jdkHands, ecHands);
     }
 
     @Test
     public void cardsBySuit()
     {
-        ImmutableListMultimap<Suit, Card> ecCardsBySuit = this.ecDeck.getCardsBySuit();
-        Map<Suit, List<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ class Customer(val name: String?)
             return false
         }
         val customer = other as Customer?
-        return name == customer!!.name
+        return this.name == customer!!.name
     }
 
     override fun hashCode(): Int
     {
-        return name?.hashCode() ?: 0
+        return this.name?.hashCode() ?: 0
     }
 
     fun named(name: String): Boolean
@@ -70,7 +70,7 @@ class Customer(val name: String?)
     override fun toString(): String
     {
         return "Customer(" +
-            "name='" + name + '\'' +
+            "name='" + this.name + '\'' +
             ')'
     }
 }

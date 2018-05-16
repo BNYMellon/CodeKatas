@@ -17,7 +17,6 @@
 package bnymellon.codekatas.lambdakata.jdk;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.DoubleConsumer;
@@ -39,9 +38,9 @@ public class PrimitiveFunctionalInterfaceTest
     @Test
     public void IntConsumer()
     {
-        LongAdder adder = new LongAdder();
+        var adder = new LongAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        IntConsumer consumer = new IntConsumer()
+        var consumer = new IntConsumer()
         {
             @Override
             public void accept(int value)
@@ -56,9 +55,9 @@ public class PrimitiveFunctionalInterfaceTest
     @Test
     public void LongConsumer()
     {
-        LongAdder adder = new LongAdder();
+        var adder = new LongAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        LongConsumer consumer = new LongConsumer()
+        var consumer = new LongConsumer()
         {
             @Override
             public void accept(long value)
@@ -73,9 +72,9 @@ public class PrimitiveFunctionalInterfaceTest
     @Test
     public void DoubleConsumer()
     {
-        DoubleAdder adder = new DoubleAdder();
+        var adder = new DoubleAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        DoubleConsumer consumer = new DoubleConsumer()
+        var consumer = new DoubleConsumer()
         {
             @Override
             public void accept(double value)
@@ -91,7 +90,7 @@ public class PrimitiveFunctionalInterfaceTest
     public void IntPredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        IntPredicate predicate = new IntPredicate()
+        var predicate = new IntPredicate()
         {
             @Override
             public boolean test(int value)
@@ -99,11 +98,9 @@ public class PrimitiveFunctionalInterfaceTest
                 return value % 2 == 0;
             }
         };
-        List<Integer> evens =
-                IntStream.rangeClosed(1, 5).filter(predicate).boxed().collect(Collectors.toList());
+        var evens = IntStream.rangeClosed(1, 5).filter(predicate).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(2, 4), evens);
-        List<Integer> odds =
-                IntStream.rangeClosed(1, 5).filter(predicate.negate()).boxed().collect(Collectors.toList());
+        var odds = IntStream.rangeClosed(1, 5).filter(predicate.negate()).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(1, 3, 5), odds);
         Assert.assertTrue(IntStream.rangeClosed(1, 5).anyMatch(predicate));
         Assert.assertFalse(IntStream.rangeClosed(1, 5).allMatch(predicate));
@@ -114,7 +111,7 @@ public class PrimitiveFunctionalInterfaceTest
     public void LongPredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        LongPredicate predicate = new LongPredicate()
+        var predicate = new LongPredicate()
         {
             @Override
             public boolean test(long value)
@@ -122,11 +119,9 @@ public class PrimitiveFunctionalInterfaceTest
                 return value % 2 == 0;
             }
         };
-        List<Long> evens =
-                LongStream.rangeClosed(1, 5).filter(predicate).boxed().collect(Collectors.toList());
+        var evens = LongStream.rangeClosed(1, 5).filter(predicate).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(2L, 4L), evens);
-        List<Long> odds =
-                LongStream.rangeClosed(1, 5).filter(predicate.negate()).boxed().collect(Collectors.toList());
+        var odds = LongStream.rangeClosed(1, 5).filter(predicate.negate()).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(1L, 3L, 5L), odds);
         Assert.assertTrue(LongStream.rangeClosed(1, 5).anyMatch(predicate));
         Assert.assertFalse(LongStream.rangeClosed(1, 5).allMatch(predicate));
@@ -137,7 +132,7 @@ public class PrimitiveFunctionalInterfaceTest
     public void DoublePredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        DoublePredicate predicate = new DoublePredicate()
+        var predicate = new DoublePredicate()
         {
             @Override
             public boolean test(double value)
@@ -145,10 +140,10 @@ public class PrimitiveFunctionalInterfaceTest
                 return value > 3.0;
             }
         };
-        List<Double> greaterThan =
+        var greaterThan =
                 DoubleStream.of(1.0, 2.0, 3.0, 4.0, 5.0).filter(predicate).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(4.0d, 5.0d), greaterThan);
-        List<Double> lessThanEqualTo =
+        var lessThanEqualTo =
                 DoubleStream.of(1.0, 2.0, 3.0, 4.0, 5.0).filter(predicate.negate()).boxed().collect(Collectors.toList());
         Assert.assertEquals(Arrays.asList(1.0d, 2.0d, 3.0d), lessThanEqualTo);
         Assert.assertTrue(DoubleStream.of(1.0, 2.0, 3.0, 4.0, 5.0).anyMatch(predicate));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import org.eclipse.collections.api.block.predicate.Predicate;
 import org.eclipse.collections.api.block.procedure.Procedure;
 import org.eclipse.collections.api.block.procedure.Procedure2;
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
 import org.eclipse.collections.impl.list.Interval;
@@ -49,13 +48,13 @@ public class EclipseCollectionsFunctionalInterfaceTest
     @Test
     public void procedure()
     {
-        MutableList<String> strings = Lists.mutable.with("one", "two", "three");
+        var strings = Lists.mutable.with("one", "two", "three");
 
         // TODO - Can you remove the final keyword from the variable below?
-        final MutableList<String> result = Lists.mutable.empty();
+        final var result = Lists.mutable.empty();
 
         // TODO - Convert the anonymous inner class to a lambda
-        Procedure<String> procedure = new Procedure<String>()
+        var procedure = new Procedure<String>()
         {
             @Override
             public void value(String each)
@@ -72,10 +71,10 @@ public class EclipseCollectionsFunctionalInterfaceTest
     @Test
     public void predicateIsEven()
     {
-        MutableList<Integer> numbers = Interval.oneTo(10).toList();
+        var numbers = Interval.oneTo(10).toList();
 
         // TODO - Convert the anonymous inner class to a lambda
-        Predicate<Integer> evenPredicate = new Predicate<Integer>()
+        var evenPredicate = new Predicate<Integer>()
         {
             @Override
             public boolean accept(Integer integer)
@@ -98,10 +97,10 @@ public class EclipseCollectionsFunctionalInterfaceTest
     @Test
     public void predicateIsOdd()
     {
-        MutableList<Integer> numbers = Interval.oneTo(10).toList();
+        var numbers = Interval.oneTo(10).toList();
 
         // TODO - Convert the anonymous inner class to a lambda
-        Predicate<Integer> oddPredicate = new Predicate<Integer>()
+        var oddPredicate = new Predicate<Integer>()
         {
             @Override
             public boolean accept(Integer integer)
@@ -125,7 +124,7 @@ public class EclipseCollectionsFunctionalInterfaceTest
     public void function()
     {
         // TODO - Convert the anonymous inner class to a lambda and then a method reference
-        Function<String, String> toUppercase = new Function<String, String>()
+        var toUppercase = new Function<String, String>()
         {
             @Override
             public String valueOf(String string)
@@ -143,7 +142,7 @@ public class EclipseCollectionsFunctionalInterfaceTest
     public void function0()
     {
         // TODO - Convert this anonymous inner class to a lambda and then to a constructor reference
-        Function0<List<String>> supplier = new Function0<List<String>>()
+        var supplier = new Function0<List<String>>()
         {
             @Override
             public List<String> value()
@@ -160,9 +159,9 @@ public class EclipseCollectionsFunctionalInterfaceTest
     @Test
     public void procedure2()
     {
-        MutableMap<String, String> result = Maps.mutable.empty();
+        var result = Maps.mutable.empty();
         // TODO - Convert the anonymous inner class to a lambda
-        Procedure2<String, String> procedure2 = new Procedure2<String, String>()
+        var procedure2 = new Procedure2<String, String>()
         {
             @Override
             public void value(String key, String value)

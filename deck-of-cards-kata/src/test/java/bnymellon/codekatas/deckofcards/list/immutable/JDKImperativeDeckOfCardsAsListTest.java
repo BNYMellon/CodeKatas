@@ -16,11 +16,7 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.Assert;
@@ -73,8 +69,8 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        Deque<Card> jdkShuffle = this.jdkDeck.shuffle(new Random(1));
-        Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
+        var jdkShuffle = this.jdkDeck.shuffle(new Random(1));
+        var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Assert.assertEquals(5, jdkHand.size());
         Assert.assertEquals(47, jdkShuffle.size());
     }
@@ -82,7 +78,7 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void shuffleAndDealHands()
     {
-        List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(5, jdkHands.size());
         Assert.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
     }
@@ -90,8 +86,8 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void dealHands()
     {
-        Deque<Card> jdkShuffled = this.jdkDeck.shuffle(new Random(1));
-        List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
+        var jdkShuffled = this.jdkDeck.shuffle(new Random(1));
+        var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         Assert.assertEquals(5, jdkHands.size());
         Assert.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
         Assert.assertEquals(27, jdkShuffled.size());
@@ -100,7 +96,7 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, List<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assert.assertEquals(4, jdkCardsBySuit.size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.CLUBS).size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());

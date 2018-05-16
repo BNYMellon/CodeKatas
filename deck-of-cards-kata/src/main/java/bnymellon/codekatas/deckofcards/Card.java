@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ public class Card implements Comparable<Card>
             Set<B> set2,
             Function2<A, B, C> function)
     {
-        List<C> result = new ArrayList<>();
+        var result = new ArrayList<C>();
         for (A first : set1)
         {
             for (B second : set2)
@@ -130,7 +130,7 @@ public class Card implements Comparable<Card>
         {
             return false;
         }
-        Card card = (Card) object;
+        var card = (Card) object;
         return this.rank == card.rank && this.suit == card.suit;
     }
 

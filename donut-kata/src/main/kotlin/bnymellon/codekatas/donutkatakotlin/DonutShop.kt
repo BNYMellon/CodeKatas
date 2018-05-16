@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,8 +155,8 @@ class DonutShop
     override fun toString(): String
     {
         return "DonutShop(" +
-            "donuts=" + donuts.toStringOfItemToCount() +
-            ", deliveries=" + deliveries +
+            "donuts=" + this.donuts.toStringOfItemToCount() +
+            ", deliveries=" + this.deliveries +
             ')'
     }
 
@@ -168,10 +168,10 @@ class DonutShop
         private val DOZEN = 12
         private val BAKERS_DOZEN = 13
         private val PRICES = Lists.immutable.with(
-            pair(zeroTo(SINGLE), 1.50),
-            pair(fromTo(DOUBLE, HALF_DOZEN - 1), 1.35),
-            pair(fromTo(HALF_DOZEN, DOZEN - 1), 1.25),
-            pair(fromTo(DOZEN, DOZEN), 1.00),
-            pair(fromTo(BAKERS_DOZEN, DOZEN * 100), 0.95))
+            pair(zeroTo(this.SINGLE), 1.50),
+            pair(fromTo(this.DOUBLE, this.HALF_DOZEN - 1), 1.35),
+            pair(fromTo(this.HALF_DOZEN, this.DOZEN - 1), 1.25),
+            pair(fromTo(this.DOZEN, this.DOZEN), 1.00),
+            pair(fromTo(this.BAKERS_DOZEN, this.DOZEN * 100), 0.95))
     }
 }

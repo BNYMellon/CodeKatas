@@ -55,10 +55,10 @@ public class VavrDeckOfCardsAsList
 
     public Tuple2<Set<Card>, ? extends List<Card>> deal(List<Card> stack, int count)
     {
-        Set<Card> hand = HashSet.empty();
+        var hand = HashSet.<Card>empty();
         for (int i = 0; i < count; i++)
         {
-            Tuple2<Card, ? extends List<Card>> cardTuple2 = stack.pop2();
+            var cardTuple2 = stack.pop2();
             stack = cardTuple2._2();
             hand = hand.add(cardTuple2._1());
         }
@@ -67,7 +67,7 @@ public class VavrDeckOfCardsAsList
 
     public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        List<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 

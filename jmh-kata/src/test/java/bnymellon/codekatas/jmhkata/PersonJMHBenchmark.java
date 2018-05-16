@@ -16,12 +16,19 @@
 
 package bnymellon.codekatas.jmhkata;
 
-import org.eclipse.collections.api.list.MutableList;
+import java.util.Collection;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 import org.eclipse.collections.api.multimap.Multimap;
 import org.eclipse.collections.api.multimap.MutableMultimap;
 import org.eclipse.collections.api.multimap.list.ListMultimap;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
-import org.eclipse.collections.api.set.primitive.MutableIntSet;
 import org.eclipse.collections.impl.collector.Collectors2;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.primitive.IntSets;
@@ -35,19 +42,8 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.util.Collection;
-import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+import org.openjdk.jmh.runner.options.TimeValue;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.Throughput)
@@ -59,8 +55,13 @@ public class PersonJMHBenchmark
 
     public static void main(String[] args) throws RunnerException
     {
-        Options options = new OptionsBuilder().include(".*" + PersonJMHBenchmark.class.getSimpleName() + ".*")
+        var options = new OptionsBuilder().include(".*" + PersonJMHBenchmark.class.getSimpleName() + ".*")
                 .forks(2)
+                .warmupIterations(10)
+                .warmupTime(TimeValue.seconds(5L))
+                .measurementIterations(10)
+                .measurementTime(TimeValue.seconds(5L))
+                .timeout(TimeValue.seconds(20))
                 .mode(Mode.Throughput)
                 .timeUnit(TimeUnit.SECONDS)
                 .build();
@@ -70,11 +71,11 @@ public class PersonJMHBenchmark
     @Benchmark
     public Object[] combinedStatisticsJDK_parallel()
     {
-        DoubleSummaryStatistics stats1 =
+        var stats1 =
                 Person.getJDKPeople().parallelStream().mapToDouble(Person::getHeightInInches).summaryStatistics();
-        DoubleSummaryStatistics stats2 =
+        var stats2 =
                 Person.getJDKPeople().parallelStream().mapToDouble(Person::getWeightInPounds).summaryStatistics();
-        IntSummaryStatistics stats3 =
+        var stats3 =
                 Person.getJDKPeople().parallelStream().mapToInt(Person::getAge).summaryStatistics();
         return new Object[]{stats1, stats2, stats3};
     }
@@ -82,11 +83,11 @@ public class PersonJMHBenchmark
     @Benchmark
     public Object[] combinedStatisticsECStream_parallel()
     {
-        DoubleSummaryStatistics stats1 =
+        var stats1 =
                 Person.getECPeople().parallelStream().mapToDouble(Person::getHeightInInches).summaryStatistics();
-        DoubleSummaryStatistics stats2 =
+        var stats2 =
                 Person.getECPeople().parallelStream().mapToDouble(Person::getWeightInPounds).summaryStatistics();
-        IntSummaryStatistics stats3 =
+        var stats3 =
                 Person.getECPeople().parallelStream().mapToInt(Person::getAge).summaryStatistics();
         return new Object[]{stats1, stats2, stats3};
     }
@@ -94,7 +95,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public Map<Integer, List<Person>> filterAndGroupByAgeJDK_parallel()
     {
-        Map<Integer, List<Person>> grouped =
+        var grouped =
                 Person.getJDKPeople().parallelStream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .collect(Collectors.groupingBy(Person::getAge));
@@ -104,7 +105,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public ListMultimap<Integer, Person> filterAndGroupByAgeECLazy_parallel()
     {
-        ListMultimap<Integer, Person> grouped =
+        var grouped =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
                         .select(person -> person.getHeightInInches() < 150)
                         .groupBy(Person::getAge);
@@ -114,9 +115,9 @@ public class PersonJMHBenchmark
     @Benchmark
     public MutableMultimap<Integer, Person> filterAndGroupByAgeECEager_parallel()
     {
-        Collection<Person> select =
+        var select =
                 ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() < 150);
-        MutableMultimap<Integer, Person> grouped =
+        var grouped =
                 ParallelIterate.groupBy(select, Person::getAge);
         return grouped;
     }
@@ -124,7 +125,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public MutableListMultimap<Integer, Person> filterAndGroupByAgeECStream_parallel()
     {
-        MutableListMultimap<Integer, Person> grouped =
+        var grouped =
                 Person.getJDKPeople().parallelStream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .collect(Collectors2.toListMultimap(Person::getAge));
@@ -134,7 +135,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public List<Person> filterJDK_parallel()
     {
-        final List<Person> filtered =
+        var filtered =
                 Person.getJDKPeople().parallelStream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .filter(person -> person.getHeightInInches() > 80)
@@ -145,7 +146,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public List<Person> filterECLazy_parallel()
     {
-        MutableList<Person> filtered =
+        var filtered =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
                         .select(person -> person.getHeightInInches() < 150)
                         .select(person -> person.getHeightInInches() > 80)
@@ -156,7 +157,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public Collection<Person> filterECEager_parallel()
     {
-        Collection<Person> select =
+        var select =
                 ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() < 150);
         return ParallelIterate.select(select, person -> person.getHeightInInches() > 80);
     }
@@ -164,7 +165,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public List<Person> filterECStream_parallel()
     {
-        List<Person> filtered =
+        var filtered =
                 Person.getJDKPeople().parallelStream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .collect(Collectors2.select(person -> person.getHeightInInches() > 80, Lists.mutable::empty));
@@ -174,11 +175,11 @@ public class PersonJMHBenchmark
     @Benchmark
     public Object[] combinedStatisticsJDK_serial()
     {
-        DoubleSummaryStatistics stats1 =
+        var stats1 =
                 Person.getJDKPeople().stream().mapToDouble(Person::getHeightInInches).summaryStatistics();
-        DoubleSummaryStatistics stats2 =
+        var stats2 =
                 Person.getJDKPeople().stream().mapToDouble(Person::getWeightInPounds).summaryStatistics();
-        IntSummaryStatistics stats3 =
+        var stats3 =
                 Person.getJDKPeople().stream().mapToInt(Person::getAge).summaryStatistics();
         return new Object[]{stats1, stats2, stats3};
     }
@@ -186,11 +187,11 @@ public class PersonJMHBenchmark
     @Benchmark
     public Object[] combinedStatisticsECLazy_serial()
     {
-        DoubleSummaryStatistics stats1 =
+        var stats1 =
                 Person.getECPeople().asLazy().collectDouble(Person::getHeightInInches).summaryStatistics();
-        DoubleSummaryStatistics stats2 =
+        var stats2 =
                 Person.getECPeople().asLazy().collectDouble(Person::getWeightInPounds).summaryStatistics();
-        IntSummaryStatistics stats3 =
+        var stats3 =
                 Person.getECPeople().asLazy().collectInt(Person::getAge).summaryStatistics();
         return new Object[]{stats1, stats2, stats3};
     }
@@ -198,11 +199,11 @@ public class PersonJMHBenchmark
     @Benchmark
     public Object[] combinedStatisticsECEager_serial()
     {
-        DoubleSummaryStatistics stats1 =
+        var stats1 =
                 Person.getECPeople().summarizeDouble(Person::getHeightInInches);
-        DoubleSummaryStatistics stats2 =
+        var stats2 =
                 Person.getECPeople().summarizeDouble(Person::getWeightInPounds);
-        IntSummaryStatistics stats3 =
+        var stats3 =
                 Person.getECPeople().summarizeInt(Person::getAge);
         return new Object[]{stats1, stats2, stats3};
     }
@@ -210,7 +211,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public Map<Integer, List<Person>> filterAndGroupByAgeJDK_serial()
     {
-        Map<Integer, List<Person>> grouped =
+        var grouped =
                 Person.getJDKPeople().stream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .collect(Collectors.groupingBy(Person::getAge));
@@ -220,7 +221,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public MutableListMultimap<Integer, Person> filterAndGroupByAgeECEager_serial()
     {
-        MutableListMultimap<Integer, Person> grouped =
+        var grouped =
                 Person.getECPeople()
                         .select(person -> person.getHeightInInches() < 150)
                         .groupBy(Person::getAge);
@@ -230,7 +231,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public Multimap<Integer, Person> filterAndGroupByAgeECLazy_serial()
     {
-        Multimap<Integer, Person> grouped = Person.getECPeople()
+        var grouped = Person.getECPeople()
                 .asLazy()
                 .select(person -> person.getHeightInInches() < 150)
                 .groupBy(Person::getAge);
@@ -240,7 +241,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public Map<Integer, List<Person>> filterJDK_serial()
     {
-        Map<Integer, List<Person>> grouped =
+        var grouped =
                 Person.getJDKPeople().stream()
                         .filter(person -> person.getHeightInInches() < 150)
                         .filter(person -> person.getHeightInInches() > 80)
@@ -251,7 +252,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public List<Person> filterECEager_serial()
     {
-        final MutableList<Person> filtered = Person.getECPeople()
+        var filtered = Person.getECPeople()
                 .select(person -> person.getHeightInInches() < 150)
                 .select(person -> person.getHeightInInches() > 80);
         return filtered;
@@ -260,7 +261,7 @@ public class PersonJMHBenchmark
     @Benchmark
     public List<Person> filterECLazy_serial()
     {
-        List<Person> filtered = Person.getECPeople()
+        var filtered = Person.getECPeople()
                 .asLazy()
                 .select(person -> person.getHeightInInches() < 150)
                 .select(person -> person.getHeightInInches() > 80)
@@ -271,53 +272,53 @@ public class PersonJMHBenchmark
     @Benchmark
     public IntSummaryStatistics uniqueAgesSummaryStatisticsECEager_serial()
     {
-        MutableIntSet uniqueAges =
+        var uniqueAges =
                 Person.getECPeople().collectInt(Person::getAge, IntSets.mutable.empty());
-        IntSummaryStatistics summary = uniqueAges.summaryStatistics();
+        var summary = uniqueAges.summaryStatistics();
         return summary;
     }
 
     @Benchmark
     public IntSummaryStatistics uniqueAgesSummaryStatisticsECLazy_serial()
     {
-        MutableIntSet uniqueAges =
+        var uniqueAges =
                 Person.getECPeople().asLazy().collectInt(Person::getAge).toSet();
-        IntSummaryStatistics summary = uniqueAges.summaryStatistics();
+        var summary = uniqueAges.summaryStatistics();
         return summary;
     }
 
     @Benchmark
     public IntSummaryStatistics uniqueAgesSummaryStatisticsJDK_serial()
     {
-        final Set<Integer> uniqueAges =
+        var uniqueAges =
                 Person.getJDKPeople().stream()
                         .mapToInt(Person::getAge)
                         .boxed()
                         .collect(Collectors.toSet());
-        IntSummaryStatistics summary = uniqueAges.stream().mapToInt(i -> i).summaryStatistics();
+        var summary = uniqueAges.stream().mapToInt(i -> i).summaryStatistics();
         return summary;
     }
 
     @Benchmark
     public IntSummaryStatistics uniqueAgesSummaryStatisticsECStream_parallel()
     {
-        MutableIntSet uniqueAges =
+        var uniqueAges =
                 Person.getECPeople()
                         .parallelStream()
                         .collect(Collectors2.collectInt(Person::getAge, IntSets.mutable::empty));
-        IntSummaryStatistics summary = uniqueAges.summaryStatistics();
+        var summary = uniqueAges.summaryStatistics();
         return summary;
     }
 
     @Benchmark
     public IntSummaryStatistics uniqueAgesSummaryStatisticsJDK_parallel()
     {
-        final Set<Integer> uniqueAges =
+        var uniqueAges =
                 Person.getJDKPeople().parallelStream()
                         .mapToInt(Person::getAge)
                         .boxed()
                         .collect(Collectors.toSet());
-        IntSummaryStatistics summary = uniqueAges.parallelStream().mapToInt(i -> i).summaryStatistics();
+        var summary = uniqueAges.parallelStream().mapToInt(i -> i).summaryStatistics();
         return summary;
     }
 }

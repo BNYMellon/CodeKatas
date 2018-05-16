@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ public class JDKImperativeDeckOfCardsAsList
 
     public JDKImperativeDeckOfCardsAsList()
     {
-        this.cards = Collections.unmodifiableList(this.buildCardsAsSortedList());
-        this.cardsBySuit = Collections.unmodifiableMap(this.buildCardsAsMapBySuit());
+        this.cards = List.copyOf(this.buildCardsAsSortedList());
+        this.cardsBySuit = Map.copyOf(this.buildCardsAsMapBySuit());
     }
 
     private List<Card> buildCardsAsSortedList()
     {
-        List<Card> list = new ArrayList<>();
-        Iterator<Card> iterator = Card.streamCards().iterator();
+        var list = new ArrayList<Card>();
+        var iterator = Card.streamCards().iterator();
         while (iterator.hasNext())
         {
             list.add(iterator.next());
@@ -47,36 +47,31 @@ public class JDKImperativeDeckOfCardsAsList
 
     private Map<Suit,List<Card>> buildCardsAsMapBySuit()
     {
-        Map<Suit, List<Card>> map = new HashMap<>();
-        for (Card card : this.cards)
+        var map = new HashMap<Suit, List<Card>>();
+        for (var card : this.cards)
         {
             Suit suit = card.getSuit();
-            List<Card> list = map.get(suit);
-            if (list == null)
-            {
-                list = new ArrayList<>();
-                map.put(suit, list);
-            }
+            List<Card> list = map.computeIfAbsent(suit, k -> new ArrayList<>());
             list.add(card);
         }
-        for (Map.Entry<Suit, List<Card>> suitListEntry : map.entrySet())
+        for (var suitListEntry : map.entrySet())
         {
-            List<Card> value = suitListEntry.getValue();
+            var value = suitListEntry.getValue();
             Collections.sort(value);
-            suitListEntry.setValue(Collections.unmodifiableList(value));
+            suitListEntry.setValue(List.copyOf(value));
         }
         return map;
     }
 
     public Deque<Card> shuffle(Random random)
     {
-        List<Card> shuffled = new ArrayList<>(this.cards);
+        var shuffled = new ArrayList<Card>(this.cards);
         for (int i = 0; i < 3; i++)
         {
             Collections.shuffle(shuffled, random);
         }
-        ArrayDeque<Card> deck = new ArrayDeque<>();
-        for (Card card : shuffled)
+        var deck = new ArrayDeque<Card>();
+        for (var card : shuffled)
         {
             deck.push(card);
         }
@@ -85,7 +80,7 @@ public class JDKImperativeDeckOfCardsAsList
 
     public Set<Card> deal(Deque<Card> deque, int count)
     {
-        Set<Card> hand = new HashSet<>();
+        var hand = new HashSet<Card>();
         for (int i = 0; i < count; i++)
         {
             hand.add(deque.pop());
@@ -95,18 +90,18 @@ public class JDKImperativeDeckOfCardsAsList
 
     public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        Deque<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 
     public List<Set<Card>> dealHands(Deque<Card> shuffled, int hands, int cardsPerHand)
     {
-        List<Set<Card>> result = new ArrayList<>();
+        var result = new ArrayList<Set<Card>>();
         for (int i = 0; i < hands; i++)
         {
             result.add(this.deal(shuffled, cardsPerHand));
         }
-        return Collections.unmodifiableList(result);
+        return List.copyOf(result);
     }
 
     public List<Card> diamonds()
@@ -131,15 +126,11 @@ public class JDKImperativeDeckOfCardsAsList
 
     public Map<Suit, Long> countsBySuit()
     {
-        Map<Suit, Long> result = new HashMap<>();
-        for (Card card : this.cards)
+        var result = new HashMap<Suit, Long>();
+        for (var card : this.cards)
         {
-            Suit suit = card.getSuit();
-            Long value = result.get(suit);
-            if (value == null)
-            {
-                value = Long.valueOf(0);
-            }
+            var suit = card.getSuit();
+            var value = result.computeIfAbsent(suit, s -> Long.valueOf(0));
             result.put(suit, value + 1);
         }
         return result;
@@ -147,15 +138,11 @@ public class JDKImperativeDeckOfCardsAsList
 
     public Map<Rank, Long> countsByRank()
     {
-        Map<Rank, Long> result = new HashMap<>();
-        for (Card card : this.cards)
+        var result = new HashMap<Rank, Long>();
+        for (var card : this.cards)
         {
-            Rank rank = card.getRank();
-            Long value = result.get(rank);
-            if (value == null)
-            {
-                value = Long.valueOf(0);
-            }
+            var rank = card.getRank();
+            var value = result.computeIfAbsent(rank, r -> Long.valueOf(0));
             result.put(rank, value + 1);
         }
         return result;

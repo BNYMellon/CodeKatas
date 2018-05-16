@@ -48,8 +48,8 @@ public class IntListTest
     public void setUp()
     {
         this.executor = Executors.newWorkStealingPool();
-        PrimitiveIterator.OfInt AGE_GENERATOR = new Random(1L).ints(-1000, 1000).iterator();
-        this.ecList = FastList.newWithNValues(1_000_000, AGE_GENERATOR::nextInt);
+        var iterator = new Random(1L).ints(-1000, 1000).iterator();
+        this.ecList = FastList.newWithNValues(1_000_000, iterator::nextInt);
         this.jdkList = new ArrayList<>(1_000_000);
         this.jdkList.addAll(this.ecList);
         this.ecIntList = this.ecList.collectInt(i -> i, new IntArrayList(1_000_000));
@@ -59,7 +59,7 @@ public class IntListTest
     public void initializeExpectedSum()
     {
         this.expectedSum = 0;
-        for (Integer integer : this.jdkList)
+        for (var integer : this.jdkList)
         {
             this.expectedSum += integer.longValue();
         }

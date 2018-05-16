@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,11 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
@@ -67,37 +62,37 @@ public class JDK8DeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        Deque<Card> jdk1Shuffle = this.jdk1Deck.shuffle(new Random(1));
-        Deque<Card> jdk2Shuffle = this.jdk2Deck.shuffle(new Random(1));
+        var jdk1Shuffle = this.jdk1Deck.shuffle(new Random(1));
+        var jdk2Shuffle = this.jdk2Deck.shuffle(new Random(1));
 
-        Set<Card> jdk1Hand = this.jdk1Deck.deal(jdk1Shuffle, 5);
-        Set<Card> jdk2Hand = this.jdk2Deck.deal(jdk2Shuffle, 5);
+        var jdk1Hand = this.jdk1Deck.deal(jdk1Shuffle, 5);
+        var jdk2Hand = this.jdk2Deck.deal(jdk2Shuffle, 5);
         Assert.assertEquals(jdk1Hand, jdk2Hand);
     }
 
     @Test
     public void shuffleAndDealHands()
     {
-        List<Set<Card>> jdk1Hands = this.jdk1Deck.shuffleAndDeal(new Random(1), 5, 5);
-        List<Set<Card>> jdk2Hands = this.jdk2Deck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdk1Hands = this.jdk1Deck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdk2Hands = this.jdk2Deck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
     public void dealHands()
     {
-        Deque<Card> jdk1Shuffled = this.jdk1Deck.shuffle(new Random(1));
-        Deque<Card> jdk2Shuffled = this.jdk2Deck.shuffle(new Random(1));
-        List<Set<Card>> jdk1Hands = this.jdk1Deck.dealHands(jdk1Shuffled, 5, 5);
-        List<Set<Card>> jdk2Hands = this.jdk2Deck.dealHands(jdk2Shuffled, 5, 5);
+        var jdk1Shuffled = this.jdk1Deck.shuffle(new Random(1));
+        var jdk2Shuffled = this.jdk2Deck.shuffle(new Random(1));
+        var jdk1Hands = this.jdk1Deck.dealHands(jdk1Shuffled, 5, 5);
+        var jdk2Hands = this.jdk2Deck.dealHands(jdk2Shuffled, 5, 5);
         Assert.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, List<Card>> jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
-        Map<Suit, List<Card>> jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
+        var jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
+        var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
         Assert.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
     }
 

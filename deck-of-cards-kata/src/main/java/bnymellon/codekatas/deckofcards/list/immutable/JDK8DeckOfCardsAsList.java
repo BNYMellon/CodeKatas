@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,14 +60,14 @@ public class JDK8DeckOfCardsAsList
 
     public Set<Card> deal(Deque<Card> deque, int count)
     {
-        Set<Card> hand = new HashSet<>();
+        var hand = new HashSet<Card>();
         IntStream.range(0, count).forEach(i -> hand.add(deque.pop()));
         return hand;
     }
 
     public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        Deque<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 

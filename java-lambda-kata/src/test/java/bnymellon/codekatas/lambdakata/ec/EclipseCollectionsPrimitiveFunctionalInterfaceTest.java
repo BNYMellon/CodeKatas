@@ -28,10 +28,7 @@ import org.eclipse.collections.api.block.predicate.primitive.LongPredicate;
 import org.eclipse.collections.api.block.procedure.primitive.DoubleProcedure;
 import org.eclipse.collections.api.block.procedure.primitive.IntProcedure;
 import org.eclipse.collections.api.block.procedure.primitive.LongProcedure;
-import org.eclipse.collections.api.list.primitive.DoubleList;
 import org.eclipse.collections.api.list.primitive.ImmutableIntList;
-import org.eclipse.collections.api.list.primitive.LongList;
-import org.eclipse.collections.api.list.primitive.MutableLongList;
 import org.eclipse.collections.impl.factory.primitive.DoubleLists;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.factory.primitive.LongLists;
@@ -44,9 +41,9 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     @Test
     public void IntProcedure()
     {
-        LongAdder adder = new LongAdder();
+        var adder = new LongAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        IntProcedure procedure = new IntProcedure()
+        var procedure = new IntProcedure()
         {
             @Override
             public void value(int value)
@@ -61,9 +58,9 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     @Test
     public void LongProcedure()
     {
-        LongAdder adder = new LongAdder();
+        var adder = new LongAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        LongProcedure procedure = new LongProcedure()
+        var procedure = new LongProcedure()
         {
             @Override
             public void value(long value)
@@ -78,9 +75,9 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     @Test
     public void DoubleProcedure()
     {
-        DoubleAdder adder = new DoubleAdder();
+        var adder = new DoubleAdder();
         // TODO - Convert the anonymous inner class to a lambda
-        DoubleProcedure procedure = new DoubleProcedure()
+        var procedure = new DoubleProcedure()
         {
             @Override
             public void value(double value)
@@ -96,7 +93,7 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     public void IntPredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        IntPredicate predicate = new IntPredicate()
+        var predicate = new IntPredicate()
         {
             @Override
             public boolean accept(int value)
@@ -123,7 +120,7 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     public void LongPredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        LongPredicate predicate = new LongPredicate()
+        var predicate = new LongPredicate()
         {
             @Override
             public boolean accept(long value)
@@ -131,10 +128,10 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
                 return value % 2 == 0;
             }
         };
-        MutableLongList list = LongLists.mutable.with(1, 2, 3, 4, 5);
-        LongList evens = list.select(predicate);
+        var list = LongLists.mutable.with(1, 2, 3, 4, 5);
+        var evens = list.select(predicate);
         Assert.assertEquals(LongLists.mutable.with(2, 4), evens);
-        LongList odds = list.reject(predicate);
+        var odds = list.reject(predicate);
         Assert.assertEquals(LongLists.mutable.with(1, 3, 5), odds);
         Assert.assertTrue(list.anySatisfy(predicate));
         Assert.assertFalse(list.allSatisfy(predicate));
@@ -148,7 +145,7 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
     public void DoublePredicate()
     {
         // TODO - Convert the anonymous inner class to a lambda
-        DoublePredicate predicate = new DoublePredicate()
+        var predicate = new DoublePredicate()
         {
             @Override
             public boolean accept(double value)
@@ -156,10 +153,10 @@ public class EclipseCollectionsPrimitiveFunctionalInterfaceTest
                 return value > 3.0;
             }
         };
-        DoubleList list = DoubleLists.mutable.with(1.0, 2.0, 3.0, 4.0, 5.0);
-        DoubleList greaterThan = list.select(predicate);
+        var list = DoubleLists.mutable.with(1.0, 2.0, 3.0, 4.0, 5.0);
+        var greaterThan = list.select(predicate);
         Assert.assertEquals(DoubleLists.mutable.with(4.0d, 5.0d), greaterThan);
-        DoubleList lessThanEqualTo = list.reject(predicate);
+        var lessThanEqualTo = list.reject(predicate);
         Assert.assertEquals(DoubleLists.mutable.with(1.0d, 2.0d, 3.0d), lessThanEqualTo);
         Assert.assertTrue(DoubleStream.of(1.0, 2.0, 3.0, 4.0, 5.0).anyMatch(predicate));
         Assert.assertFalse(DoubleStream.of(1.0, 2.0, 3.0, 4.0, 5.0).allMatch(predicate));

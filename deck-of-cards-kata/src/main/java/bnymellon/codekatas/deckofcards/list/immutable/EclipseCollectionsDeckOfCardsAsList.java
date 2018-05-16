@@ -62,7 +62,7 @@ public class EclipseCollectionsDeckOfCardsAsList
 
     public ImmutableList<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        MutableStack<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 

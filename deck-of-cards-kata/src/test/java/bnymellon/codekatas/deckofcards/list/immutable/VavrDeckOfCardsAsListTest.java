@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,11 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
@@ -67,20 +62,19 @@ public class VavrDeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        Deque<Card> jdkShuffle = this.jdkDeck.shuffle(new Random(1));
-        io.vavr.collection.List<Card> vavrShuffle = this.vavrDeck.shuffle(new Random(1));
+        var jdkShuffle = this.jdkDeck.shuffle(new Random(1));
+        var vavrShuffle = this.vavrDeck.shuffle(new Random(1));
 
-        Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
-        Set<Card> vavrHand = this.vavrDeck.deal(vavrShuffle, 5)._1().toJavaSet();
+        var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
+        var vavrHand = this.vavrDeck.deal(vavrShuffle, 5)._1().toJavaSet();
         Assert.assertEquals(jdkHand, vavrHand);
     }
 
     @Test
     public void shuffleAndDealHands()
     {
-        List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
-        io.vavr.collection.List<io.vavr.collection.Set<Card>> vavrHands =
-                this.vavrDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
+        var vavrHands = this.vavrDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
         Assert.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
         Assert.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
@@ -91,11 +85,10 @@ public class VavrDeckOfCardsAsListTest
     @Test
     public void dealHands()
     {
-        Deque<Card> jdkShuffled = this.jdkDeck.shuffle(new Random(1));
-        io.vavr.collection.List<Card> vavrShuffled = this.vavrDeck.shuffle(new Random(1));
-        List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
-        io.vavr.collection.List<io.vavr.collection.Set<Card>> vavrHands =
-                this.vavrDeck.dealHands(vavrShuffled, 5, 5);
+        var jdkShuffled = this.jdkDeck.shuffle(new Random(1));
+        var vavrShuffled = this.vavrDeck.shuffle(new Random(1));
+        var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
+        var vavrHands = this.vavrDeck.dealHands(vavrShuffled, 5, 5);
         Assert.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
         Assert.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
         Assert.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
@@ -106,9 +99,8 @@ public class VavrDeckOfCardsAsListTest
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, List<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        io.vavr.collection.Map<Suit, ? extends io.vavr.collection.List<Card>> vavrCardsBySuit =
-                this.vavrDeck.getCardsBySuit();
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        var vavrCardsBySuit = this.vavrDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), vavrCardsBySuit.get(Suit.CLUBS).get().toJavaList());
     }
 
