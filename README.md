@@ -22,3 +22,8 @@ learn Eclipse Collections Data Structures and Algorithms with two classic Katas
 5. [CodePoint Kata](./code-point-kata) - Read a secret message from a file into memory, translate it and then write out the revealed message to a file.
 6. [JMH Kata](./jmh-kata) - Experiment with the Java Microbenchmark Harness by running and writing micro-benchmark performance comparisons.
 7. [Calendar Kata](./calendar-kata) - Practice and learn the APIs in the Java 8 Date/Time and ThreeTen-Extra libraries.
+
+## What you will need to build the katas
+1. Java 10+
+2. Maven 3.5.3+
+3. IDE of your choice
