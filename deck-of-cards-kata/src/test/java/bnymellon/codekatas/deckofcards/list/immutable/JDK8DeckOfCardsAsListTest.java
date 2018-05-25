@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,6 +34,21 @@ public class JDK8DeckOfCardsAsListTest
     public void allCards()
     {
         Assert.assertEquals(this.jdk1Deck.getCards(), this.jdk2Deck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var jdk2Cards = this.jdk2Deck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdk2Cards.remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdk2Cards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdk2Cards.add(null));
     }
 
     @Test
@@ -94,6 +110,27 @@ public class JDK8DeckOfCardsAsListTest
         var jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
         var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
         Assert.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdk2CardsBySuit.remove(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdk2CardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdk2CardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdk2CardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

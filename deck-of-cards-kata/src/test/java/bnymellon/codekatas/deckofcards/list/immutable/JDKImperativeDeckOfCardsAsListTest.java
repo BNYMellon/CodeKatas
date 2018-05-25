@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,6 +37,21 @@ public class JDKImperativeDeckOfCardsAsListTest
         Assert.assertEquals(52, this.jdkDeck.getCards().size());
         Assert.assertEquals(new Card(Rank.ACE, Suit.SPADES), this.jdkDeck.getCards().get(0));
         Assert.assertEquals(new Card(Rank.KING, Suit.CLUBS), this.jdkDeck.getCards().get(51));
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var jdkCards = this.jdkDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCards.remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCards.add(null));
     }
 
     @Test
@@ -102,6 +118,27 @@ public class JDKImperativeDeckOfCardsAsListTest
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.SPADES).size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.HEARTS).size());
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.remove(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.get(Suit.CLUBS).remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

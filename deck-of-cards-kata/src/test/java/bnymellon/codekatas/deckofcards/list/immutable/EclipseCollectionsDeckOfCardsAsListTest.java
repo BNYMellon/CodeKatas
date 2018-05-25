@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,6 +34,21 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void allCards()
     {
         Assert.assertEquals(this.jdkDeck.getCards(), this.ecDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var ecCards = this.ecDeck.getCards().castToList();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCards.remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ecCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCards.add(null));
     }
 
     @Test
@@ -94,6 +110,21 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCardsBySuit.get(Suit.CLUBS).castToList().remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCardsBySuit.get(Suit.CLUBS).castToList().add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ecCardsBySuit.get(Suit.CLUBS).castToList()::clear);
     }
 
     @Test

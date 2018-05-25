@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,6 +34,21 @@ public class GoogleGuavaDeckOfCardsAsListTest
     public void allCards()
     {
         Assert.assertEquals(this.jdkDeck.getCards(), this.ggDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var ggCards = this.ggDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCards.remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCards.add(null));
     }
 
     @Test
@@ -94,6 +110,27 @@ public class GoogleGuavaDeckOfCardsAsListTest
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         var ggCardsBySuit = this.ggDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ggCardsBySuit.get(Suit.CLUBS));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var ggCardsBySuit = this.ggDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.removeAll(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.get(Suit.CLUBS).remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

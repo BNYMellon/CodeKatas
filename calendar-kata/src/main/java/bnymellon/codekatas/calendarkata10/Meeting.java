@@ -45,6 +45,11 @@ public class Meeting implements Comparable<Meeting>
         this.zoneId = zoneId;
     }
 
+    public boolean overlaps(Interval interval)
+    {
+        return this.getInterval().overlaps(interval);
+    }
+
     public String getSubject()
     {
         return this.subject;

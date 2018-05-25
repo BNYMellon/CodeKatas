@@ -19,6 +19,7 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,6 +35,21 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void allCards()
     {
         Assert.assertEquals(this.jdkDeck.getCards(), this.acDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var acCards = this.acDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCards.remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCards.add(null));
     }
 
     @Test
@@ -95,6 +111,27 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         var acCardsBySuit = this.acDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new ArrayList<>(acCardsBySuit.get(Suit.CLUBS)));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var acCardsBySuit = this.acDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.remove(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.get(Suit.CLUBS).remove(0));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

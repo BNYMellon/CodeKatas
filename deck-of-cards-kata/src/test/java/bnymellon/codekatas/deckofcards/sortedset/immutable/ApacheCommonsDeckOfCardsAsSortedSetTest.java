@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.commons.collections4.MultiValuedMap;
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,6 +42,21 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     public void allCards()
     {
         Assert.assertEquals(this.jdkDeck.getCards(), this.acDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var acCards = this.acDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCards.remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCards.add(null));
     }
 
     @Test
@@ -102,6 +118,27 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         MultiValuedMap<Suit, Card> acCardsBySuit = this.acDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new TreeSet<>(acCardsBySuit.get(Suit.CLUBS)));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var acCardsBySuit = this.acDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.remove(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.get(Suit.CLUBS).remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> acCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                acCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

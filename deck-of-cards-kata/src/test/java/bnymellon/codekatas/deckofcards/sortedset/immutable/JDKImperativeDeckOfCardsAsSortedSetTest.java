@@ -23,6 +23,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,6 +42,21 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         Assert.assertEquals(52, this.jdkDeck.getCards().size());
         Assert.assertEquals(new Card(Rank.ACE, Suit.SPADES), this.jdkDeck.getCards().first());
         Assert.assertEquals(new Card(Rank.KING, Suit.CLUBS), this.jdkDeck.getCards().last());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var jdkCards = this.jdkDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCards.remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCards.add(null));
     }
 
     @Test
@@ -107,6 +123,27 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.SPADES).size());
         Assert.assertEquals(13, jdkCardsBySuit.get(Suit.HEARTS).size());
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.remove(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.get(Suit.CLUBS).remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> jdkCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                jdkCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,11 @@ public class Meeting implements Comparable<Meeting>
         this.startTime = startTime;
         this.duration = duration;
         this.zoneId = zoneId;
+    }
+
+    public boolean overlaps(Interval interval)
+    {
+        return this.getInterval().overlaps(interval);
     }
 
     public String getSubject()

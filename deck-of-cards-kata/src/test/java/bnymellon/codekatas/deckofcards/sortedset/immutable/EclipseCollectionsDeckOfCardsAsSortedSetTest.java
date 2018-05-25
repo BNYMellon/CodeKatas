@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.stack.MutableStack;
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,6 +44,21 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     public void allCards()
     {
         Assert.assertEquals(this.ecDeck.getCards(), this.jdkDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var ecCards = this.ecDeck.getCards().castToSortedSet();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCards.remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ecCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCards.add(null));
     }
 
     @Test
@@ -104,6 +120,21 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
         ImmutableSortedSetMultimap<Suit, Card> ecCardsBySuit = this.ecDeck.getCardsBySuit();
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assert.assertEquals(ecCardsBySuit.get(Suit.CLUBS), jdkCardsBySuit.get(Suit.CLUBS));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCardsBySuit.get(Suit.CLUBS).castToSortedSet().remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ecCardsBySuit.get(Suit.CLUBS).castToSortedSet().add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ecCardsBySuit.get(Suit.CLUBS).castToSortedSet()::clear);
     }
 
     @Test

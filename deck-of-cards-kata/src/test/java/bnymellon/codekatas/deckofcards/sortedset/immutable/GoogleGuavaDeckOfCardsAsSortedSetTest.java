@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import com.google.common.collect.ImmutableSetMultimap;
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -40,6 +41,21 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     public void allCards()
     {
         Assert.assertEquals(this.jdkDeck.getCards(), this.ggDeck.getCards());
+    }
+
+    @Test
+    public void cardsAreImmutable()
+    {
+        var ggCards = this.ggDeck.getCards();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCards.remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCards::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCards.add(null));
     }
 
     @Test
@@ -101,6 +117,27 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         ImmutableSetMultimap<Suit, Card> ggCardsBySuit = this.ggDeck.getCardsBySuit();
         Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ggCardsBySuit.get(Suit.CLUBS));
+    }
+
+    @Test
+    public void cardsBySuitIsImmutable()
+    {
+        var ggCardsBySuit = this.ggDeck.getCardsBySuit();
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.removeAll(Suit.CLUBS));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCardsBySuit::clear);
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.get(Suit.CLUBS).remove(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                () -> ggCardsBySuit.get(Suit.CLUBS).add(null));
+        Verify.assertThrows(
+                UnsupportedOperationException.class,
+                ggCardsBySuit.get(Suit.CLUBS)::clear);
     }
 
     @Test
