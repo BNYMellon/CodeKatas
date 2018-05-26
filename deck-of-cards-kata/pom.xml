@@ -38,7 +38,7 @@
         <maven.compiler.target>10</maven.compiler.target>
 
         <apache-collections.version>4.1</apache-collections.version>
-        <eclipse-collections.version>9.1.0</eclipse-collections.version>
+        <eclipse-collections.version>9.2.0</eclipse-collections.version>
         <guava.version>25.0-jre</guava.version>
         <vavr.version>0.9.2</vavr.version>
         <junit.version>4.12</junit.version>

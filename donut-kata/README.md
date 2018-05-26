@@ -17,5 +17,16 @@ classes that are shared by all of the exercises.  These are
 
 ### How to get started
 
-* There are failing tests in [`DonutShopTest`](./src/test/java/bnymellon/codekatas/donutkata/DonutShopTest.java)
-	* Make the tests pass by following and completing the TODOs in [`DonutShop`](./src/main/java/bnymellon/codekatas/donutkata/DonutShop.java) 
+Java 8 version:
+* There are failing tests in [`DonutShopTest.java`](./src/test/java/bnymellon/codekatas/donutkata/DonutShopTest.java)
+	* Make the tests pass by following and completing the TODOs in [`DonutShop.java`](./src/main/java/bnymellon/codekatas/donutkata/DonutShop.java)
+	
+Java 10 version (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) feature):
+* There are failing tests in [`DonutShop10Test.java`](./src/test/java/bnymellon/codekatas/donutkata10/DonutShop10Test.java)
+	* Make the tests pass by following and completing the TODOs in [`DonutShop.java`](./src/main/java/bnymellon/codekatas/donutkata10/DonutShop.java)
+
+Kotlin version:
+* There are failing tests in [`DonutShopTest.kt`](./src/test/kotlin/bnymellon/codekatas/donutkatakotlin/DonutShopTest.kt)
+	* Make the tests pass by following and completing the TODOs in [`DonutShop.kt`](./src/main/kotlin/bnymellon/codekatas/donutkatakotlin/DonutShop.kt)
+
+All of the `DonutShop` implementations and tests use [Eclipse Collections](http://www.eclipse.org/collections/).

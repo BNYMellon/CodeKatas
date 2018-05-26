@@ -1,9 +1,9 @@
 # **What is the Java Lambda Kata?**
 
 The Java Lambda Kata is meant to give a quick practical introduction to understanding and
-leveraging lambdas in Java 8.  Lambdas can be used with any library that currently uses
+leveraging lambdas in Java.  Lambdas can be used with any library that currently uses
 Functional Interfaces, which are interfaces with one unimplemented method.  Two libraries
-that make extensive use of Functional Interfaces are [Java 8 Streams](https://www.ibm.com/developerworks/library/j-java-streams-1-brian-goetz/index.html)
+that make extensive use of Functional Interfaces are [Java Streams](https://www.ibm.com/developerworks/library/j-java-streams-1-brian-goetz/index.html)
 and [Eclipse Collections](http://www.eclipse.org/collections/).
 
 The kata is split into multiple packages (by library) and have tests that currently pass using
@@ -11,9 +11,9 @@ anonymous inner classes that you should convert to lambdas or method references.
 are organized by Functional Interface (e.g. Consumer, Predicate, Function).
 
 Oracle has a [quick-start tutorial online](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html)
-for those that are brand new to using Java 8.
+for those that are brand new to using lambdas in Java.
 
-## **Java 8 Lambdas in 10 minutes!**
+## **Java Lambdas in 10 minutes!**
 Java 8 ushered in support for Lambda syntax and Method References.  The support for lambdas
 was added in such a way that existing libraries could take advantage of the support without
 needing to change their types.  Lambdas are a huge improvement over [anonymous inner 
@@ -75,6 +75,6 @@ Collections.sort(list, (one, two) -> one.compareTo(two));
 Assert.assertEquals(Arrays.asList("1", "2", "3"), list);
 ````
 
-That's Java 8 Lambdas in 10 minutes!  Lambdas are awesome!  Now enjoy using them in the kata and your applications!
+That's Java Lambdas in 10 minutes!  Lambdas are awesome!  Now enjoy using them in the kata and your applications!
 
 Start converting the [tests here](./src/test/java/bnymellon/codekatas/lambdakata/) to use lambdas.

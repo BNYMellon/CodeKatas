@@ -16,6 +16,6 @@ Here's an example of translating a comma separated `String` of code point values
 
 Hello World!
 
-To learn more about Characters and Code Points in Java, here is a link: 
+To learn more about Characters and Code Points in Java, [here is a link](https://docs.oracle.com/javase/tutorial/i18n/text/characterClass.html). 
 
-https://docs.oracle.com/javase/tutorial/i18n/text/characterClass.html
+
