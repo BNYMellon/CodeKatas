@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2018 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,7 +109,7 @@ public class EclipseCollectionsDeckOfCardsAsList
 
     public Bag<Rank> countsByRank()
     {
-        // TODO return the count of cards by Suit
+        // TODO return the count of cards by Rank
         // Hint: Look at countBy()
         return null;
     }
