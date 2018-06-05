@@ -1,0 +1,25 @@
+# Binaries and packages
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target
+
+# Eclipse and Idea files
+.project
+.classpath
+.settings
+.idea
+*.iml
+*.iws
+*.ipr
+
+# Windows and Mac OS files
+Thumbs.db
+.DS_Store
