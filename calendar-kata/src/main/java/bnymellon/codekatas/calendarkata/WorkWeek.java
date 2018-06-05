@@ -27,7 +27,7 @@ import org.threeten.extra.LocalDateRange;
 public class WorkWeek extends CalendarWindow
 {
     /**
-     * TODO Calculate the start date and range of dates for the full 7 day week from Sunday to Saturday.
+     * TODO Calculate the start date and range of dates for the 5 day week from Monday to Friday.
      *
      * Hint: Look at {@link LocalDate#with(TemporalAdjuster)}
      * Hint: Look at {@link TemporalAdjusters#previousOrSame(DayOfWeek)}

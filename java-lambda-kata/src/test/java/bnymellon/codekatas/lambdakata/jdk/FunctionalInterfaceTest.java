@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -52,7 +53,7 @@ public class FunctionalInterfaceTest
         var strings = List.of("one", "two", "three");
 
         // TODO - Can you remove the final keyword from the variable below?
-        var result = new ArrayList<String>();
+        final var result = new ArrayList<String>();
 
         // TODO - Convert the anonymous inner class to a lambda
         var consumer = new Consumer<String>()
@@ -129,8 +130,8 @@ public class FunctionalInterfaceTest
         };
         Assert.assertEquals("UPPERCASE", toUppercase.apply("uppercase"));
         List<String> lowercase = List.of("a", "b", "c", "d");
-        List<String> uppercase = lowercase.stream().map(toUppercase).collect(Collectors.toList());
-        Assert.assertEquals(List.of("A", "B", "C", "D"), uppercase);
+        Set<String> uppercase = lowercase.stream().map(toUppercase).collect(Collectors.toSet());
+        Assert.assertEquals(Set.of("A", "B", "C", "D"), uppercase);
     }
 
     @Test
@@ -165,17 +166,13 @@ public class FunctionalInterfaceTest
             }
         };
         biConsumer.accept("a", "one");
-        Assert.assertEquals(this.createSmallMap(new String[]{"A", "ONE"}), result);
-        this.createSmallMap(new String[]{"a", "one"}, new String[]{"b", "two"}, new String[]{"c", "three"})
-                .forEach(biConsumer);
-        Assert.assertEquals(
-                this.createSmallMap(new String[]{"A", "ONE"}, new String[]{"B", "TWO"}, new String[]{"C", "THREE"}),
-                result);
-    }
+        Assert.assertEquals(Map.of("A", "ONE"), result);
 
-    private Map<String, String> createSmallMap(String[]... keyValues)
-    {
-        return Stream.of(keyValues).collect(Collectors.toMap(a -> a[0], a -> a[1]));
+        var lowercaseMap = Map.of("a", "one", "b", "two", "c", "three");
+        lowercaseMap.forEach(biConsumer);
+        Assert.assertEquals(
+                Map.of("A", "ONE", "B", "TWO", "C", "THREE"),
+                result);
     }
 
     @Test
@@ -193,6 +190,8 @@ public class FunctionalInterfaceTest
         Assert.assertEquals(Integer.valueOf(4), squared.apply(2));
         Assert.assertEquals(Integer.valueOf(9), squared.apply(3));
         Assert.assertEquals(Integer.valueOf(16), squared.apply(4));
+
+        // TODO - Convert the anonymous inner class to a lambda
         Assert.assertTrue(Stream.iterate(2, squared).anyMatch(new Predicate<Integer>()
         {
             @Override
