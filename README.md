@@ -1,3 +1,5 @@
+[![][actions img]][actions]  
+
 # **What is a Code Kata?**
 
 * A hands-on programming exercise which helps hone your skills through practice.
@@ -27,3 +29,6 @@ learn Eclipse Collections Data Structures and Algorithms with two classic Katas
 1. Java 14 - enable preview features (record)
 2. Maven 3.6.1+
 3. IDE of your choice
+
+[actions]:https://github.com/BNYMellon/CodeKatas/actions?query=workflow%3A%22Code+Katas+CI+Build%22
+[actions img]:https://github.com/BNYMellon/CodeKatas/workflows/Code%20Katas%20CI%20Build/badge.svg?branch=master
