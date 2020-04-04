@@ -24,6 +24,6 @@ learn Eclipse Collections Data Structures and Algorithms with two classic Katas
 7. [Calendar Kata](./calendar-kata) - Practice and learn the APIs in the Java 8 Date/Time and ThreeTen-Extra libraries.
 
 ## What you will need to build the katas
-1. Java 10+
-2. Maven 3.5.3+
+1. Java 14 - enable preview features (record)
+2. Maven 3.6.1+
 3. IDE of your choice

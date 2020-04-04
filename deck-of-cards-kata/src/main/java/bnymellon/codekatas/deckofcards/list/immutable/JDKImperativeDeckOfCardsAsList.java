@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class JDKImperativeDeckOfCardsAsList
         var map = new HashMap<Suit, List<Card>>();
         for (var card : this.cards)
         {
-            Suit suit = card.getSuit();
+            Suit suit = card.suit();
             List<Card> list = map.computeIfAbsent(suit, k -> new ArrayList<>());
             list.add(card);
         }
@@ -129,7 +129,7 @@ public class JDKImperativeDeckOfCardsAsList
         var result = new HashMap<Suit, Long>();
         for (var card : this.cards)
         {
-            var suit = card.getSuit();
+            var suit = card.suit();
             var value = result.computeIfAbsent(suit, s -> Long.valueOf(0));
             result.put(suit, value + 1);
         }
@@ -141,7 +141,7 @@ public class JDKImperativeDeckOfCardsAsList
         var result = new HashMap<Rank, Long>();
         for (var card : this.cards)
         {
-            var rank = card.getRank();
+            var rank = card.rank();
             var value = result.computeIfAbsent(rank, r -> Long.valueOf(0));
             result.put(rank, value + 1);
         }

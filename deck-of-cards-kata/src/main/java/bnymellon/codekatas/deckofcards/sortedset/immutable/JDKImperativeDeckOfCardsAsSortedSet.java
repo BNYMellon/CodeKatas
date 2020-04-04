@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class JDKImperativeDeckOfCardsAsSortedSet
         Map<Suit, SortedSet<Card>> map = new HashMap<>();
         for (Card card : this.cards)
         {
-            Suit suit = card.getSuit();
+            Suit suit = card.suit();
             SortedSet<Card> list = map.get(suit);
             if (list == null)
             {
@@ -132,7 +132,7 @@ public class JDKImperativeDeckOfCardsAsSortedSet
         Map<Suit, Long> result = new HashMap<>();
         for (Card card : this.cards)
         {
-            Suit suit = card.getSuit();
+            Suit suit = card.suit();
             Long value = result.get(suit);
             if (value == null)
             {
@@ -148,7 +148,7 @@ public class JDKImperativeDeckOfCardsAsSortedSet
         Map<Rank, Long> result = new HashMap<>();
         for (Card card : this.cards)
         {
-            Rank rank = card.getRank();
+            Rank rank = card.rank();
             Long value = result.get(rank);
             if (value == null)
             {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class ApacheCommonsDeckOfCardsAsList
     /**
      * TODO Replace the null values below with something more useful.
      * Use Apache Commons Collections API with  {@link Card#streamCards()} to create an "immutable" List and store that in cards.
-     * Group all of the cards by {@link Card#suit} into an "immutable" ListValuedMap and stored that in cardsBySuit.
+     * Group all of the cards by {@link Card#suit()} into an "immutable" ListValuedMap and stored that in cardsBySuit.
      *
      * Hint: Look at {@link MultiValuedMap}, {@link ListValuedMap} and {@link MultiMapUtils#unmodifiableMultiValuedMap(MultiValuedMap)}
      */
