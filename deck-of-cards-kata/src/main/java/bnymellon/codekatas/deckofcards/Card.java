@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,17 +27,8 @@ import org.eclipse.collections.api.LazyIterable;
 import org.eclipse.collections.api.block.function.Function2;
 import org.eclipse.collections.impl.factory.Sets;
 
-public class Card implements Comparable<Card>
+public record Card(Rank rank, Suit suit) implements Comparable<Card>
 {
-    private final Rank rank;
-    private final Suit suit;
-
-    public Card(Rank rank, Suit suit)
-    {
-        this.rank = rank;
-        this.suit = suit;
-    }
-
     /**
      * {@link LazyIterable} and {@link Sets#cartesianProduct(Set, Set, Function2)} are from Eclipse Collections
      */
@@ -84,20 +75,10 @@ public class Card implements Comparable<Card>
         return result;
     }
 
-    public Rank getRank()
-    {
-        return this.rank;
-    }
-
-    public Suit getSuit()
-    {
-        return this.suit;
-    }
-
     @Override
-    public int compareTo(Card o)
+    public int compareTo(Card other)
     {
-        return Comparator.comparing(Card::getSuit).thenComparing(Card::getRank).compare(this, o);
+        return Comparator.comparing(Card::suit).thenComparing(Card::rank).compare(this, other);
     }
 
     public boolean isDiamonds()
@@ -118,32 +99,5 @@ public class Card implements Comparable<Card>
     public boolean isClubs()
     {
         return this.suit == Suit.CLUBS;
-    }
-
-    public boolean equals(Object object)
-    {
-        if (this == object)
-        {
-            return true;
-        }
-        if (!(object instanceof Card))
-        {
-            return false;
-        }
-        var card = (Card) object;
-        return this.rank == card.rank && this.suit == card.suit;
-    }
-
-    public int hashCode()
-    {
-        int result = 31 + this.rank.hashCode();
-        result = 31 * result + this.suit.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString()
-    {
-        return this.rank + " of " + this.suit;
     }
 }

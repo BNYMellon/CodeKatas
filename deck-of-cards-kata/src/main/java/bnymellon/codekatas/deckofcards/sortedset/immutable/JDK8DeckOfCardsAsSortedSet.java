@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class JDK8DeckOfCardsAsSortedSet
     /**
      * TODO Replace the null values below with something more useful.
      * Use Java 8 Streams APIs with {@link Card#streamCards()} to create an "immutable" SortedSet and store that in cards.
-     * Group all of the cards by {@link Card#suit} into an "immutable" Map and stored that in cardsBySuit.
+     * Group all of the cards by {@link Card#suit()} into an "immutable" Map and stored that in cardsBySuit.
      *
      * Hint: Look at {@link Collectors#groupingBy(Function)}, {@link Collections#unmodifiableSortedSet(SortedSet)}
      * {@link Collectors#collectingAndThen(Collector, Function)}, {@link Collectors#mapping(Function, Collector)}

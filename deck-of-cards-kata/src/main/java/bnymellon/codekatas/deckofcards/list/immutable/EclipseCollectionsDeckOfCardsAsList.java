@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class EclipseCollectionsDeckOfCardsAsList
     /**
      * TODO Replace the null values below with something more useful.
      * Use Eclipse Collections APIs with {@link Card#lazyCards()} to create an ImmutableSortedSet and store that in cards.
-     * Group all of the cards by {@link Card#suit} into an ImmutableSortedSetMultimap and stored that in cardsBySuit.
+     * Group all of the cards by {@link Card#suit()} into an ImmutableSortedSetMultimap and stored that in cardsBySuit.
      *
      * Hint: Look at {@link ImmutableList#groupBy(Function)}
      */

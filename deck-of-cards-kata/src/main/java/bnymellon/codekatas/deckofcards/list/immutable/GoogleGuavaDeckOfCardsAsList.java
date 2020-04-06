@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class GoogleGuavaDeckOfCardsAsList
     /**
      * TODO Replace the null values below with something more useful.
      * Use Google Guava APIs with {@link Card#streamCards()} to create an ImmutableSortedSet and store that in cards.
-     * Group all of the cards by {@link Card#suit} into an ImmutableSetMultimap and stored that in cardsBySuit.
+     * Group all of the cards by {@link Card#suit()} into an ImmutableSetMultimap and stored that in cardsBySuit.
      *
      * Hint: Look at {@link Multimaps#index(Iterable, Function)} and {@link ImmutableList#copyOf(Collection)}
      */
