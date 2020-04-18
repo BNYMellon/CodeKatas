@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MutableSetTest {
@@ -29,7 +30,7 @@ public class MutableSetTest {
     public void filter() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
         MutableSet<Integer> actual = set.filter(each -> each % 2 == 0);
-        MutableSet<Integer> expected = MutableSet.of(2, 4);
+        var expected = MutableSet.of(2, 4);
         Assert.assertEquals(expected, actual);
     }
 
@@ -37,7 +38,7 @@ public class MutableSetTest {
     public void filterNot() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
         MutableSet<Integer> actual = set.filterNot(each -> each % 2 == 0);
-        MutableSet<Integer> expected = MutableSet.of(1, 3, 5);
+        var expected = MutableSet.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
     }
 
@@ -45,7 +46,7 @@ public class MutableSetTest {
     public void map() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
         MutableSet<String> actual = set.map(String::valueOf);
-        MutableSet<String> expected = MutableSet.of("1", "2", "3", "4", "5");
+        var expected = MutableSet.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
     }
 
@@ -53,7 +54,7 @@ public class MutableSetTest {
     public void flatMap() {
         MutableSet<List<Integer>> list = MutableSet.of(List.of(1), List.of(2));
         MutableSet<Integer> actual = list.flatMap(each -> each);
-        Set<Integer> expected = Set.of(1, 2);
+        var expected = Set.of(1, 2);
         Assert.assertEquals(expected, actual);
     }
 
@@ -62,6 +63,8 @@ public class MutableSetTest {
         MutableSet<Integer> list = MutableSet.of(1, 2, 3, 4, 5);
         Optional<Integer> reduce = list.reduce(Integer::sum);
         Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
+        MutableSet<Integer> empty = MutableSet.empty();
+        Assert.assertTrue(empty.reduce(Integer::sum).isEmpty());
     }
 
     @Test
@@ -103,7 +106,7 @@ public class MutableSetTest {
     public void countBy() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
         MutableMap<Integer, Long> counts = set.countBy(each -> each % 2);
-        MutableMap<Integer, Long> expected = MutableMap.of(1, 3L, 0, 2L);
+        var expected = MutableMap.of(1, 3L, 0, 2L);
         Assert.assertEquals(expected, counts);
     }
 
@@ -111,20 +114,41 @@ public class MutableSetTest {
     public void groupBy() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
         MutableMap<Integer, MutableSet<Integer>> grouped = set.groupBy(each -> each % 2);
-        MutableMap<Integer, MutableSet<Integer>> expected = MutableMap.of(1, MutableSet.of(1, 3, 5), 0, MutableSet.of(2, 4));
+        var expected = MutableMap.of(1, MutableSet.of(1, 3, 5), 0, MutableSet.of(2, 4));
         Assert.assertEquals(expected, grouped);
+        var streamGroupingBy = set.stream().collect(
+                Collectors.groupingBy(
+                        each -> each % 2,
+                        MutableMap::empty,
+                        Collectors.toCollection(MutableSet::empty)));
+        Assert.assertEquals(streamGroupingBy, grouped);
+    }
+
+    @Test
+    public void collect() {
+        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        var streamGroupingBy = set.stream().collect(
+                Collectors.groupingBy(
+                        each -> each % 2,
+                        Collectors.toSet()));
+        var collectGroupingBy = set.collect(
+                Collectors.groupingBy(
+                        each -> each % 2,
+                        MutableMap::empty,
+                        Collectors.toCollection(MutableSet::empty)));
+        Assert.assertEquals(streamGroupingBy, collectGroupingBy);
     }
 
     @Test
     public void fromIterable() {
-        Set<Integer> expected = Set.of(1, 2, 3);
+        var expected = Set.of(1, 2, 3);
         MutableSet<Integer> actual = MutableSet.fromIterable(expected);
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void fromStream() {
-        Set<Integer> expected = Set.of(1, 2, 3);
+        var expected = Set.of(1, 2, 3);
         MutableSet<Integer> actual = MutableSet.fromStream(Stream.of(1, 2, 3));
         Assert.assertEquals(expected, actual);
     }

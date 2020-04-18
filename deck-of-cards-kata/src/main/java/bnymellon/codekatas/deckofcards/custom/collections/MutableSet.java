@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
@@ -37,15 +36,15 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
     }
 
     public static <E> MutableSet<E> fromIterable(Iterable<E> iterable) {
-        MutableSet<E> result = MutableSet.empty();
-        iterable.forEach(result::add);
-        return result;
+        var mutableSet = MutableSet.<E>empty();
+        iterable.forEach(mutableSet::add);
+        return mutableSet;
     }
 
     public static <E> MutableSet<E> fromStream(Stream<E> stream) {
-        MutableSet<E> result = MutableSet.empty();
-        stream.forEach(result::add);
-        return result;
+        var mutableSet = MutableSet.<E>empty();
+        stream.forEach(mutableSet::add);
+        return mutableSet;
     }
 
     default Set<T> asUnmodifiable() {
@@ -54,41 +53,51 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
 
     @Override
     default MutableSet<T> filter(Predicate<? super T> predicate) {
-        MutableSet<T> result = MutableSet.empty();
-        this.forEach(each -> {
+        var mutableSet = MutableSet.<T>empty();
+        for (T each : this) {
             if (predicate.test(each)) {
-                result.add(each);
+                mutableSet.add(each);
             }
-        });
-        return result;
+        }
+        return mutableSet;
     }
 
     @Override
     default MutableSet<T> filterNot(Predicate<? super T> predicate) {
-        MutableSet<T> result = MutableSet.empty();
-        this.forEach(each -> {
+        var mutableSet = MutableSet.<T>empty();
+        for (T each : this) {
             if (!predicate.test(each)) {
-                result.add(each);
+                mutableSet.add(each);
             }
-        });
-        return result;
+        }
+        return mutableSet;
     }
 
     @Override
     default <V> MutableSet<V> map(Function<? super T, ? extends V> function) {
-        MutableSet<V> result = MutableSet.empty();
-        this.forEach(each -> result.add(function.apply(each)));
-        return result;
+        var mutableSet = MutableSet.<V>empty();
+        for (T each : this) {
+            mutableSet.add(function.apply(each));
+        }
+        return mutableSet;
     }
 
     @Override
     default <V> MutableSet<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
-        MutableSet<V> result = MutableSet.empty();
-        this.forEach(each -> result.addAllIterable(function.apply(each)));
-        return result;
+        var mutableSet = MutableSet.<V>empty();
+        for (T each : this) {
+            mutableSet.addAllIterable(function.apply(each));
+        }
+        return mutableSet;
     }
 
     default <K, V> MutableMap<K, MutableSet<T>> groupBy(Function<? super T, ? extends K> function) {
-        return this.collect(Collectors.groupingBy(function, MutableMap::empty, Collectors.toCollection(MutableSet::empty)));
+        var mutableMap = MutableMap.<K, MutableSet<T>>empty();
+        for (T each : this) {
+            K key = function.apply(each);
+            mutableMap.getIfAbsentPut(key, MutableSet::empty)
+                    .add(each);
+        }
+        return mutableMap;
     }
 }
