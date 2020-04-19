@@ -39,13 +39,12 @@ public class CustomCollectionsDeckOfCardsAsList {
     }
 
     public Deque<Card> shuffle(Random random) {
-        ArrayDeque<Card> cards = this.cards.toList()
+        // Shuffle the deck 3 times with the Random parameter and push the shuffled cards onto an ArrayDeque
+        return this.cards.toList()
                 .shuffle(random)
                 .shuffle(random)
                 .shuffle(random)
                 .toCollection(ArrayDeque::new, ArrayDeque::push);
-        // Shuffle the deck 3 times with the Random parameter and push the shuffled cards onto an ArrayDeque
-        return cards;
     }
 
     public MutableSet<Card> deal(Deque<Card> deque, int count) {

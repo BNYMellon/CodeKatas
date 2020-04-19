@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public interface MutableList<T> extends MutableCollection<T>, List<T> {
@@ -38,15 +37,15 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
     }
 
     public static <E> MutableList<E> fromIterable(Iterable<E> iterable) {
-        MutableList<E> result = MutableList.empty();
-        iterable.forEach(result::add);
-        return result;
+        var mutableList = MutableList.<E>empty();
+        iterable.forEach(mutableList::add);
+        return mutableList;
     }
 
     public static <E> MutableList<E> fromStream(Stream<E> stream) {
-        MutableList<E> result = MutableList.empty();
-        stream.forEach(result::add);
-        return result;
+        var mutableList = MutableList.<E>empty();
+        stream.forEach(mutableList::add);
+        return mutableList;
     }
 
     default MutableList<T> asUnmodifiable() {
@@ -55,48 +54,58 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
 
     @Override
     default MutableList<T> filter(Predicate<? super T> predicate) {
-        MutableList<T> result = MutableList.empty();
-        this.forEach(each -> {
+        var mutableList = MutableList.<T>empty();
+        for (T each : this) {
             if (predicate.test(each)) {
-                result.add(each);
+                mutableList.add(each);
             }
-        });
-        return result;
+        }
+        return mutableList;
     }
 
     @Override
     default MutableList<T> filterNot(Predicate<? super T> predicate) {
-        MutableList<T> result = MutableList.empty();
-        this.forEach(each -> {
+        var mutableList = MutableList.<T>empty();
+        for (T each : this) {
             if (!predicate.test(each)) {
-                result.add(each);
+                mutableList.add(each);
             }
-        });
-        return result;
+        }
+        return mutableList;
     }
 
     @Override
     default <V> MutableList<V> map(Function<? super T, ? extends V> function) {
-        MutableList<V> result = MutableList.empty();
-        this.forEach(each -> result.add(function.apply(each)));
-        return result;
+        var mutableList = MutableList.<V>empty();
+        for (T each : this) {
+            mutableList.add(function.apply(each));
+        }
+        return mutableList;
     }
 
     @Override
     default <V> MutableList<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
-        MutableList<V> result = MutableList.empty();
-        this.forEach(each -> result.addAllIterable(function.apply(each)));
-        return result;
+        var mutableList = MutableList.<V>empty();
+        for (T each : this) {
+            mutableList.addAllIterable(function.apply(each));
+        }
+        return mutableList;
     }
 
     default <K, V> MutableMap<K, MutableList<T>> groupBy(Function<? super T, ? extends K> function) {
-        return this.collect(Collectors.groupingBy(function, MutableMap::empty, Collectors.toCollection(MutableList::empty)));
+        var mutableMap = MutableMap.<K, MutableList<T>>empty();
+        for (T each : this) {
+            K key = function.apply(each);
+            mutableMap.getIfAbsentPut(key, MutableList::empty)
+                    .add(each);
+        }
+        return mutableMap;
     }
 
     default <K, V> MutableMap<K, MutableList<T>> groupByUnmodifiable(Function<? super T, ? extends K> function) {
-        MutableMap<K, MutableList<T>> mutable = this.groupBy(function);
-        mutable.replaceAll((k, ts) -> new UnmodifiableMutableList<>(ts));
-        return mutable.asUnmodifiable();
+        var mutableMap = this.<K, MutableList<T>>groupBy(function);
+        mutableMap.replaceAll((k, ts) -> new UnmodifiableMutableList<>(ts));
+        return mutableMap.asUnmodifiable();
     }
 
     default MutableList<T> shuffle(Random random) {

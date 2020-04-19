@@ -23,7 +23,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public interface RichIterable<T> extends Iterable<T> {
 
@@ -36,18 +35,15 @@ public interface RichIterable<T> extends Iterable<T> {
     <V> RichIterable<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
 
     default Optional<T> reduce(BinaryOperator<T> accumulator) {
-        boolean[] seenOne = new boolean[1];
-        T[] result = (T[]) new Object[1];
-        this.forEach(each ->
-        {
-            if (seenOne[0]) {
-                result[0] = accumulator.apply(result[0], each);
+        T result = null;
+        for (T each : this) {
+            if (result == null) {
+                result = each;
             } else {
-                seenOne[0] = true;
-                result[0] = each;
+                result = accumulator.apply(result, each);
             }
-        });
-        return seenOne[0] ? Optional.of(result[0]) : Optional.empty();
+        }
+        return result == null ? Optional.empty() : Optional.of(result);
     }
 
     default boolean anyMatch(Predicate<? super T> predicate) {
@@ -99,12 +95,23 @@ public interface RichIterable<T> extends Iterable<T> {
     default <R, A> R collect(Collector<? super T, A, R> collector) {
         A mutableResult = collector.supplier().get();
         BiConsumer<A, ? super T> accumulator = collector.accumulator();
-        this.forEach(each -> accumulator.accept(mutableResult, each));
+        for (T each : this) {
+            accumulator.accept(mutableResult, each);
+        }
         return collector.finisher().apply(mutableResult);
     }
 
     default <K> MutableMap<K, Long> countBy(Function<? super T, ? extends K> function) {
-        return this.collect(Collectors.groupingBy(function, MutableMap::empty, Collectors.counting()));
+        MutableMap<K, Long> counts = MutableMap.empty();
+        for (T each : this) {
+            K key = function.apply(each);
+            Long value = counts.get(key);
+            if (value == null) {
+                value = 0L;
+            }
+            counts.put(key, value + 1L);
+        }
+        return counts;
     }
 
     default MutableList<T> toList() {

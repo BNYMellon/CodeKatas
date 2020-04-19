@@ -123,15 +123,19 @@ public class CustomCollectionsDeckOfCardsAsListTest {
 
     @Test
     public void countsBySuit() {
-        Assert.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS),
-                this.customDeck.countsBySuit().get(Suit.CLUBS));
+        for (Suit suit : Suit.values()) {
+            Assert.assertEquals(
+                    this.jdkDeck.countsBySuit().get(suit),
+                    this.customDeck.countsBySuit().get(suit));
+        }
     }
 
     @Test
     public void countsByRank() {
-        Assert.assertEquals(
-                this.jdkDeck.countsByRank().get(Rank.TEN),
-                this.customDeck.countsByRank().get(Rank.TEN));
+        for (Rank rank : Rank.values()) {
+            Assert.assertEquals(
+                    this.jdkDeck.countsByRank().get(rank),
+                    this.customDeck.countsByRank().get(rank));
+        }
     }
 }

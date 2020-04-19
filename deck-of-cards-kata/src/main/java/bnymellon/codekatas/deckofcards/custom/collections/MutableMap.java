@@ -16,6 +16,7 @@
 package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public interface MutableMap<K, V> extends Map<K, V> {
     public static <K1, V1> MutableMap<K1, V1> empty() {
@@ -34,5 +35,14 @@ public interface MutableMap<K, V> extends Map<K, V> {
 
     default MutableMap<K, V> asUnmodifiable() {
         return new UnmodifiableMutableMap<>(this);
+    }
+
+    default V getIfAbsentPut(K key, Supplier<? extends V> supplier) {
+        V result = this.get(key);
+        if (result == null && !this.containsKey(key)) {
+            result = supplier.get();
+            this.put(key, result);
+        }
+        return result;
     }
 }
