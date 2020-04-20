@@ -161,7 +161,7 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Multimap) {
-            this.getBackingMap().equals(obj);
+            return this.getBackingMap().equals(((AbstractMultimap)obj).getBackingMap());
         }
         return false;
     }

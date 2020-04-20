@@ -15,6 +15,7 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -171,5 +172,22 @@ public class ArrayListMultimapTest {
         Assert.assertEquals(
                 MutableList.of("A1", "A2", "A3", "A1", "B10", "B10"),
                 combined);
+    }
+
+    @Test
+    public void hashCodeEquals() {
+        this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
+        this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
+
+        ArrayListMultimap<String, Integer> other = ArrayListMultimap.newMultimap();
+        other.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
+        Assert.assertTrue(this.testObj.equals(this.testObj));
+        Assert.assertFalse(this.testObj.equals(other));
+        Assert.assertFalse(other.equals(this.testObj));
+
+        other.putAll(MutableMap.of("B", MutableList.of(10, 10)));
+        Verify.assertEqualsAndHashCode(this.testObj, this.testObj);
+        Verify.assertEqualsAndHashCode(this.testObj, other);
+        Verify.assertEqualsAndHashCode(other, this.testObj);
     }
 }
