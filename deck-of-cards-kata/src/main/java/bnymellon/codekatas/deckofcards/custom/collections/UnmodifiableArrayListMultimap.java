@@ -15,36 +15,101 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-public class ArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<V>> {
-    private final MutableMap<K, MutableList<V>> BACKING_MAP = MutableMap.empty();
-    private int size;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
-    public static <K, V> ArrayListMultimap<K, V> newMultimap() {
-        return new ArrayListMultimap<>();
+public class UnmodifiableArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<V>> {
+    private final ArrayListMultimap<K, V> BACKING_MULTIMAP;
+
+    UnmodifiableArrayListMultimap(Multimap<K, V> multimap) {
+        ArrayListMultimap<K, V> arrayListMultimap = ArrayListMultimap.newMultimap();
+        multimap.forEach(arrayListMultimap::put);
+        this.BACKING_MULTIMAP = arrayListMultimap;
     }
 
     @Override
     protected MutableMap<K, MutableList<V>> getBackingMap() {
-        return BACKING_MAP;
+        throw new UnsupportedOperationException("Should not reach here!");
     }
 
     @Override
     protected void incrementSizeBy(int increment) {
-        this.size += increment;
+        throw new UnsupportedOperationException("Should not reach here!");
     }
 
     @Override
     protected void decrementSizeBy(int decrement) {
-        this.size -= decrement;
+        throw new UnsupportedOperationException("Should not reach here!");
     }
 
     @Override
     protected MutableList<V> createEmptyValueCollection() {
-        return MutableList.empty();
+        throw new UnsupportedOperationException("Should not reach here!");
     }
 
     @Override
     public int size() {
-        return this.size;
+        return this.BACKING_MULTIMAP.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.BACKING_MULTIMAP.isEmpty();
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        return this.BACKING_MULTIMAP.containsKey(key);
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        return this.BACKING_MULTIMAP.containsValue(value);
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Not allowed to perform clear() on " + UnmodifiableArrayListMultimap.class);
+    }
+
+    @Override
+    public Set<K> keySet() {
+        return this.BACKING_MULTIMAP.keySet();
+    }
+
+    @Override
+    public MutableList<V> get(Object key) {
+        return this.BACKING_MULTIMAP.get(key).asUnmodifiable();
+    }
+
+    @Override
+    public void forEach(BiConsumer<K, V> biConsumer) {
+        this.BACKING_MULTIMAP.forEach(biConsumer);
+    }
+
+    @Override
+    public boolean put(K key, RichIterable<V> value) {
+        throw new UnsupportedOperationException("Not allowed to perform put() on " + UnmodifiableArrayListMultimap.class);
+    }
+
+    @Override
+    public boolean put(K key, V value) {
+        throw new UnsupportedOperationException("Not allowed to perform put() on " + UnmodifiableArrayListMultimap.class);
+    }
+
+    @Override
+    public MutableList<V> remove(Object key) {
+        throw new UnsupportedOperationException("Not allowed to perform remove() on " + UnmodifiableArrayListMultimap.class);
+    }
+
+    @Override
+    public boolean remove(K key, V value) {
+        throw new UnsupportedOperationException("Not allowed to perform remove() on " + UnmodifiableArrayListMultimap.class);
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends RichIterable<V>> map) {
+        throw new UnsupportedOperationException("Not allowed to perform putAll() on " + UnmodifiableArrayListMultimap.class);
     }
 }

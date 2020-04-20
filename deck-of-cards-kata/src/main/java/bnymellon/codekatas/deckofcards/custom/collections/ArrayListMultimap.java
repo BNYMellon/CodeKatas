@@ -47,4 +47,8 @@ public class ArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<
     public int size() {
         return this.size;
     }
+
+    public UnmodifiableArrayListMultimap<K, V> asUnmodifiable() {
+        return new UnmodifiableArrayListMultimap<>(this);
+    }
 }
