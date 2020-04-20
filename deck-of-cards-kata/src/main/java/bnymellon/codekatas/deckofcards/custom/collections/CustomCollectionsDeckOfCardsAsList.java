@@ -27,7 +27,7 @@ import java.util.stream.IntStream;
 
 public class CustomCollectionsDeckOfCardsAsList {
     private MutableList<Card> cards;
-    private MutableMap<Suit, MutableList<Card>> cardsBySuit;
+    private UnmodifiableArrayListMultimap<Suit, Card> cardsBySuit;
 
     /**
      * Use Custom Collections with {@link Card#streamCards()} to create an "immutable" List and store that in cards.
@@ -92,7 +92,7 @@ public class CustomCollectionsDeckOfCardsAsList {
         return this.cards;
     }
 
-    public MutableMap<Suit, MutableList<Card>> getCardsBySuit() {
+    public UnmodifiableArrayListMultimap<Suit, Card> getCardsBySuit() {
         return this.cardsBySuit;
     }
 }
