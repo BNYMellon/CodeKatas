@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public interface Multimap<K, V> {
     int size();
@@ -43,4 +44,6 @@ public interface Multimap<K, V> {
     public void clear();
 
     Set<K> keySet();
+
+    void forEach(BiConsumer<K, V> biConsumer);
 }

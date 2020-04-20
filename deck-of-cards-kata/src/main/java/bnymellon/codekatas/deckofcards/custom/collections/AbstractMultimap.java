@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
         implements Multimap<K, V> {
@@ -139,5 +140,16 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
                 this.incrementSizeBy(newSize - previousSize);
             });
         }
+    }
+
+    @Override
+    public void forEach(BiConsumer<K, V> biConsumer) {
+        this.getBackingMap()
+                .keySet()
+                .forEach(key ->
+                {
+                    C values = this.getBackingMap().get(key);
+                    values.forEach(value -> biConsumer.accept(key, value));
+                });
     }
 }

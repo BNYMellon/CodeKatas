@@ -161,4 +161,15 @@ public class ArrayListMultimapTest {
         this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
         Assert.assertEquals(MutableSet.of("A", "B"), this.testObj.keySet());
     }
+
+    @Test
+    public void forEach() {
+        this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
+        this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
+        MutableList<String> combined = MutableList.empty();
+        this.testObj.forEach((key, value) -> combined.add(key + value.toString()));
+        Assert.assertEquals(
+                MutableList.of("A1", "A2", "A3", "A1", "B10", "B10"),
+                combined);
+    }
 }
