@@ -112,4 +112,14 @@ public class UnmodifiableArrayListMultimap<K, V> extends AbstractMultimap<K, V, 
     public void putAll(Map<? extends K, ? extends RichIterable<V>> map) {
         throw new UnsupportedOperationException("Not allowed to perform putAll() on " + UnmodifiableArrayListMultimap.class);
     }
+
+    @Override
+    public int hashCode() {
+        return this.BACKING_MULTIMAP.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.BACKING_MULTIMAP.equals(obj);
+    }
 }

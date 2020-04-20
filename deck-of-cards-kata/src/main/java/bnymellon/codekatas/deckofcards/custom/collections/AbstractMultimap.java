@@ -152,4 +152,17 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
                     values.forEach(value -> biConsumer.accept(key, value));
                 });
     }
+
+    @Override
+    public int hashCode() {
+        return this.getBackingMap().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Multimap) {
+            this.getBackingMap().equals(obj);
+        }
+        return false;
+    }
 }
