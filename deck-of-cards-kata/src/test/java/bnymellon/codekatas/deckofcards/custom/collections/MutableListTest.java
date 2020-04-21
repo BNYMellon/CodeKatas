@@ -122,15 +122,12 @@ public class MutableListTest {
     @Test
     public void groupBy() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
-        MutableMap<Integer, MutableList<Integer>> grouped = list.groupBy(each -> each % 2);
-        var expected = Map.of(1, List.of(1, 3, 5), 0, List.of(2, 4));
+        ArrayListMultimap<Integer, Integer> grouped = list.groupBy(each -> each % 2);
+        ArrayListMultimap<Integer, Integer> expected = ArrayListMultimap.newMultimap();
+        expected.put(1, MutableList.of(1, 3, 5));
+        expected.put(0, MutableList.of(2, 4));
+
         Assert.assertEquals(expected, grouped);
-        var streamGroupingBy = list.stream().collect(
-                Collectors.groupingBy(
-                        each -> each % 2,
-                        MutableMap::empty,
-                        Collectors.toCollection(MutableList::empty)));
-        Assert.assertEquals(streamGroupingBy, grouped);
     }
 
     @Test
