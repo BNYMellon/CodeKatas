@@ -92,8 +92,8 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
         return mutableList;
     }
 
-    default <K> ArrayListMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
-        var multimap = ArrayListMultimap.<K, T>newMultimap();
+    default <K> MutableListMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
+        var multimap = MutableListMultimap.<K, T>empty();
         for (T each : this) {
             K key = function.apply(each);
             multimap.put(key, each);
@@ -101,8 +101,8 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
         return multimap;
     }
 
-    default <K> UnmodifiableArrayListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function) {
-        ArrayListMultimap<K, T> multimap = this.groupBy(function);
+    default <K> MutableListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function) {
+        MutableListMultimap<K, T> multimap = this.groupBy(function);
         return multimap.asUnmodifiable();
     }
 

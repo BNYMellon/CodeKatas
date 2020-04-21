@@ -15,7 +15,10 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-public class HashSetMultimap<K, V> extends AbstractMultimap<K, V, MutableSet<V>> {
+public class HashSetMultimap<K, V>
+        extends AbstractMutableMultimap<K, V, MutableSet<V>>
+        implements MutableSetMultimap<K, V> {
+
     private final MutableMap<K, MutableSet<V>> BACKING_MAP = MutableMap.empty();
     private int size;
 

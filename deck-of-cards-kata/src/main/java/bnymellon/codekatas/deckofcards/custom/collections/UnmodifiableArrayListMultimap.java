@@ -19,19 +19,28 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public class UnmodifiableArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<V>> {
+public class UnmodifiableArrayListMultimap<K, V>
+        extends AbstractMutableMultimap<K, V, MutableList<V>>
+        implements MutableListMultimap<K, V> {
+
     private final ArrayListMultimap<K, V> BACKING_MULTIMAP;
 
-    UnmodifiableArrayListMultimap(Multimap<K, V> multimap) {
+    UnmodifiableArrayListMultimap(MutableMultimap<K, V> multimap) {
         ArrayListMultimap<K, V> arrayListMultimap = ArrayListMultimap.newMultimap();
         multimap.forEach(arrayListMultimap::put);
         this.BACKING_MULTIMAP = arrayListMultimap;
     }
 
     @Override
+    public MutableListMultimap<K, V> asUnmodifiable() {
+        return this;
+    }
+
+    @Override
     protected MutableMap<K, MutableList<V>> getBackingMap() {
         throw new UnsupportedOperationException("Should not reach here!");
     }
+
 
     @Override
     protected void incrementSizeBy(int increment) {

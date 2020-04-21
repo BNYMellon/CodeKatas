@@ -15,7 +15,9 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-public class ArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<V>> {
+public class ArrayListMultimap<K, V>
+        extends AbstractMutableMultimap<K, V, MutableList<V>>
+        implements MutableListMultimap<K, V> {
     private final MutableMap<K, MutableList<V>> BACKING_MAP = MutableMap.empty();
     private int size;
 
@@ -48,7 +50,7 @@ public class ArrayListMultimap<K, V> extends AbstractMultimap<K, V, MutableList<
         return this.size;
     }
 
-    public UnmodifiableArrayListMultimap<K, V> asUnmodifiable() {
+    public MutableListMultimap<K, V> asUnmodifiable() {
         return new UnmodifiableArrayListMultimap<>(this);
     }
 }

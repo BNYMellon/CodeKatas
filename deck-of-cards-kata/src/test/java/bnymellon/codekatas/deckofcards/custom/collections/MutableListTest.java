@@ -20,7 +20,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -122,8 +121,8 @@ public class MutableListTest {
     @Test
     public void groupBy() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
-        ArrayListMultimap<Integer, Integer> grouped = list.groupBy(each -> each % 2);
-        ArrayListMultimap<Integer, Integer> expected = ArrayListMultimap.newMultimap();
+        MutableListMultimap<Integer, Integer> grouped = list.groupBy(each -> each % 2);
+        MutableListMultimap<Integer, Integer> expected = ArrayListMultimap.newMultimap();
         expected.put(1, MutableList.of(1, 3, 5));
         expected.put(0, MutableList.of(2, 4));
 

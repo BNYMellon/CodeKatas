@@ -91,13 +91,12 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
         return mutableSet;
     }
 
-    default <K, V> MutableMap<K, MutableSet<T>> groupBy(Function<? super T, ? extends K> function) {
-        var mutableMap = MutableMap.<K, MutableSet<T>>empty();
+    default <K, V> MutableSetMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
+        var multimap = MutableSetMultimap.<K, T>empty();
         for (T each : this) {
             K key = function.apply(each);
-            mutableMap.getIfAbsentPut(key, MutableSet::empty)
-                    .add(each);
+            multimap.put(key, each);
         }
-        return mutableMap;
+        return multimap;
     }
 }
