@@ -25,15 +25,15 @@ public interface MutableBag<T> extends MutableCollection<T> {
     int sizeDistinct();
 
     static <E> MutableBag<E> empty() {
-        return new Bag<>();
+        return new HashBag<>();
     }
 
     static <E> MutableBag<E> of(E one) {
-        return new Bag<E>().withAll(one);
+        return new HashBag<E>().withAll(one);
     }
 
     static <E> MutableBag<E> of(E... args) {
-        return new Bag<E>().withAll(args);
+        return new HashBag<E>().withAll(args);
     }
 
     static <E> MutableBag<E> fromIterable(Iterable<E> iterable) {

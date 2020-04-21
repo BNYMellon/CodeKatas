@@ -80,11 +80,11 @@ public class CustomCollectionsDeckOfCardsAsList {
         return this.cardsBySuit.get(Suit.CLUBS);
     }
 
-    public MutableMap<Suit, Long> countsBySuit() {
+    public MutableBag<Suit> countsBySuit() {
         return this.cards.countBy(Card::suit);
     }
 
-    public MutableMap<Rank, Long> countsByRank() {
+    public MutableBag<Rank> countsByRank() {
         return this.cards.countBy(Card::rank);
     }
 

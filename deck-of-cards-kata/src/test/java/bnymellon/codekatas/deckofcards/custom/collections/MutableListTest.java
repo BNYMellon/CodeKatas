@@ -113,9 +113,9 @@ public class MutableListTest {
     @Test
     public void countBy() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
-        MutableMap<Integer, Long> counts = list.countBy(each -> each % 2);
-        Assert.assertEquals(3L, counts.get(1).longValue());
-        Assert.assertEquals(2L, counts.get(0).longValue());
+        MutableBag<Integer> counts = list.countBy(each -> each % 2);
+        Assert.assertEquals(3, counts.getOccurrences(1));
+        Assert.assertEquals(2, counts.getOccurrences(0));
     }
 
     @Test
