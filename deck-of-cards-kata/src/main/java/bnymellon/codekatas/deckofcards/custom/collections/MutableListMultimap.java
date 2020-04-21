@@ -15,35 +15,17 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
+public interface MutableListMultimap<K, V> extends MutableMultimap<K, V> {
 
-public interface Multimap<K, V> {
-    int size();
+    public static <K1, V1> MutableListMultimap<K1, V1> empty() {
+        return ArrayListMultimap.newMultimap();
+    }
 
-    boolean isEmpty();
+    @Override
+    MutableList<V> get(Object key);
 
-    RichIterable<V> get(Object key);
+    @Override
+    MutableList<V> remove(K key);
 
-    boolean put(K key, V value);
-
-    boolean put(K key, RichIterable<V> value);
-
-    void putAll(Map<? extends K, ? extends RichIterable<V>> map);
-
-    RichIterable<V> remove(K key);
-
-    boolean remove(K key, V value);
-
-    boolean containsKey(Object key);
-
-    boolean containsValue(Object value);
-
-    public void clear();
-
-    Set<K> keySet();
-
-    void forEach(BiConsumer<K, V> biConsumer);
+    MutableListMultimap<K, V> asUnmodifiable();
 }

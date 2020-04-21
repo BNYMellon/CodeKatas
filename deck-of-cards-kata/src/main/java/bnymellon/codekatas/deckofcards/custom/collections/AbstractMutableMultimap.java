@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
-        implements Multimap<K, V> {
+public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<V>>
+        implements MutableMultimap<K, V> {
     protected abstract MutableMap<K, C> getBackingMap();
 
     protected abstract void incrementSizeBy(int increment);
@@ -46,7 +46,6 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
         return values.stream().anyMatch(each -> each.contains(value));
     }
 
-    @Override
     public void clear() {
         this.getBackingMap().clear();
         this.decrementSizeBy(this.size());
@@ -127,8 +126,7 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
     @Override
     public void putAll(Map<? extends K, ? extends RichIterable<V>> map) {
         if (!map.isEmpty()) {
-            map.forEach((key, values) ->
-            {
+            map.forEach((key, values) -> {
                 C existing = this.getBackingMap().get(key);
                 if (existing == null) {
                     existing = this.createEmptyValueCollection();
@@ -146,8 +144,7 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
     public void forEach(BiConsumer<K, V> biConsumer) {
         this.getBackingMap()
                 .keySet()
-                .forEach(key ->
-                {
+                .forEach(key -> {
                     C values = this.getBackingMap().get(key);
                     values.forEach(value -> biConsumer.accept(key, value));
                 });
@@ -160,8 +157,8 @@ public abstract class AbstractMultimap<K, V, C extends MutableCollection<V>>
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Multimap) {
-            return this.getBackingMap().equals(((AbstractMultimap)obj).getBackingMap());
+        if (obj instanceof MutableMultimap) {
+            return this.getBackingMap().equals(((AbstractMutableMultimap) obj).getBackingMap());
         }
         return false;
     }

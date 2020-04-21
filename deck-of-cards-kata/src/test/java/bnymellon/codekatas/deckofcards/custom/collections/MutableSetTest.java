@@ -113,15 +113,11 @@ public class MutableSetTest {
     @Test
     public void groupBy() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
-        MutableMap<Integer, MutableSet<Integer>> grouped = set.groupBy(each -> each % 2);
-        var expected = MutableMap.of(1, MutableSet.of(1, 3, 5), 0, MutableSet.of(2, 4));
+        MutableSetMultimap<Integer, Integer> grouped = set.groupBy(each -> each % 2);
+        var expected = MutableSetMultimap.<Integer, Integer>empty();
+        expected.put(1, MutableSet.of(1, 3, 5));
+        expected.put(0, MutableSet.of(2, 4));
         Assert.assertEquals(expected, grouped);
-        var streamGroupingBy = set.stream().collect(
-                Collectors.groupingBy(
-                        each -> each % 2,
-                        MutableMap::empty,
-                        Collectors.toCollection(MutableSet::empty)));
-        Assert.assertEquals(streamGroupingBy, grouped);
     }
 
     @Test
