@@ -101,15 +101,11 @@ public interface RichIterable<T> extends Iterable<T> {
         return collector.finisher().apply(mutableResult);
     }
 
-    default <K> MutableMap<K, Long> countBy(Function<? super T, ? extends K> function) {
-        MutableMap<K, Long> counts = MutableMap.empty();
+    default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function) {
+        MutableBag<K> counts = MutableBag.empty();
         for (T each : this) {
             K key = function.apply(each);
-            Long value = counts.get(key);
-            if (value == null) {
-                value = 0L;
-            }
-            counts.put(key, value + 1L);
+            counts.add(key);
         }
         return counts;
     }

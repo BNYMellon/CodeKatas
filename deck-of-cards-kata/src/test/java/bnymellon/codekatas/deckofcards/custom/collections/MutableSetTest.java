@@ -105,8 +105,8 @@ public class MutableSetTest {
     @Test
     public void countBy() {
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
-        MutableMap<Integer, Long> counts = set.countBy(each -> each % 2);
-        var expected = MutableMap.of(1, 3L, 0, 2L);
+        MutableBag<Integer> counts = set.countBy(each -> each % 2);
+        var expected = MutableBag.of(1, 1, 1, 0, 0);
         Assert.assertEquals(expected, counts);
     }
 

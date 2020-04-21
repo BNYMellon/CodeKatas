@@ -23,25 +23,25 @@ import java.util.stream.Stream;
 
 public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
 
-    public static <E> MutableSet<E> empty() {
+    static <E> MutableSet<E> empty() {
         return new HashSet2<>();
     }
 
-    public static <E> MutableSet<E> of(E one) {
+    static <E> MutableSet<E> of(E one) {
         return new HashSet2<E>().with(one);
     }
 
-    public static <E> MutableSet<E> of(E... args) {
+    static <E> MutableSet<E> of(E... args) {
         return new HashSet2<E>().withAll(args);
     }
 
-    public static <E> MutableSet<E> fromIterable(Iterable<E> iterable) {
+    static <E> MutableSet<E> fromIterable(Iterable<E> iterable) {
         var mutableSet = MutableSet.<E>empty();
         iterable.forEach(mutableSet::add);
         return mutableSet;
     }
 
-    public static <E> MutableSet<E> fromStream(Stream<E> stream) {
+    static <E> MutableSet<E> fromStream(Stream<E> stream) {
         var mutableSet = MutableSet.<E>empty();
         stream.forEach(mutableSet::add);
         return mutableSet;

@@ -21,17 +21,17 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-public class BagTest {
-    private Bag<String> testObj;
+public class HashBagTest {
+    private HashBag<String> testObj;
 
     @Before
     public void setup() {
-        this.testObj = new Bag<>();
+        this.testObj = new HashBag<>();
     }
 
     @Test
     public void withAll() {
-        Bag<String> bag = this.testObj.withAll("1", "2", "3", "2", "3", "3");
+        HashBag<String> bag = this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertEquals(1, bag.getOccurrences("1"));
         Assert.assertEquals(2, bag.getOccurrences("2"));
         Assert.assertEquals(3, bag.getOccurrences("3"));

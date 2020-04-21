@@ -24,25 +24,25 @@ import java.util.stream.Stream;
 
 public interface MutableList<T> extends MutableCollection<T>, List<T> {
 
-    public static <E> MutableList<E> empty() {
+    static <E> MutableList<E> empty() {
         return new ArrayList2<>();
     }
 
-    public static <E> MutableList<E> of(E one) {
+    static <E> MutableList<E> of(E one) {
         return new ArrayList2<E>().with(one);
     }
 
-    public static <E> MutableList<E> of(E... args) {
+    static <E> MutableList<E> of(E... args) {
         return new ArrayList2<E>().withAll(args);
     }
 
-    public static <E> MutableList<E> fromIterable(Iterable<E> iterable) {
+    static <E> MutableList<E> fromIterable(Iterable<E> iterable) {
         var mutableList = MutableList.<E>empty();
         iterable.forEach(mutableList::add);
         return mutableList;
     }
 
-    public static <E> MutableList<E> fromStream(Stream<E> stream) {
+    static <E> MutableList<E> fromStream(Stream<E> stream) {
         var mutableList = MutableList.<E>empty();
         stream.forEach(mutableList::add);
         return mutableList;

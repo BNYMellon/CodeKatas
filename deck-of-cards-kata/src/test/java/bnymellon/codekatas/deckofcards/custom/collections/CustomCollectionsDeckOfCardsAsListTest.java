@@ -125,8 +125,8 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     public void countsBySuit() {
         for (Suit suit : Suit.values()) {
             Assert.assertEquals(
-                    this.jdkDeck.countsBySuit().get(suit),
-                    this.customDeck.countsBySuit().get(suit));
+                    this.jdkDeck.countsBySuit().get(suit).intValue(),
+                    this.customDeck.countsBySuit().getOccurrences(suit));
         }
     }
 
@@ -134,8 +134,8 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     public void countsByRank() {
         for (Rank rank : Rank.values()) {
             Assert.assertEquals(
-                    this.jdkDeck.countsByRank().get(rank),
-                    this.customDeck.countsByRank().get(rank));
+                    this.jdkDeck.countsByRank().get(rank).intValue(),
+                    this.customDeck.countsByRank().getOccurrences(rank));
         }
     }
 }

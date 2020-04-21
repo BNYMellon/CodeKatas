@@ -21,13 +21,13 @@ import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class Bag<T> implements MutableBag<T> {
-    private MutableMap<T, Integer> BACKING_MAP = MutableMap.empty();
+public class HashBag<T> implements MutableBag<T> {
+    private MutableMap<T, Integer> backingMap = MutableMap.empty();
     private int size = 0;
 
-    Bag<T> withAll(T... elements) {
+    HashBag<T> withAll(T... elements) {
         for (T element : elements) {
-            this.BACKING_MAP.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
+            this.backingMap.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
             this.size++;
         }
         return this;
@@ -35,7 +35,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public int sizeDistinct() {
-        return this.BACKING_MAP.size();
+        return this.backingMap.size();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public boolean contains(Object o) {
-        return this.BACKING_MAP.containsKey(o);
+        return this.backingMap.containsKey(o);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Bag<T> implements MutableBag<T> {
 
     public void forEachWithIndex(BiConsumer<? super T, Integer> biConsumer) {
         Counter index = new Counter();
-        this.BACKING_MAP.forEach((key, count) ->
+        this.backingMap.forEach((key, count) ->
         {
             for (int i = 0; i < count; i++) {
                 biConsumer.accept(key, index.getCount());
@@ -88,7 +88,7 @@ public class Bag<T> implements MutableBag<T> {
     @Override
     public boolean add(T element) {
         int sizeBefore = this.size;
-        this.BACKING_MAP.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
+        this.backingMap.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
         return sizeBefore != this.size;
     }
 
@@ -99,7 +99,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return c.stream().allMatch(each -> this.BACKING_MAP.containsKey(each));
+        return c.stream().allMatch(each -> this.backingMap.containsKey(each));
     }
 
     @Override
@@ -122,14 +122,14 @@ public class Bag<T> implements MutableBag<T> {
         Counter counter = new Counter();
         c.forEach(each ->
         {
-            Integer occurrences = this.BACKING_MAP.get(each);
+            Integer occurrences = this.backingMap.get(each);
             if (occurrences != null) {
                 map.put((T) each, occurrences);
                 counter.incrementBy(occurrences);
             }
         });
         if (!map.isEmpty()) {
-            this.BACKING_MAP = map;
+            this.backingMap = map;
             this.size = counter.getCount();
         }
         return counter.getCount() > 0;
@@ -137,7 +137,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public void clear() {
-        this.BACKING_MAP.clear();
+        this.backingMap.clear();
         this.size = 0;
     }
 
@@ -148,7 +148,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public int getOccurrences(T element) {
-        return this.BACKING_MAP.getOrDefault(element, 0);
+        return this.backingMap.getOrDefault(element, 0);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class Bag<T> implements MutableBag<T> {
     @Override
     public boolean addOccurrences(T element, int occurrences) {
         int sizeBefore = size;
-        Integer merged = this.BACKING_MAP.merge(element, occurrences, (existingCount, e) -> existingCount + e);
+        Integer merged = this.backingMap.merge(element, occurrences, (existingCount, e) -> existingCount + e);
         size = size + occurrences;
         return sizeBefore != size;
     }
@@ -172,14 +172,14 @@ public class Bag<T> implements MutableBag<T> {
     @Override
     public boolean removeOccurrences(T element, int occurrences) {
         int sizeBefore = size;
-        Integer existing = this.BACKING_MAP.get(element);
+        Integer existing = this.backingMap.get(element);
         if (existing != null) {
             Integer newCount = existing - occurrences;
             if (newCount <= 0) {
-                this.BACKING_MAP.remove(element);
+                this.backingMap.remove(element);
                 size = size - existing;
             } else {
-                this.BACKING_MAP.put(element, newCount);
+                this.backingMap.put(element, newCount);
                 size = size - occurrences;
             }
         }
@@ -188,12 +188,12 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public void forEachWithOccurrences(BiConsumer<? super T, Integer> biConsumer) {
-        this.BACKING_MAP.forEach(biConsumer);
+        this.backingMap.forEach(biConsumer);
     }
 
     @Override
     public void forEach(Consumer<? super T> consumer) {
-        this.BACKING_MAP.forEach((key, count) ->
+        this.backingMap.forEach((key, count) ->
         {
             for (int i = 0; i < count; i++) {
                 consumer.accept(key);
@@ -203,7 +203,7 @@ public class Bag<T> implements MutableBag<T> {
 
     @Override
     public int hashCode() {
-        return this.BACKING_MAP.hashCode();
+        return this.backingMap.hashCode();
     }
 
     @Override
@@ -211,22 +211,22 @@ public class Bag<T> implements MutableBag<T> {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof Bag)) {
+        if (!(other instanceof HashBag)) {
             return false;
         }
-        Bag<T> bag = (Bag<T>) other;
+        HashBag<T> bag = (HashBag<T>) other;
         if (this.sizeDistinct() != bag.sizeDistinct()) {
             return false;
         }
 
-        return this.BACKING_MAP
+        return this.backingMap
                 .keySet()
                 .stream()
-                .allMatch(element -> bag.getOccurrences(element) == this.BACKING_MAP.get(element));
+                .allMatch(element -> bag.getOccurrences(element) == this.backingMap.get(element));
     }
 
     private class BagIterator implements Iterator<T> {
-        private final Iterator<T> iterator = Bag.this.BACKING_MAP.keySet().iterator();
+        private final Iterator<T> iterator = HashBag.this.backingMap.keySet().iterator();
 
         private T currentItem;
         private int occurrences;
@@ -241,7 +241,7 @@ public class Bag<T> implements MutableBag<T> {
         public T next() {
             if (this.occurrences == 0) {
                 this.currentItem = this.iterator.next();
-                this.occurrences = Bag.this.getOccurrences(this.currentItem);
+                this.occurrences = HashBag.this.getOccurrences(this.currentItem);
             }
             this.occurrences--;
             this.canRemove = true;
@@ -255,9 +255,9 @@ public class Bag<T> implements MutableBag<T> {
             }
             if (this.occurrences == 0) {
                 this.iterator.remove();
-                Bag.this.size--;
+                HashBag.this.size--;
             } else {
-                Bag.this.removeOccurrence(this.currentItem);
+                HashBag.this.removeOccurrence(this.currentItem);
             }
             this.canRemove = false;
         }
