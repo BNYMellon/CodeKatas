@@ -33,8 +33,15 @@ public class MutableListTest {
     @Test
     public void filter() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // filter method on MutableList
         MutableList<Integer> actual = list.filter(each -> each % 2 == 0);
-        List<Integer> actualStream = list.stream().filter(each -> each % 2 == 0).collect(Collectors.toList());
+
+        // filter method on java.util.stream.Stream
+        List<Integer> actualStream = list.stream()
+                .filter(each -> each % 2 == 0)
+                .collect(Collectors.toList());
+
         var expected = MutableList.of(2, 4);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -43,8 +50,15 @@ public class MutableListTest {
     @Test
     public void filterNot() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // filterNot method on MutableList
         MutableList<Integer> actual = list.filterNot(each -> each % 2 == 0);
-        List<Integer> actualStream = list.stream().filter(each -> each % 2 != 0).collect(Collectors.toList());
+
+        // filter method on java.util.stream.Stream using negative predicate
+        List<Integer> actualStream = list.stream()
+                .filter(each -> each % 2 != 0)
+                .collect(Collectors.toList());
+
         var expected = MutableList.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -53,8 +67,15 @@ public class MutableListTest {
     @Test
     public void map() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // map method on MutableList
         MutableList<String> actual = list.map(String::valueOf);
-        List<String> actualStream = list.stream().map(String::valueOf).collect(Collectors.toList());
+
+        // map method on java.util.stream.Stream
+        List<String> actualStream = list.stream()
+                .map(String::valueOf)
+                .collect(Collectors.toList());
+
         var expected = List.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -63,8 +84,15 @@ public class MutableListTest {
     @Test
     public void flatMap() {
         MutableList<List<Integer>> list = MutableList.of(List.of(1), List.of(2));
+
+        // flatMap method on MutableList
         MutableList<Integer> actual = list.flatMap(each -> each);
-        List<Integer> actualStream = list.stream().flatMap(List::stream).collect(Collectors.toList());
+
+        // flatMap method on java.util.stream.Stream
+        List<Integer> actualStream = list.stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
         var expected = List.of(1, 2);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -73,8 +101,13 @@ public class MutableListTest {
     @Test
     public void reduce() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // reduce method on MutableList
         Optional<Integer> reduce = list.reduce(Integer::sum);
+
+        // reduce method on java.util.stream.Stream
         Optional<Integer> reduceStream = list.stream().reduce(Integer::sum);
+
         Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
         Assert.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
         MutableList<Integer> empty = MutableList.empty();
@@ -84,45 +117,69 @@ public class MutableListTest {
     @Test
     public void anyMatch() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // anyMatch method on MutableList
         Assert.assertTrue(list.anyMatch(each -> each % 2 == 0));
-        Assert.assertTrue(list.stream().anyMatch(each -> each % 2 == 0));
         Assert.assertFalse(list.anyMatch(each -> each < 0));
+
+        // anyMatch method on java.util.stream.Stream
+        Assert.assertTrue(list.stream().anyMatch(each -> each % 2 == 0));
         Assert.assertFalse(list.stream().anyMatch(each -> each < 0));
     }
 
     @Test
     public void allMatch() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // allMatch method on MutableList
         Assert.assertFalse(list.allMatch(each -> each % 2 == 0));
-        Assert.assertFalse(list.stream().allMatch(each -> each % 2 == 0));
         Assert.assertTrue(list.allMatch(each -> each > 0));
+
+        // allMatch method on java.util.stream.Stream
+        Assert.assertFalse(list.stream().allMatch(each -> each % 2 == 0));
         Assert.assertTrue(list.stream().allMatch(each -> each > 0));
     }
 
     @Test
     public void noneMatch() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // noneMatch method on MutableList
         Assert.assertFalse(list.noneMatch(each -> each % 2 == 0));
-        Assert.assertFalse(list.stream().noneMatch(each -> each % 2 == 0));
         Assert.assertTrue(list.noneMatch(each -> each < 0));
+
+        // noneMatch method on java.util.stream.Stream
+        Assert.assertFalse(list.stream().noneMatch(each -> each % 2 == 0));
         Assert.assertTrue(list.stream().noneMatch(each -> each < 0));
     }
 
     @Test
     public void count() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // count method on MutableList
         Assert.assertEquals(2, list.count(each -> each % 2 == 0));
-        Assert.assertEquals(2L, list.stream().filter(each -> each % 2 == 0).count());
         Assert.assertEquals(3, list.count(each -> each % 2 == 1));
-        Assert.assertEquals(3L, list.stream().filter(each -> each % 2 == 1).count());
+
+        // filter + count method on java.util.stream.Stream
+        Assert.assertEquals(2L, list.stream()
+                .filter(each -> each % 2 == 0)
+                .count());
+        Assert.assertEquals(3L, list.stream()
+                .filter(each -> each % 2 == 1)
+                .count());
     }
 
     @Test
     public void findFirst() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // findFirst method on MutableList
         Assert.assertEquals(Integer.valueOf(2), list.findFirst(each -> each % 2 == 0).orElse(0));
-        Assert.assertEquals(Integer.valueOf(2), list.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
         Assert.assertEquals(Integer.valueOf(0), list.findFirst(each -> each < 0).orElse(0));
+
+        // filter + findFirst method on java.util.stream.Stream
+        Assert.assertEquals(Integer.valueOf(2), list.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
         Assert.assertEquals(Integer.valueOf(0), list.stream().filter(each -> each < 0).findFirst().orElse(0));
     }
 
@@ -136,8 +193,16 @@ public class MutableListTest {
     @Test
     public void countBy() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // countBy method on MutableList
         MutableBag<Integer> counts = list.countBy(each -> each % 2);
-        Map<Integer, Long> countsStream = list.stream().collect(Collectors.groupingBy(each -> each % 2, Collectors.counting()));
+
+        // collect method on java.util.stream.Stream
+        // + groupingBy & counting on java.util.stream.Collectors
+        Map<Integer, Long> countsStream = list.stream()
+                .collect(Collectors.groupingBy(each -> each % 2,
+                        Collectors.counting()));
+
         Assert.assertEquals(3, counts.getOccurrences(1));
         Assert.assertEquals(2, counts.getOccurrences(0));
         Assert.assertEquals(Long.valueOf(3L), countsStream.get(1));
@@ -147,8 +212,14 @@ public class MutableListTest {
     @Test
     public void groupBy() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // groupBy method on MutableList returning Multimap
         MutableListMultimap<Integer, Integer> grouped = list.groupBy(each -> each % 2);
-        Map<Integer, List<Integer>> groupedStream = list.stream().collect(Collectors.groupingBy(each -> each % 2));
+
+        // collect method on java.util.stream.Stream + groupingBy on java.util.stream.Collectors
+        Map<Integer, List<Integer>> groupedStream = list.stream()
+                .collect(Collectors.groupingBy(each -> each % 2));
+
         var expected = ArrayListMultimap.<Integer, Integer>newMultimap();
         var oneList = MutableList.of(1, 3, 5);
         var zeroList = MutableList.of(2, 4);
@@ -165,16 +236,26 @@ public class MutableListTest {
                 Collectors.groupingBy(
                         each -> each % 2,
                         Collectors.toList());
-        var streamGroupingBy = list.stream().collect(collector);
+
+        // collect method on MutableList
         var collectGroupingBy = list.collect(collector);
+
+        // collect method on java.util.stream.Stream
+        var streamGroupingBy = list.stream().collect(collector);
+
         Assert.assertEquals(streamGroupingBy, collectGroupingBy);
     }
 
     @Test
     public void toList() {
         MutableSet<Integer> set = MutableSet.of(1);
+
+        // toList method on MutableList
         MutableList<Integer> actual = set.toList();
+
+        // collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
         List<Integer> actualStream = set.stream().collect(Collectors.toList());
+
         var expected = List.of(1);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -183,8 +264,13 @@ public class MutableListTest {
     @Test
     public void toSet() {
         MutableList<Integer> list = MutableList.of(1);
+
+        // toSet method on MutableList
         MutableSet<Integer> actual = list.toSet();
+
+        // collect method on java.util.stream.Stream + toSet on java.util.stream.Collectors
         Set<Integer> actualStream = list.stream().collect(Collectors.toSet());
+
         var expected = Set.of(1);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
@@ -193,16 +279,27 @@ public class MutableListTest {
     @Test
     public void fromIterable() {
         Iterable<Integer> expected = List.of(1, 2, 3);
+
+        // fromIterable method on MutableList
         MutableList<Integer> actual = MutableList.fromIterable(expected);
-        List<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false).collect(Collectors.toList());
+
+        // stream from java.util.stream.StreamSupport
+        // + collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
+        List<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
+                .collect(Collectors.toList());
+
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
     }
 
     @Test
     public void fromStream() {
+        // fromStream method on MutableList
         MutableList<Integer> actual = MutableList.fromStream(Stream.of(1, 2, 3));
+
+        // collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
         List<Integer> actualStream = Stream.of(1, 2, 3).collect(Collectors.toList());
+
         var expected = List.of(1, 2, 3);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
