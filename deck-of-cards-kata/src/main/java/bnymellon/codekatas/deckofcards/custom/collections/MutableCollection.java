@@ -16,6 +16,7 @@
 package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Collection;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -34,6 +35,12 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
     }
 
     @Override
+    default MutableCollection<T> peek(Consumer<? super T> consumer) {
+        this.forEach(consumer);
+        return this;
+    }
+
+    @Override
     MutableCollection<T> filter(Predicate<? super T> predicate);
 
     @Override
@@ -44,4 +51,13 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
 
     @Override
     <V> MutableCollection<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
+
+    default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function) {
+        MutableBag<K> counts = MutableBag.empty();
+        for (T each : this) {
+            K key = function.apply(each);
+            counts.add(key);
+        }
+        return counts;
+    }
 }

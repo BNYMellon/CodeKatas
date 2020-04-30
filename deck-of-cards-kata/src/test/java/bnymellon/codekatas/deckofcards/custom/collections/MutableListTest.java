@@ -16,6 +16,9 @@
 
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import bnymellon.codekatas.deckofcards.APIComparisonCalculator;
+import org.eclipse.collections.api.set.sorted.MutableSortedSet;
+import org.eclipse.collections.api.tuple.Twin;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -31,20 +34,81 @@ import java.util.stream.StreamSupport;
 public class MutableListTest {
 
     @Test
+    public void symmetricDiffAndIntersectionTest() {
+        Twin<MutableSortedSet<String>> results =
+                new APIComparisonCalculator(true).compare(RichIterable.class, Stream.class);
+        Assert.assertTrue(results.getOne().size() > results.getTwo().size());
+    }
+
+    @Test
     public void filter() {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // filter method on MutableList
-        MutableList<Integer> actual = list.filter(each -> each % 2 == 0);
+        MutableList<Integer> eagerFilter =
+                list.filter(each -> each % 2 == 0);
 
         // filter method on java.util.stream.Stream
-        List<Integer> actualStream = list.stream()
+        List<Integer> lazyFilter = list.stream()
                 .filter(each -> each % 2 == 0)
                 .collect(Collectors.toList());
 
-        var expected = MutableList.of(2, 4);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        var expected = List.of(2, 4);
+        Assert.assertEquals(expected, eagerFilter);
+        Assert.assertEquals(expected, lazyFilter);
+    }
+
+    @Test
+    public void filterMapReduce() {
+        MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // calling filter, map, reduce on MutableList
+        Optional<String> eager = list
+                .peek(i -> System.out.println("filter: " + i))
+                .filter(each -> each % 2 == 0)
+                .peek(i -> System.out.println("map: " + i))
+                .map(String::valueOf)
+                .peek(i -> System.out.println("reduce: " + i))
+                .reduce(String::concat);
+
+        // calling filter, map, reduce on java.util.stream.Stream
+        Optional<String> lazy = list.stream()
+                .peek(i -> System.out.println("stream filter: " + i))
+                .filter(each -> each % 2 == 0)
+                .peek(i -> System.out.println("stream map: " + i))
+                .map(String::valueOf)
+                .peek(i -> System.out.println("stream reduce: " + i))
+                .reduce(String::concat);
+
+        var expected = "24";
+        Assert.assertEquals(expected, eager.orElse(""));
+        Assert.assertEquals(expected, lazy.orElse(""));
+    }
+
+    @Test
+    public void filterMapAnyMatch() {
+        MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
+
+        // calling filter, map, anyMatch on MutableList
+        boolean eager = list
+                .peek(i -> System.out.println("filter: " + i))
+                .filter(each -> each % 2 == 0)
+                .peek(i -> System.out.println("map: " + i))
+                .map(String::valueOf)
+                .peek(i -> System.out.println("anyMatch: " + i))
+                .anyMatch("2"::equals);
+
+        // calling filter, map, anyMatch on java.util.stream.Stream
+        boolean lazy = list.stream()
+                .peek(i -> System.out.println("stream filter: " + i))
+                .filter(each -> each % 2 == 0)
+                .peek(i -> System.out.println("stream map: " + i))
+                .map(String::valueOf)
+                .peek(i -> System.out.println("stream anyMatch: " + i))
+                .anyMatch("2"::equals);
+
+        Assert.assertTrue(eager);
+        Assert.assertTrue(lazy);
     }
 
     @Test

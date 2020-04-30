@@ -17,6 +17,7 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -45,6 +46,12 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
         var mutableSet = MutableSet.<E>empty();
         stream.forEach(mutableSet::add);
         return mutableSet;
+    }
+
+    @Override
+    default MutableSet<T> peek(Consumer<? super T> consumer) {
+        this.forEach(consumer);
+        return this;
     }
 
     default Set<T> asUnmodifiable() {
