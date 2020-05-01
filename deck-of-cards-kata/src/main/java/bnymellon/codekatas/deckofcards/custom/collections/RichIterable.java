@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -33,6 +34,12 @@ public interface RichIterable<T> extends Iterable<T> {
     <V> RichIterable<V> map(Function<? super T, ? extends V> function);
 
     <V> RichIterable<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
+
+    default RichIterable<T> peek(Consumer<? super T> consumer)
+    {
+        this.forEach(consumer);
+        return this;
+    }
 
     default Optional<T> reduce(BinaryOperator<T> accumulator) {
         T result = null;
@@ -99,15 +106,6 @@ public interface RichIterable<T> extends Iterable<T> {
             accumulator.accept(mutableResult, each);
         }
         return collector.finisher().apply(mutableResult);
-    }
-
-    default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function) {
-        MutableBag<K> counts = MutableBag.empty();
-        for (T each : this) {
-            K key = function.apply(each);
-            counts.add(key);
-        }
-        return counts;
     }
 
     default MutableList<T> toList() {

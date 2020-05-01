@@ -16,6 +16,7 @@
 package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -46,6 +47,12 @@ public interface MutableBag<T> extends MutableCollection<T> {
         var mutableBag = MutableBag.<E>empty();
         stream.forEach(mutableBag::add);
         return mutableBag;
+    }
+
+    @Override
+    default MutableBag<T> peek(Consumer<? super T> consumer) {
+        this.forEach(consumer);
+        return this;
     }
 
     @Override

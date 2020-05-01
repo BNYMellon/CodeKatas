@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -90,6 +91,12 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
             mutableList.addAllIterable(function.apply(each));
         }
         return mutableList;
+    }
+
+    @Override
+    default MutableList<T> peek(Consumer<? super T> consumer) {
+        this.forEach(consumer);
+        return this;
     }
 
     default <K> MutableListMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
