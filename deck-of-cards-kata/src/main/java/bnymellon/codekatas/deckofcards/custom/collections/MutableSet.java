@@ -83,27 +83,20 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
     @Override
     default <V> MutableSet<V> map(Function<? super T, ? extends V> function) {
         var mutableSet = MutableSet.<V>empty();
-        for (T each : this) {
-            mutableSet.add(function.apply(each));
-        }
+        this.forEach(each -> mutableSet.add(function.apply(each)));
         return mutableSet;
     }
 
     @Override
     default <V> MutableSet<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
         var mutableSet = MutableSet.<V>empty();
-        for (T each : this) {
-            mutableSet.addAllIterable(function.apply(each));
-        }
+        this.forEach(each -> mutableSet.addAllIterable(function.apply(each)));
         return mutableSet;
     }
 
     default <K, V> MutableSetMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
         var multimap = MutableSetMultimap.<K, T>empty();
-        for (T each : this) {
-            K key = function.apply(each);
-            multimap.put(key, each);
-        }
+        this.forEach(each -> multimap.put(function.apply(each), each));
         return multimap;
     }
 }

@@ -101,10 +101,8 @@ public interface RichIterable<T> extends Iterable<T> {
 
     default <R, A> R collect(Collector<? super T, A, R> collector) {
         A mutableResult = collector.supplier().get();
-        BiConsumer<A, ? super T> accumulator = collector.accumulator();
-        for (T each : this) {
-            accumulator.accept(mutableResult, each);
-        }
+        var accumulator = collector.accumulator();
+        this.forEach(each -> accumulator.accept(mutableResult, each));
         return collector.finisher().apply(mutableResult);
     }
 
@@ -118,9 +116,7 @@ public interface RichIterable<T> extends Iterable<T> {
 
     default <R extends Collection<T>> R toCollection(Supplier<R> supplier, BiConsumer<R, T> addMethod) {
         R collection = supplier.get();
-        for (T each : this) {
-            addMethod.accept(collection, each);
-        }
+        this.forEach(each -> addMethod.accept(collection, each));
         return collection;
     }
 }
