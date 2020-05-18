@@ -80,18 +80,14 @@ public interface MutableBag<T> extends MutableCollection<T> {
     @Override
     default <V> MutableBag<V> map(Function<? super T, ? extends V> function) {
         var mutableBag = MutableBag.<V>empty();
-        for (T each : this) {
-            mutableBag.add(function.apply(each));
-        }
+        this.forEach(each -> mutableBag.add(function.apply(each)));
         return mutableBag;
     }
 
     @Override
     default <V> MutableBag<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
         var mutableBag = MutableBag.<V>empty();
-        for (T each : this) {
-            mutableBag.addAllIterable(function.apply(each));
-        }
+        this.forEach(each ->mutableBag.addAllIterable(function.apply(each)));
         return mutableBag;
     }
 

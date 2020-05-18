@@ -53,11 +53,8 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
     <V> MutableCollection<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
 
     default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function) {
-        MutableBag<K> counts = MutableBag.empty();
-        for (T each : this) {
-            K key = function.apply(each);
-            counts.add(key);
-        }
+        var counts = MutableBag.<K>empty();
+        this.forEach(each -> counts.add(function.apply(each)));
         return counts;
     }
 }
