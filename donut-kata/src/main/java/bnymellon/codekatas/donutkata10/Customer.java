@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,52 +16,21 @@
 
 package bnymellon.codekatas.donutkata10;
 
-import java.util.Objects;
-
 import org.eclipse.collections.api.list.ListIterable;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.SetIterable;
 import org.eclipse.collections.impl.factory.Lists;
 
-public class Customer
+public record Customer(String name, MutableList<Delivery> deliveries)
 {
-    private String name;
-    private MutableList<Delivery> deliveries = Lists.mutable.empty();
-
     public Customer(String name)
     {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null || this.getClass() != o.getClass())
-        {
-            return false;
-        }
-        var customer = (Customer) o;
-        return Objects.equals(this.name, customer.name);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return this.name != null ? this.name.hashCode() : 0;
+        this(name, Lists.mutable.empty());
     }
 
     public boolean named(String name)
     {
         return name.equals(this.name);
-    }
-
-    public String getName()
-    {
-        return this.name;
     }
 
     public void addDelivery(Delivery delivery)
@@ -82,8 +51,8 @@ public class Customer
     public SetIterable<DonutType> getDonutTypesOrdered()
     {
         return this.deliveries
-                .flatCollect(Delivery::getDonuts)
-                .collect(Donut::getType)
+                .flatCollect(Delivery::donuts)
+                .collect(Donut::type)
                 .toSet();
     }
 
