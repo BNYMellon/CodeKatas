@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,21 +82,21 @@ public class DonutShop
 
     private Delivery fillOrder(Order order)
     {
-        order.getCounts().forEachWithOccurrences(this::makeMissingDonuts);
-        double price = this.calculatePricePerDonut(order.getCounts().size());
+        order.counts().forEachWithOccurrences(this::makeMissingDonuts);
+        double price = this.calculatePricePerDonut(order.counts().size());
         var delivery = this.createDelivery(order, price);
-        order.getCounts().forEachWithOccurrences(this.donuts::removeOccurrences);
+        order.counts().forEachWithOccurrences(this.donuts::removeOccurrences);
         return delivery;
     }
 
     private Delivery createDelivery(Order order, double price)
     {
-        var donuts = order.getCounts()
+        var donutList = order.counts()
                 .asLazy()
                 .collect(type -> new Donut(type, price))
                 .toList()
                 .toImmutable();
-        var delivery = new Delivery(order, donuts);
+        var delivery = new Delivery(order, donutList);
         this.deliveries.add(delivery);
         return delivery;
     }

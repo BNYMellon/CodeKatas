@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,36 +20,24 @@ import java.time.LocalDate;
 
 import org.eclipse.collections.api.list.ImmutableList;
 
-public class Delivery
+public record Delivery(Order order, ImmutableList<Donut>donuts)
 {
-    private final Order order;
-    private final ImmutableList<Donut> donuts;
 
-    public Delivery(Order order, ImmutableList<Donut> donuts)
+    public Delivery
     {
         this.donuts = donuts;
         this.order = order;
-        this.order.getCustomer().addDelivery(this);
+        this.order.customer().addDelivery(this);
     }
 
     public Customer getCustomer()
     {
-        return this.order.getCustomer();
-    }
-
-    public Order getOrder()
-    {
-        return this.order;
-    }
-
-    public ImmutableList<Donut> getDonuts()
-    {
-        return this.donuts;
+        return this.order.customer();
     }
 
     public LocalDate getDate()
     {
-        return this.order.getDate();
+        return this.order.date();
     }
 
     public boolean deliveredOn(LocalDate date)
@@ -59,12 +47,12 @@ public class Delivery
 
     public int getTotalDonuts()
     {
-        return this.getDonuts().size();
+        return this.donuts.size();
     }
 
     public double getTotalPrice()
     {
-        return this.getDonuts().sumOfDouble(Donut::getPrice);
+        return this.donuts.sumOfDouble(Donut::price);
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,7 +102,7 @@ public class DonutShop10Test
     @Test
     public void getTopCustomer()
     {
-        Assert.assertEquals("Donnie Dapper", this.donutShop.getTopCustomer().getName());
+        Assert.assertEquals("Donnie Dapper", this.donutShop.getTopCustomer().name());
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 BNY Mellon.
+ * Copyright 2020 BNY Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,48 +18,27 @@ package bnymellon.codekatas.donutkata10;
 
 import java.time.LocalDate;
 
-import org.eclipse.collections.api.bag.Bag;
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.tuple.primitive.ObjectIntPair;
 import org.eclipse.collections.impl.factory.Bags;
 import org.eclipse.collections.impl.list.fixed.ArrayAdapter;
 import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
 
-public class Order
+public record Order(Customer customer, LocalDate date, MutableBag<DonutType> counts)
 {
-    private Customer customer;
-    private LocalDate date;
-    private MutableBag<DonutType> counts = Bags.mutable.empty();
-
     public Order(Customer customer, LocalDate date, String donutTypeCounts)
     {
-        this.customer = customer;
+        this(customer, date, Bags.mutable.empty());
         ArrayAdapter.adapt(donutTypeCounts.split(","))
                 .asLazy()
                 .collect(pair -> pair.split(":"))
                 .collect(pair -> PrimitiveTuples.pair(DonutType.forAbbreviation(pair[0]), Integer.parseInt(pair[1])))
                 .each(this::add);
-        this.date = date;
     }
 
     private void add(ObjectIntPair<DonutType> pair)
     {
         this.counts.addOccurrences(pair.getOne(), pair.getTwo());
-    }
-
-    public Customer getCustomer()
-    {
-        return this.customer;
-    }
-
-    public Bag<DonutType> getCounts()
-    {
-        return this.counts.asUnmodifiable();
-    }
-
-    public LocalDate getDate()
-    {
-        return this.date;
     }
 
     @Override
