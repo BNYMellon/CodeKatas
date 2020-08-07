@@ -42,6 +42,11 @@ public record Order(Customer customer, LocalDate date, MutableBag<DonutType> cou
     }
 
     @Override
+    public int hashCode()
+    {
+        return System.identityHashCode(this);
+    }
+
     public String toString()
     {
         return "Order(" +

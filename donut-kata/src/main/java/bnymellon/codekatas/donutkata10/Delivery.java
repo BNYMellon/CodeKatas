@@ -22,12 +22,9 @@ import org.eclipse.collections.api.list.ImmutableList;
 
 public record Delivery(Order order, ImmutableList<Donut>donuts)
 {
-
     public Delivery
     {
-        this.donuts = donuts;
-        this.order = order;
-        this.order.customer().addDelivery(this);
+        order.customer().addDelivery(this);
     }
 
     public Customer getCustomer()
