@@ -37,7 +37,7 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
 
-        <eclipse-collections.version>10.2.0</eclipse-collections.version>
+        <eclipse-collections.version>10.4.0</eclipse-collections.version>
         <junit.version>4.12</junit.version>
     </properties>
 
