@@ -38,8 +38,8 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
 
-        <eclipse-collections.version>10.2.0</eclipse-collections.version>
-        <jmh.version>1.23</jmh.version>
+        <eclipse-collections.version>10.4.0</eclipse-collections.version>
+        <jmh.version>1.25.1</jmh.version>
         <junit.version>4.12</junit.version>
     </properties>
 
