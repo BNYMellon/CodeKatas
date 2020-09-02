@@ -37,8 +37,8 @@ public class EclipseCollectionsDeckOfCardsAsList
 
     /**
      * TODO Replace the null values below with something more useful.
-     * Use Eclipse Collections APIs with {@link Card#lazyCards()} to create an ImmutableSortedSet and store that in cards.
-     * Group all of the cards by {@link Card#suit()} into an ImmutableSortedSetMultimap and stored that in cardsBySuit.
+     * Use Eclipse Collections APIs with {@link Card#lazyCards()} to create a sorted ImmutableList and store the result in cards.
+     * Group all of the cards by {@link Card#suit()} into an ImmutableListMultimap and store the result in cardsBySuit.
      *
      * Hint: Look at {@link ImmutableList#groupBy(Function)}
      */
