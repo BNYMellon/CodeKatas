@@ -17,13 +17,9 @@ classes that are shared by all of the exercises.  These are
 
 ### How to get started
 
-Java 8 version:
+Java version (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) and [Records](https://openjdk.java.net/jeps/359) preview feature):
 * There are failing tests in [`DonutShopTest.java`](./src/test/java/bnymellon/codekatas/donutkata/DonutShopTest.java)
 	* Make the tests pass by following and completing the TODOs in [`DonutShop.java`](./src/main/java/bnymellon/codekatas/donutkata/DonutShop.java)
-	
-Java 10 version (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) feature):
-* There are failing tests in [`DonutShop10Test.java`](./src/test/java/bnymellon/codekatas/donutkata10/DonutShop10Test.java)
-	* Make the tests pass by following and completing the TODOs in [`DonutShop.java`](./src/main/java/bnymellon/codekatas/donutkata10/DonutShop.java)
 
 Kotlin version:
 * There are failing tests in [`DonutShopTest.kt`](./src/test/kotlin/bnymellon/codekatas/donutkatakotlin/DonutShopTest.kt)

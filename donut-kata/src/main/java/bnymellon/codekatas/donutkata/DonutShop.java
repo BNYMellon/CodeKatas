@@ -75,29 +75,28 @@ public class DonutShop
 
     public Delivery deliverOrder(String customerName, LocalDate date, String donutTypeCounts)
     {
-        Customer customer = this.getOrCreateCustomer(customerName);
-        Order order = this.createOrder(customer, date, donutTypeCounts);
+        var customer = this.getOrCreateCustomer(customerName);
+        var order = this.createOrder(customer, date, donutTypeCounts);
         return this.fillOrder(order);
     }
 
     private Delivery fillOrder(Order order)
     {
-        order.getCounts().forEachWithOccurrences(this::makeMissingDonuts);
-        double price = this.calculatePricePerDonut(order.getCounts().size());
-        Delivery delivery = this.createDelivery(order, price);
-        order.getCounts().forEachWithOccurrences(this.donuts::removeOccurrences);
+        order.counts().forEachWithOccurrences(this::makeMissingDonuts);
+        double price = this.calculatePricePerDonut(order.counts().size());
+        var delivery = this.createDelivery(order, price);
+        order.counts().forEachWithOccurrences(this.donuts::removeOccurrences);
         return delivery;
     }
 
     private Delivery createDelivery(Order order, double price)
     {
-        ImmutableList<Donut> donuts =
-                order.getCounts()
-                        .asLazy()
-                        .collect(type -> new Donut(type, price))
-                        .toList()
-                        .toImmutable();
-        Delivery delivery = new Delivery(order, donuts);
+        var donutList = order.counts()
+                .asLazy()
+                .collect(type -> new Donut(type, price))
+                .toList()
+                .toImmutable();
+        var delivery = new Delivery(order, donutList);
         this.deliveries.add(delivery);
         return delivery;
     }
@@ -106,21 +105,25 @@ public class DonutShop
     {
         return PRICES.detectIfNone(
                 pair -> pair.getOne().contains(orderSize),
-                () -> { throw new IllegalArgumentException("This order cannot be satisfied");})
+                () ->
+                {
+                    throw new IllegalArgumentException("This order cannot be satisfied");
+                })
                 .getTwo();
     }
 
     private Order createOrder(Customer customer, LocalDate date, String donutTypeCounts)
     {
-        Order order = new Order(customer, date, donutTypeCounts);
+        var order = new Order(customer, date, donutTypeCounts);
         this.orders.add(order);
         return order;
     }
 
     private Customer getOrCreateCustomer(String customerName)
     {
-        Customer customer =
-                this.customers.detectWithIfNone(Customer::named, customerName, () -> new Customer(customerName));
+        var customer = this.customers.detectWithIfNone(
+                Customer::named, customerName,
+                () -> new Customer(customerName));
         if (!this.customers.contains(customer))
         {
             this.customers.add(customer);
