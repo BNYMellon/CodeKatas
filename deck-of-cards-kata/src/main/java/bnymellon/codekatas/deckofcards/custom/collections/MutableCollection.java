@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
 
@@ -38,6 +39,12 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
     default MutableCollection<T> peek(Consumer<? super T> consumer) {
         this.forEach(consumer);
         return this;
+    }
+
+    @Override
+    default Stream<T> stream()
+    {
+        return Collection.super.stream();
     }
 
     @Override

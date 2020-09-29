@@ -15,37 +15,22 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class ArrayList2<T> extends ArrayList<T> implements MutableList<T>
+public class EmptyIterator<T> implements Iterator<T>
 {
-    public ArrayList2(Collection<? extends T> collection)
+    static Iterator<?> INSTANCE = new EmptyIterator<>();
+
+    @Override
+    public boolean hasNext()
     {
-        super(collection);
+        return false;
     }
 
-    public ArrayList2(int initialCapacity)
+    @Override
+    public T next()
     {
-        super(initialCapacity);
-    }
-
-    public ArrayList2()
-    {
-        super();
-    }
-
-    ArrayList2<T> with(T one)
-    {
-        this.add(one);
-        return this;
-    }
-
-    @SafeVarargs
-    final ArrayList2<T> withAll(T... args)
-    {
-        Collections.addAll(this, args);
-        return this;
+        throw new NoSuchElementException();
     }
 }

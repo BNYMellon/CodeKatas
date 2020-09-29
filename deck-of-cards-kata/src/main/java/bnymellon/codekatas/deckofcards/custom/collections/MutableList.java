@@ -16,48 +16,65 @@
 package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface MutableList<T> extends MutableCollection<T>, List<T> {
-
-    static <E> MutableList<E> empty() {
+public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>, List<T>
+{
+    static <E> MutableList<E> empty()
+    {
         return new ArrayList2<>();
     }
 
-    static <E> MutableList<E> of(E one) {
+    default ImmutableList<T> toImmutable()
+    {
+        if (this.isEmpty())
+        {
+            return ImmutableList.empty();
+        }
+        return new ImmutableArrayList<>(this);
+    }
+
+    static <E> MutableList<E> of(E one)
+    {
         return new ArrayList2<E>().with(one);
     }
 
-    static <E> MutableList<E> of(E... args) {
+    static <E> MutableList<E> of(E... args)
+    {
         return new ArrayList2<E>().withAll(args);
     }
 
-    static <E> MutableList<E> fromIterable(Iterable<E> iterable) {
+    static <E> MutableList<E> fromIterable(Iterable<E> iterable)
+    {
         var mutableList = MutableList.<E>empty();
         iterable.forEach(mutableList::add);
         return mutableList;
     }
 
-    static <E> MutableList<E> fromStream(Stream<E> stream) {
+    static <E> MutableList<E> fromStream(Stream<E> stream)
+    {
         var mutableList = MutableList.<E>empty();
         stream.forEach(mutableList::add);
         return mutableList;
     }
 
-    default MutableList<T> asUnmodifiable() {
+    default MutableList<T> asUnmodifiable()
+    {
         return new UnmodifiableMutableList<>(this);
     }
 
     @Override
-    default MutableList<T> filter(Predicate<? super T> predicate) {
+    default MutableList<T> filter(Predicate<? super T> predicate)
+    {
         var mutableList = MutableList.<T>empty();
-        for (T each : this) {
-            if (predicate.test(each)) {
+        for (T each : this)
+        {
+            if (predicate.test(each))
+            {
                 mutableList.add(each);
             }
         }
@@ -65,10 +82,13 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
     }
 
     @Override
-    default MutableList<T> filterNot(Predicate<? super T> predicate) {
+    default MutableList<T> filterNot(Predicate<? super T> predicate)
+    {
         var mutableList = MutableList.<T>empty();
-        for (T each : this) {
-            if (!predicate.test(each)) {
+        for (T each : this)
+        {
+            if (!predicate.test(each))
+            {
                 mutableList.add(each);
             }
         }
@@ -76,37 +96,43 @@ public interface MutableList<T> extends MutableCollection<T>, List<T> {
     }
 
     @Override
-    default <V> MutableList<V> map(Function<? super T, ? extends V> function) {
+    default <V> MutableList<V> map(Function<? super T, ? extends V> function)
+    {
         var mutableList = MutableList.<V>empty();
         this.forEach(each -> mutableList.add(function.apply(each)));
         return mutableList;
     }
 
     @Override
-    default <V> MutableList<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
+    default <V> MutableList<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
+    {
         var mutableList = MutableList.<V>empty();
         this.forEach(each -> mutableList.addAllIterable(function.apply(each)));
         return mutableList;
     }
 
     @Override
-    default MutableList<T> peek(Consumer<? super T> consumer) {
+    default MutableList<T> peek(Consumer<? super T> consumer)
+    {
         this.forEach(consumer);
         return this;
     }
 
-    default <K> MutableListMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
+    default <K> MutableListMultimap<K, T> groupBy(Function<? super T, ? extends K> function)
+    {
         var multimap = MutableListMultimap.<K, T>empty();
         this.forEach(each -> multimap.put(function.apply(each), each));
         return multimap;
     }
 
-    default <K> MutableListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function) {
+    default <K> MutableListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function)
+    {
         var multimap = this.<K>groupBy(function);
         return multimap.asUnmodifiable();
     }
 
-    default MutableList<T> shuffle(Random random) {
+    default MutableList<T> shuffle(Random random)
+    {
         Collections.shuffle(this, random);
         return this;
     }

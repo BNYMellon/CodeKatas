@@ -16,53 +16,62 @@
 package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Collections;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
-
-    static <E> MutableSet<E> empty() {
+public interface MutableSet<T> extends MutableCollection<T>, java.util.Set<T>, Set<T>
+{
+    static <E> MutableSet<E> empty()
+    {
         return new HashSet2<>();
     }
 
-    static <E> MutableSet<E> of(E one) {
+    static <E> MutableSet<E> of(E one)
+    {
         return new HashSet2<E>().with(one);
     }
 
-    static <E> MutableSet<E> of(E... args) {
+    static <E> MutableSet<E> of(E... args)
+    {
         return new HashSet2<E>().withAll(args);
     }
 
-    static <E> MutableSet<E> fromIterable(Iterable<E> iterable) {
+    static <E> MutableSet<E> fromIterable(Iterable<E> iterable)
+    {
         var mutableSet = MutableSet.<E>empty();
         iterable.forEach(mutableSet::add);
         return mutableSet;
     }
 
-    static <E> MutableSet<E> fromStream(Stream<E> stream) {
+    static <E> MutableSet<E> fromStream(Stream<E> stream)
+    {
         var mutableSet = MutableSet.<E>empty();
         stream.forEach(mutableSet::add);
         return mutableSet;
     }
 
     @Override
-    default MutableSet<T> peek(Consumer<? super T> consumer) {
+    default MutableSet<T> peek(Consumer<? super T> consumer)
+    {
         this.forEach(consumer);
         return this;
     }
 
-    default Set<T> asUnmodifiable() {
+    default java.util.Set<T> asUnmodifiable()
+    {
         return Collections.unmodifiableSet(this);
     }
 
     @Override
-    default MutableSet<T> filter(Predicate<? super T> predicate) {
+    default MutableSet<T> filter(Predicate<? super T> predicate)
+    {
         var mutableSet = MutableSet.<T>empty();
-        for (T each : this) {
-            if (predicate.test(each)) {
+        for (T each : this)
+        {
+            if (predicate.test(each))
+            {
                 mutableSet.add(each);
             }
         }
@@ -70,10 +79,13 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
     }
 
     @Override
-    default MutableSet<T> filterNot(Predicate<? super T> predicate) {
+    default MutableSet<T> filterNot(Predicate<? super T> predicate)
+    {
         var mutableSet = MutableSet.<T>empty();
-        for (T each : this) {
-            if (!predicate.test(each)) {
+        for (T each : this)
+        {
+            if (!predicate.test(each))
+            {
                 mutableSet.add(each);
             }
         }
@@ -81,22 +93,34 @@ public interface MutableSet<T> extends MutableCollection<T>, Set<T> {
     }
 
     @Override
-    default <V> MutableSet<V> map(Function<? super T, ? extends V> function) {
+    default <V> MutableSet<V> map(Function<? super T, ? extends V> function)
+    {
         var mutableSet = MutableSet.<V>empty();
         this.forEach(each -> mutableSet.add(function.apply(each)));
         return mutableSet;
     }
 
     @Override
-    default <V> MutableSet<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
+    default <V> MutableSet<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
+    {
         var mutableSet = MutableSet.<V>empty();
         this.forEach(each -> mutableSet.addAllIterable(function.apply(each)));
         return mutableSet;
     }
 
-    default <K, V> MutableSetMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
+    default <K, V> MutableSetMultimap<K, T> groupBy(Function<? super T, ? extends K> function)
+    {
         var multimap = MutableSetMultimap.<K, T>empty();
         this.forEach(each -> multimap.put(function.apply(each), each));
         return multimap;
+    }
+
+    default ImmutableSet<T> toImmutable()
+    {
+        if (this.isEmpty())
+        {
+            return ImmutableSet.empty();
+        }
+        return new ImmutableHashSet<>(this);
     }
 }

@@ -21,12 +21,15 @@ import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class HashBag<T> implements MutableBag<T> {
+public class HashBag<T> implements MutableBag<T>
+{
     private MutableMap<T, Integer> backingMap = MutableMap.empty();
     private int size = 0;
 
-    HashBag<T> withAll(T... elements) {
-        for (T element : elements) {
+    HashBag<T> withAll(T... elements)
+    {
+        for (T element : elements)
+        {
             this.backingMap.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
             this.size++;
         }
@@ -34,37 +37,44 @@ public class HashBag<T> implements MutableBag<T> {
     }
 
     @Override
-    public int sizeDistinct() {
+    public int sizeDistinct()
+    {
         return this.backingMap.size();
     }
 
     @Override
-    public int size() {
+    public int size()
+    {
         return this.size;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return this.size == 0;
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(Object o)
+    {
         return this.backingMap.containsKey(o);
     }
 
     @Override
-    public Object[] toArray() {
+    public Object[] toArray()
+    {
         Object[] result = new Object[this.size()];
         this.forEachWithIndex((each, index) -> result[index] = each);
         return result;
     }
 
-    public void forEachWithIndex(BiConsumer<? super T, Integer> biConsumer) {
+    public void forEachWithIndex(BiConsumer<? super T, Integer> biConsumer)
+    {
         Counter index = new Counter();
         this.backingMap.forEach((key, count) ->
         {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 biConsumer.accept(key, index.getCount());
                 index.increment();
             }
@@ -72,63 +82,73 @@ public class HashBag<T> implements MutableBag<T> {
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] array) {
+    public <T1> T1[] toArray(T1[] array)
+    {
         int size = this.size();
         T1[] result = array.length < size
                 ? (T1[]) Array.newInstance(array.getClass().getComponentType(), size)
                 : array;
 
         this.forEachWithIndex((each, index) -> result[index] = (T1) each);
-        if (result.length > size) {
+        if (result.length > size)
+        {
             result[size] = null;
         }
         return result;
     }
 
     @Override
-    public boolean add(T element) {
-        int sizeBefore = this.size;
+    public boolean add(T element)
+    {
         this.backingMap.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
-        return sizeBefore != this.size;
+        this.size++;
+        return true;
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(Object o)
+    {
         return this.removeOccurrences((T) o, Integer.MAX_VALUE);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(Collection<?> c)
+    {
         return c.stream().allMatch(each -> this.backingMap.containsKey(each));
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends T> c)
+    {
         int sizeBefore = this.size;
         c.forEach(each -> this.addOccurrence(each));
         return sizeBefore != this.size;
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(Collection<?> c)
+    {
         int sizeBefore = this.size;
         c.forEach(each -> this.removeOccurrences((T) each, Integer.MAX_VALUE));
         return sizeBefore != this.size;
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(Collection<?> c)
+    {
         MutableMap<T, Integer> map = MutableMap.empty();
         Counter counter = new Counter();
         c.forEach(each ->
         {
             Integer occurrences = this.backingMap.get(each);
-            if (occurrences != null) {
+            if (occurrences != null)
+            {
                 map.put((T) each, occurrences);
                 counter.incrementBy(occurrences);
             }
         });
-        if (!map.isEmpty()) {
+        if (!map.isEmpty())
+        {
             this.backingMap = map;
             this.size = counter.getCount();
         }
@@ -136,28 +156,33 @@ public class HashBag<T> implements MutableBag<T> {
     }
 
     @Override
-    public void clear() {
+    public void clear()
+    {
         this.backingMap.clear();
         this.size = 0;
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<T> iterator()
+    {
         return new BagIterator();
     }
 
     @Override
-    public int getOccurrences(T element) {
+    public int getOccurrences(T element)
+    {
         return this.backingMap.getOrDefault(element, 0);
     }
 
     @Override
-    public boolean addOccurrence(T element) {
+    public boolean addOccurrence(T element)
+    {
         return this.addOccurrences(element, 1);
     }
 
     @Override
-    public boolean addOccurrences(T element, int occurrences) {
+    public boolean addOccurrences(T element, int occurrences)
+    {
         int sizeBefore = size;
         Integer merged = this.backingMap.merge(element, occurrences, (existingCount, e) -> existingCount + e);
         size = size + occurrences;
@@ -165,20 +190,26 @@ public class HashBag<T> implements MutableBag<T> {
     }
 
     @Override
-    public boolean removeOccurrence(T element) {
+    public boolean removeOccurrence(T element)
+    {
         return this.removeOccurrences(element, 1);
     }
 
     @Override
-    public boolean removeOccurrences(T element, int occurrences) {
+    public boolean removeOccurrences(T element, int occurrences)
+    {
         int sizeBefore = size;
         Integer existing = this.backingMap.get(element);
-        if (existing != null) {
+        if (existing != null)
+        {
             Integer newCount = existing - occurrences;
-            if (newCount <= 0) {
+            if (newCount <= 0)
+            {
                 this.backingMap.remove(element);
                 size = size - existing;
-            } else {
+            }
+            else
+            {
                 this.backingMap.put(element, newCount);
                 size = size - occurrences;
             }
@@ -187,35 +218,43 @@ public class HashBag<T> implements MutableBag<T> {
     }
 
     @Override
-    public void forEachWithOccurrences(BiConsumer<? super T, Integer> biConsumer) {
+    public void forEachWithOccurrences(BiConsumer<? super T, Integer> biConsumer)
+    {
         this.backingMap.forEach(biConsumer);
     }
 
     @Override
-    public void forEach(Consumer<? super T> consumer) {
+    public void forEach(Consumer<? super T> consumer)
+    {
         this.backingMap.forEach((key, count) ->
         {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 consumer.accept(key);
             }
         });
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return this.backingMap.hashCode();
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
+    public boolean equals(Object other)
+    {
+        if (this == other)
+        {
             return true;
         }
-        if (!(other instanceof HashBag)) {
+        if (!(other instanceof Bag))
+        {
             return false;
         }
-        HashBag<T> bag = (HashBag<T>) other;
-        if (this.sizeDistinct() != bag.sizeDistinct()) {
+        Bag<T> bag = (Bag<T>) other;
+        if (this.sizeDistinct() != bag.sizeDistinct())
+        {
             return false;
         }
 
@@ -225,7 +264,8 @@ public class HashBag<T> implements MutableBag<T> {
                 .allMatch(element -> bag.getOccurrences(element) == this.backingMap.get(element));
     }
 
-    private class BagIterator implements Iterator<T> {
+    private class BagIterator implements Iterator<T>
+    {
         private final Iterator<T> iterator = HashBag.this.backingMap.keySet().iterator();
 
         private T currentItem;
@@ -233,13 +273,16 @@ public class HashBag<T> implements MutableBag<T> {
         private boolean canRemove;
 
         @Override
-        public boolean hasNext() {
+        public boolean hasNext()
+        {
             return this.occurrences > 0 || this.iterator.hasNext();
         }
 
         @Override
-        public T next() {
-            if (this.occurrences == 0) {
+        public T next()
+        {
+            if (this.occurrences == 0)
+            {
                 this.currentItem = this.iterator.next();
                 this.occurrences = HashBag.this.getOccurrences(this.currentItem);
             }
@@ -249,46 +292,57 @@ public class HashBag<T> implements MutableBag<T> {
         }
 
         @Override
-        public void remove() {
-            if (!this.canRemove) {
+        public void remove()
+        {
+            if (!this.canRemove)
+            {
                 throw new IllegalStateException();
             }
-            if (this.occurrences == 0) {
+            if (this.occurrences == 0)
+            {
                 this.iterator.remove();
                 HashBag.this.size--;
-            } else {
+            }
+            else
+            {
                 HashBag.this.removeOccurrence(this.currentItem);
             }
             this.canRemove = false;
         }
     }
 
-    private class Counter {
+    private class Counter
+    {
         private int count;
 
-        public Counter() {
+        public Counter()
+        {
             this.count = 0;
         }
 
-        public void increment() {
+        public void increment()
+        {
             this.count++;
         }
 
-        public void decrement() {
+        public void decrement()
+        {
             this.count--;
         }
 
-        public void incrementBy(int increment) {
+        public void incrementBy(int increment)
+        {
             this.count += increment;
         }
 
-        public int getCount() {
+        public int getCount()
+        {
             return this.count;
         }
 
-        public void reset() {
+        public void reset()
+        {
             this.count = 0;
         }
     }
-
 }
