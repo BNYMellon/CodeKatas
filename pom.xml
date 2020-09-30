@@ -35,5 +35,6 @@
         <module>jmh-kata</module>
         <module>java-lambda-kata</module>
         <module>donut-kata-solutions</module>
+        <module>java-lambda-kata-solutions</module>
     </modules>
 </project>
