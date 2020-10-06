@@ -52,8 +52,8 @@ public class ImmutableListTest
 
         // filter method on java.util.stream.Stream
         List<Integer> lazyFilter = list.stream()
-                .filter(each -> each % 2 == 0)
-                .collect(Collectors.toList());
+                                       .filter(each -> each % 2 == 0)
+                                       .collect(Collectors.toList());
 
         var expected = List.of(2, 4);
         Assert.assertEquals(expected, eagerFilter);
@@ -76,12 +76,12 @@ public class ImmutableListTest
 
         // calling filter, map, reduce on java.util.stream.Stream
         Optional<String> lazy = list.stream()
-                .peek(i -> System.out.println("stream filter: " + i))
-                .filter(each -> each % 2 == 0)
-                .peek(i -> System.out.println("stream map: " + i))
-                .map(String::valueOf)
-                .peek(i -> System.out.println("stream reduce: " + i))
-                .reduce(String::concat);
+                                    .peek(i -> System.out.println("stream filter: " + i))
+                                    .filter(each -> each % 2 == 0)
+                                    .peek(i -> System.out.println("stream map: " + i))
+                                    .map(String::valueOf)
+                                    .peek(i -> System.out.println("stream reduce: " + i))
+                                    .reduce(String::concat);
 
         var expected = "24";
         Assert.assertEquals(expected, eager.orElse(""));
@@ -104,12 +104,12 @@ public class ImmutableListTest
 
         // calling filter, map, anyMatch on java.util.stream.Stream
         boolean lazy = list.stream()
-                .peek(i -> System.out.println("stream filter: " + i))
-                .filter(each -> each % 2 == 0)
-                .peek(i -> System.out.println("stream map: " + i))
-                .map(String::valueOf)
-                .peek(i -> System.out.println("stream anyMatch: " + i))
-                .anyMatch("2"::equals);
+                           .peek(i -> System.out.println("stream filter: " + i))
+                           .filter(each -> each % 2 == 0)
+                           .peek(i -> System.out.println("stream map: " + i))
+                           .map(String::valueOf)
+                           .peek(i -> System.out.println("stream anyMatch: " + i))
+                           .anyMatch("2"::equals);
 
         Assert.assertTrue(eager);
         Assert.assertTrue(lazy);
@@ -125,8 +125,8 @@ public class ImmutableListTest
 
         // filter method on java.util.stream.Stream using negative predicate
         List<Integer> actualStream = list.stream()
-                .filter(each -> each % 2 != 0)
-                .collect(Collectors.toList());
+                                         .filter(each -> each % 2 != 0)
+                                         .collect(Collectors.toList());
 
         var expected = MutableList.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
@@ -143,8 +143,8 @@ public class ImmutableListTest
 
         // map method on java.util.stream.Stream
         List<String> actualStream = list.stream()
-                .map(String::valueOf)
-                .collect(Collectors.toList());
+                                        .map(String::valueOf)
+                                        .collect(Collectors.toList());
 
         var expected = List.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
@@ -161,8 +161,8 @@ public class ImmutableListTest
 
         // flatMap method on java.util.stream.Stream
         List<Integer> actualStream = list.stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+                                         .flatMap(List::stream)
+                                         .collect(Collectors.toList());
 
         var expected = List.of(1, 2);
         Assert.assertEquals(expected, actual);
@@ -239,11 +239,11 @@ public class ImmutableListTest
 
         // filter + count method on java.util.stream.Stream
         Assert.assertEquals(2L, list.stream()
-                .filter(each -> each % 2 == 0)
-                .count());
+                                    .filter(each -> each % 2 == 0)
+                                    .count());
         Assert.assertEquals(3L, list.stream()
-                .filter(each -> each % 2 == 1)
-                .count());
+                                    .filter(each -> each % 2 == 1)
+                                    .count());
     }
 
     @Test
@@ -271,9 +271,9 @@ public class ImmutableListTest
         // collect method on java.util.stream.Stream
         // + groupingBy & counting on java.util.stream.Collectors
         Map<Integer, Long> countsStream = list.stream()
-                .collect(Collectors.groupingBy(
-                        each -> each % 2,
-                        Collectors.counting()));
+                                              .collect(Collectors.groupingBy(
+                                                      each -> each % 2,
+                                                      Collectors.counting()));
 
         Assert.assertEquals(3, counts.getOccurrences(1));
         Assert.assertEquals(2, counts.getOccurrences(0));
@@ -291,7 +291,7 @@ public class ImmutableListTest
 
         // collect method on java.util.stream.Stream + groupingBy on java.util.stream.Collectors
         Map<Integer, List<Integer>> groupedStream = list.stream()
-                .collect(Collectors.groupingBy(each -> each % 2));
+                                                        .collect(Collectors.groupingBy(each -> each % 2));
 
         var expected = ArrayListMultimap.<Integer, Integer>newMultimap();
         var oneList = MutableList.of(1, 3, 5);
@@ -363,7 +363,7 @@ public class ImmutableListTest
         // stream from java.util.stream.StreamSupport
         // + collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
         List<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
-                .collect(Collectors.toList());
+                                                  .collect(Collectors.toList());
 
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);

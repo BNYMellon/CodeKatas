@@ -23,14 +23,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.impl.test.Verify;
 import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.Assert;
 import org.junit.Test;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class JDKImperativeDeckOfCardsAsSortedSetTest
 {

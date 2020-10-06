@@ -16,6 +16,8 @@
 
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Random;
+
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import bnymellon.codekatas.deckofcards.list.immutable.JDKImperativeDeckOfCardsAsList;
@@ -23,19 +25,20 @@ import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Random;
-
-public class CustomCollectionsDeckOfCardsAsListTest {
+public class CustomCollectionsDeckOfCardsAsListTest
+{
     private JDKImperativeDeckOfCardsAsList jdkDeck = new JDKImperativeDeckOfCardsAsList();
     private CustomCollectionsDeckOfCardsAsList customDeck = new CustomCollectionsDeckOfCardsAsList();
 
     @Test
-    public void allCards() {
+    public void allCards()
+    {
         Assert.assertEquals(this.jdkDeck.getCards(), this.customDeck.getCards());
     }
 
     @Test
-    public void cardsAreImmutable() {
+    public void cardsAreImmutable()
+    {
         var jdk2Cards = this.customDeck.getCards();
         Verify.assertThrows(
                 UnsupportedOperationException.class,
@@ -49,27 +52,32 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     }
 
     @Test
-    public void diamonds() {
+    public void diamonds()
+    {
         Assert.assertEquals(this.jdkDeck.diamonds(), this.customDeck.diamonds());
     }
 
     @Test
-    public void hearts() {
+    public void hearts()
+    {
         Assert.assertEquals(this.jdkDeck.hearts(), this.customDeck.hearts());
     }
 
     @Test
-    public void spades() {
+    public void spades()
+    {
         Assert.assertEquals(this.jdkDeck.spades(), this.customDeck.spades());
     }
 
     @Test
-    public void clubs() {
+    public void clubs()
+    {
         Assert.assertEquals(this.jdkDeck.clubs(), this.customDeck.clubs());
     }
 
     @Test
-    public void deal() {
+    public void deal()
+    {
         var jdk1Shuffle = this.jdkDeck.shuffle(new Random(1));
         var jdk2Shuffle = this.customDeck.shuffle(new Random(1));
 
@@ -79,14 +87,16 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     }
 
     @Test
-    public void shuffleAndDealHands() {
+    public void shuffleAndDealHands()
+    {
         var jdk1Hands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         var jdk2Hands = this.customDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assert.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
-    public void dealHands() {
+    public void dealHands()
+    {
         var jdk1Shuffled = this.jdkDeck.shuffle(new Random(1));
         var jdk2Shuffled = this.customDeck.shuffle(new Random(1));
         var jdk1Hands = this.jdkDeck.dealHands(jdk1Shuffled, 5, 5);
@@ -95,14 +105,16 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     }
 
     @Test
-    public void cardsBySuit() {
+    public void cardsBySuit()
+    {
         var jdk1CardsBySuit = this.jdkDeck.getCardsBySuit();
         var jdk2CardsBySuit = this.customDeck.getCardsBySuit();
         Assert.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
     }
 
     @Test
-    public void cardsBySuitIsImmutable() {
+    public void cardsBySuitIsImmutable()
+    {
         var jdk2CardsBySuit = this.customDeck.getCardsBySuit();
         Verify.assertThrows(
                 UnsupportedOperationException.class,
@@ -122,8 +134,10 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     }
 
     @Test
-    public void countsBySuit() {
-        for (Suit suit : Suit.values()) {
+    public void countsBySuit()
+    {
+        for (Suit suit : Suit.values())
+        {
             Assert.assertEquals(
                     this.jdkDeck.countsBySuit().get(suit).intValue(),
                     this.customDeck.countsBySuit().getOccurrences(suit));
@@ -131,8 +145,10 @@ public class CustomCollectionsDeckOfCardsAsListTest {
     }
 
     @Test
-    public void countsByRank() {
-        for (Rank rank : Rank.values()) {
+    public void countsByRank()
+    {
+        for (Rank rank : Rank.values())
+        {
             Assert.assertEquals(
                     this.jdkDeck.countsByRank().get(rank).intValue(),
                     this.customDeck.countsByRank().getOccurrences(rank));

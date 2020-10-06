@@ -39,16 +39,16 @@ public class FullMonth extends CalendarWindow
         this.meetings = calendarMeetings.selectKeysValues(
                 (date, meeting) ->
                         date.getMonth().equals(start.getMonth()) &&
-                                date.getYear() == start.getYear());
+                        date.getYear() == start.getYear());
     }
 
     @Override
     public String toString()
     {
         return "FullMonth(" +
-                "start=" + this.getStart() +
-                ", end=" + this.getEnd() +
-                ", meetings=" + this.iterateMeetings() +
-                ')';
+               "start=" + this.getStart() +
+               ", end=" + this.getEnd() +
+               ", meetings=" + this.iterateMeetings() +
+               ')';
     }
 }

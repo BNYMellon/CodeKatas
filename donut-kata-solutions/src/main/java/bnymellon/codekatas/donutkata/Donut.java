@@ -16,4 +16,6 @@
 
 package bnymellon.codekatas.donutkata;
 
-public record Donut(DonutType type, double price) {}
+public record Donut(DonutType type, double price)
+{
+}

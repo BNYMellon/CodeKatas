@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public sealed interface ImmutableSet<T> extends ImmutableCollection<T>, Set<T>
-    permits ImmutableEmptySet, ImmutableHashSet
+        permits ImmutableEmptySet, ImmutableHashSet
 {
     static <E> ImmutableSet<E> empty()
     {

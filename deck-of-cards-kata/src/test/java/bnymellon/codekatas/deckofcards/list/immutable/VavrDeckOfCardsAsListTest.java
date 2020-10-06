@@ -18,11 +18,10 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class VavrDeckOfCardsAsListTest
 {

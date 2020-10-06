@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public sealed interface ImmutableList<T> extends ImmutableCollection<T>, List<T>
-    permits ImmutableEmptyList, ImmutableArrayList
+        permits ImmutableEmptyList, ImmutableArrayList
 {
     static <E> ImmutableList<E> empty()
     {

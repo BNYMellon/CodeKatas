@@ -24,14 +24,13 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class ApacheCommonsDeckOfCardsAsSortedSetTest
 {

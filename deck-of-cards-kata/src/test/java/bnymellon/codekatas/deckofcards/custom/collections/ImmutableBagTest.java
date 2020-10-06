@@ -40,8 +40,8 @@ public class ImmutableBagTest
 
         // filter method on java.util.stream.Stream
         Bag<Integer> lazyFilter = bag.stream()
-                .filter(each -> each % 2 == 0)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                                     .filter(each -> each % 2 == 0)
+                                     .collect(Collectors.toCollection(MutableBag::empty));
 
         var expected = MutableBag.of(2, 4);
         Assert.assertEquals(expected, eagerFilter);
@@ -64,12 +64,12 @@ public class ImmutableBagTest
 
         // calling filter, map, reduce on java.util.stream.Stream
         Optional<String> lazy = bag.stream()
-                .peek(i -> System.out.println("stream filter: " + i))
-                .filter(each -> each % 2 == 0)
-                .peek(i -> System.out.println("stream map: " + i))
-                .map(String::valueOf)
-                .peek(i -> System.out.println("stream reduce: " + i))
-                .reduce(String::concat);
+                                   .peek(i -> System.out.println("stream filter: " + i))
+                                   .filter(each -> each % 2 == 0)
+                                   .peek(i -> System.out.println("stream map: " + i))
+                                   .map(String::valueOf)
+                                   .peek(i -> System.out.println("stream reduce: " + i))
+                                   .reduce(String::concat);
 
         var expected = "24";
         Assert.assertEquals(expected, eager.orElse(""));
@@ -92,12 +92,12 @@ public class ImmutableBagTest
 
         // calling filter, map, anyMatch on java.util.stream.Stream
         boolean lazy = bag.stream()
-                .peek(i -> System.out.println("stream filter: " + i))
-                .filter(each -> each % 2 == 0)
-                .peek(i -> System.out.println("stream map: " + i))
-                .map(String::valueOf)
-                .peek(i -> System.out.println("stream anyMatch: " + i))
-                .anyMatch("2"::equals);
+                          .peek(i -> System.out.println("stream filter: " + i))
+                          .filter(each -> each % 2 == 0)
+                          .peek(i -> System.out.println("stream map: " + i))
+                          .map(String::valueOf)
+                          .peek(i -> System.out.println("stream anyMatch: " + i))
+                          .anyMatch("2"::equals);
 
         Assert.assertTrue(eager);
         Assert.assertTrue(lazy);
@@ -113,8 +113,8 @@ public class ImmutableBagTest
 
         // filter method on java.util.stream.Stream using negative predicate
         Bag<Integer> actualStream = bag.stream()
-                .filter(each -> each % 2 != 0)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                                       .filter(each -> each % 2 != 0)
+                                       .collect(Collectors.toCollection(MutableBag::empty));
 
         var expected = MutableBag.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
@@ -131,8 +131,8 @@ public class ImmutableBagTest
 
         // map method on java.util.stream.Stream
         Bag<String> actualStream = bag.stream()
-                .map(String::valueOf)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                                      .map(String::valueOf)
+                                      .collect(Collectors.toCollection(MutableBag::empty));
 
         var expected = MutableBag.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
@@ -149,8 +149,8 @@ public class ImmutableBagTest
 
         // flatMap method on java.util.stream.Stream
         Bag<Integer> actualStream = bag.stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                                       .flatMap(List::stream)
+                                       .collect(Collectors.toCollection(MutableBag::empty));
 
         var expected = MutableBag.of(1, 2);
         Assert.assertEquals(expected, actual);
@@ -227,11 +227,11 @@ public class ImmutableBagTest
 
         // filter + count method on java.util.stream.Stream
         Assert.assertEquals(2L, bag.stream()
-                .filter(each -> each % 2 == 0)
-                .count());
+                                   .filter(each -> each % 2 == 0)
+                                   .count());
         Assert.assertEquals(3L, bag.stream()
-                .filter(each -> each % 2 == 1)
-                .count());
+                                   .filter(each -> each % 2 == 1)
+                                   .count());
     }
 
     @Test
@@ -259,9 +259,9 @@ public class ImmutableBagTest
         // collect method on java.util.stream.Stream
         // + groupingBy & counting on java.util.stream.Collectors
         Map<Integer, Long> countsStream = bag.stream()
-                .collect(Collectors.groupingBy(
-                        each -> each % 2,
-                        Collectors.counting()));
+                                             .collect(Collectors.groupingBy(
+                                                     each -> each % 2,
+                                                     Collectors.counting()));
 
         Assert.assertEquals(3, counts.getOccurrences(1));
         Assert.assertEquals(2, counts.getOccurrences(0));

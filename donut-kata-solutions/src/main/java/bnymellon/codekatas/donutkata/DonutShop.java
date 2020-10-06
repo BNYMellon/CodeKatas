@@ -92,10 +92,10 @@ public class DonutShop
     private Delivery createDelivery(Order order, double price)
     {
         var donutList = order.counts()
-                .asLazy()
-                .collect(type -> new Donut(type, price))
-                .toList()
-                .toImmutable();
+                             .asLazy()
+                             .collect(type -> new Donut(type, price))
+                             .toList()
+                             .toImmutable();
         var delivery = new Delivery(order, donutList);
         this.deliveries.add(delivery);
         return delivery;
@@ -109,7 +109,7 @@ public class DonutShop
                 {
                     throw new IllegalArgumentException("This order cannot be satisfied");
                 })
-                .getTwo();
+                     .getTwo();
     }
 
     private Order createOrder(Customer customer, LocalDate date, String donutTypeCounts)
@@ -174,8 +174,8 @@ public class DonutShop
     public String toString()
     {
         return "DonutShop(" +
-                "donuts=" + this.donuts.toStringOfItemToCount() +
-                ", deliveries=" + this.deliveries +
-                ')';
+               "donuts=" + this.donuts.toStringOfItemToCount() +
+               ", deliveries=" + this.deliveries +
+               ')';
     }
 }

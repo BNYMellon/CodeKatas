@@ -40,8 +40,8 @@ public class MutableSetTest
 
         // filter method on java.util.stream.Stream
         Set<Integer> actualStream = set.stream()
-                .filter(each -> each % 2 == 0)
-                .collect(Collectors.toSet());
+                                       .filter(each -> each % 2 == 0)
+                                       .collect(Collectors.toSet());
 
         var expected = MutableSet.of(2, 4);
         Assert.assertEquals(expected, actual);
@@ -58,8 +58,8 @@ public class MutableSetTest
 
         // filter method on java.util.stream.Stream using negative predicate
         Set<Integer> actualStream = set.stream()
-                .filter(each -> each % 2 != 0)
-                .collect(Collectors.toSet());
+                                       .filter(each -> each % 2 != 0)
+                                       .collect(Collectors.toSet());
 
         var expected = MutableSet.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
@@ -76,8 +76,8 @@ public class MutableSetTest
 
         // map method on java.util.stream.Stream
         Set<String> actualStream = set.stream()
-                .map(String::valueOf)
-                .collect(Collectors.toSet());
+                                      .map(String::valueOf)
+                                      .collect(Collectors.toSet());
 
         var expected = MutableSet.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
@@ -94,8 +94,8 @@ public class MutableSetTest
 
         // flatMap method on java.util.stream.Stream
         Set<Integer> actualStream = set.stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toSet());
+                                       .flatMap(List::stream)
+                                       .collect(Collectors.toSet());
 
         var expected = Set.of(1, 2);
         Assert.assertEquals(expected, actual);
@@ -172,11 +172,11 @@ public class MutableSetTest
 
         // filter + count method on java.util.stream.Stream
         Assert.assertEquals(2L, set.stream()
-                .filter(each -> each % 2 == 0)
-                .count());
+                                   .filter(each -> each % 2 == 0)
+                                   .count());
         Assert.assertEquals(3L, set.stream()
-                .filter(each -> each % 2 == 1)
-                .count());
+                                   .filter(each -> each % 2 == 1)
+                                   .count());
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -198,9 +198,9 @@ public class MutableSetTest
         // collect method on java.util.stream.Stream
         // + groupingBy & counting on java.util.stream.Collectors
         Map<Integer, Long> countsStream = set.stream()
-                .collect(Collectors.groupingBy(
-                        each -> each % 2,
-                        Collectors.counting()));
+                                             .collect(Collectors.groupingBy(
+                                                     each -> each % 2,
+                                                     Collectors.counting()));
 
         var expected = MutableBag.of(1, 1, 1, 0, 0);
         Assert.assertEquals(expected, counts);
@@ -218,9 +218,9 @@ public class MutableSetTest
 
         // collect method on java.util.stream.Stream + groupingBy on java.util.stream.Collectors
         Map<Integer, Set<Integer>> groupedStream = set.stream()
-                .collect(Collectors.groupingBy(
-                        each -> each % 2,
-                        Collectors.toSet()));
+                                                      .collect(Collectors.groupingBy(
+                                                              each -> each % 2,
+                                                              Collectors.toSet()));
 
         var expected = MutableSetMultimap.<Integer, Integer>empty();
         var oddSet = MutableSet.of(1, 3, 5);
@@ -258,7 +258,7 @@ public class MutableSetTest
 
         // collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
         Set<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
-                .collect(Collectors.toSet());
+                                                 .collect(Collectors.toSet());
 
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);

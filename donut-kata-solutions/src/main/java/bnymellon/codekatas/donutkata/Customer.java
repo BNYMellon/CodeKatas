@@ -60,7 +60,7 @@ public record Customer(String name, MutableList<Delivery> deliveries)
     public String toString()
     {
         return "Customer(" +
-                "name='" + this.name + '\'' +
-                ')';
+               "name='" + this.name + '\'' +
+               ')';
     }
 }

@@ -19,6 +19,9 @@ package bnymellon.codekatas.deckofcards.sortedset.immutable;
 import java.util.Random;
 import java.util.function.Function;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.collection.HashSet;
@@ -27,10 +30,6 @@ import io.vavr.collection.Map;
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.collection.TreeSet;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class VavrDeckOfCardsAsSortedSet
 {

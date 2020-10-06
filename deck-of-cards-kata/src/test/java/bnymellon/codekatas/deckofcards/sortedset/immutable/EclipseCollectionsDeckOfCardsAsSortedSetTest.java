@@ -23,6 +23,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
@@ -30,10 +33,6 @@ import org.eclipse.collections.api.stack.MutableStack;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class EclipseCollectionsDeckOfCardsAsSortedSetTest
 {

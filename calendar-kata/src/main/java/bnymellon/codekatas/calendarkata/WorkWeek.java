@@ -46,9 +46,9 @@ public class WorkWeek extends CalendarWindow
     public String toString()
     {
         return "WorkWeek(" +
-                "start=" + this.getStart() +
-                ", end=" + this.getEnd() +
-                ", meetings=" + this.iterateMeetings() +
-                ')';
+               "start=" + this.getStart() +
+               ", end=" + this.getEnd() +
+               ", meetings=" + this.iterateMeetings() +
+               ')';
     }
 }

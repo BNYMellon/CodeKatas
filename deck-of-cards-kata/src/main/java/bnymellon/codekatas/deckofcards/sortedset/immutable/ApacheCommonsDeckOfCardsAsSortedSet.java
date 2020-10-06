@@ -24,15 +24,14 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.IntStream;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.Bag;
 import org.apache.commons.collections4.MultiMapUtils;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.SetValuedMap;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class ApacheCommonsDeckOfCardsAsSortedSet
 {

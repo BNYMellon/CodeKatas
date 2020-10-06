@@ -55,35 +55,35 @@ public class CodePointKataTest
 
     private boolean expectedBagOfCharacters(CharBag actual)
     {
-        return  actual.occurrencesOf(' ') == 8 &&
-                actual.occurrencesOf('.') == 1 &&
-                actual.occurrencesOf('T') == 1 &&
-                actual.occurrencesOf('a') == 1 &&
-                actual.occurrencesOf('b') == 1 &&
-                actual.occurrencesOf('c') == 1 &&
-                actual.occurrencesOf('d') == 1 &&
-                actual.occurrencesOf('e') == 3 &&
-                actual.occurrencesOf('f') == 1 &&
-                actual.occurrencesOf('g') == 1 &&
-                actual.occurrencesOf('h') == 2 &&
-                actual.occurrencesOf('i') == 1 &&
-                actual.occurrencesOf('j') == 1 &&
-                actual.occurrencesOf('k') == 1 &&
-                actual.occurrencesOf('l') == 1 &&
-                actual.occurrencesOf('m') == 1 &&
-                actual.occurrencesOf('n') == 1 &&
-                actual.occurrencesOf('o') == 4 &&
-                actual.occurrencesOf('p') == 1 &&
-                actual.occurrencesOf('q') == 1 &&
-                actual.occurrencesOf('r') == 2 &&
-                actual.occurrencesOf('s') == 1 &&
-                actual.occurrencesOf('t') == 1 &&
-                actual.occurrencesOf('u') == 2 &&
-                actual.occurrencesOf('v') == 1 &&
-                actual.occurrencesOf('w') == 1 &&
-                actual.occurrencesOf('x') == 1 &&
-                actual.occurrencesOf('y') == 1 &&
-                actual.occurrencesOf('z') == 1;
+        return actual.occurrencesOf(' ') == 8 &&
+               actual.occurrencesOf('.') == 1 &&
+               actual.occurrencesOf('T') == 1 &&
+               actual.occurrencesOf('a') == 1 &&
+               actual.occurrencesOf('b') == 1 &&
+               actual.occurrencesOf('c') == 1 &&
+               actual.occurrencesOf('d') == 1 &&
+               actual.occurrencesOf('e') == 3 &&
+               actual.occurrencesOf('f') == 1 &&
+               actual.occurrencesOf('g') == 1 &&
+               actual.occurrencesOf('h') == 2 &&
+               actual.occurrencesOf('i') == 1 &&
+               actual.occurrencesOf('j') == 1 &&
+               actual.occurrencesOf('k') == 1 &&
+               actual.occurrencesOf('l') == 1 &&
+               actual.occurrencesOf('m') == 1 &&
+               actual.occurrencesOf('n') == 1 &&
+               actual.occurrencesOf('o') == 4 &&
+               actual.occurrencesOf('p') == 1 &&
+               actual.occurrencesOf('q') == 1 &&
+               actual.occurrencesOf('r') == 2 &&
+               actual.occurrencesOf('s') == 1 &&
+               actual.occurrencesOf('t') == 1 &&
+               actual.occurrencesOf('u') == 2 &&
+               actual.occurrencesOf('v') == 1 &&
+               actual.occurrencesOf('w') == 1 &&
+               actual.occurrencesOf('x') == 1 &&
+               actual.occurrencesOf('y') == 1 &&
+               actual.occurrencesOf('z') == 1;
     }
 
     @Test

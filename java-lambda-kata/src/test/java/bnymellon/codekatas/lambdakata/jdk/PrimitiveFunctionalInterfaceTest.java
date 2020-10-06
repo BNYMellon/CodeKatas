@@ -45,7 +45,7 @@ public class PrimitiveFunctionalInterfaceTest
             @Override
             public void accept(int value)
             {
-                adder.add((long)value);
+                adder.add((long) value);
             }
         };
         IntStream.rangeClosed(1, 5).forEach(consumer);

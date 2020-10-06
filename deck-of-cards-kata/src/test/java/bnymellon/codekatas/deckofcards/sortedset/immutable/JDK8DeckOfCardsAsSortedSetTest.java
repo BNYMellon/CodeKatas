@@ -23,13 +23,12 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.eclipse.collections.impl.test.Verify;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class JDK8DeckOfCardsAsSortedSetTest
 {

@@ -19,60 +19,72 @@ import java.util.AbstractList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-public class UnmodifiableMutableList<T> extends AbstractList<T> implements MutableList<T> {
+public class UnmodifiableMutableList<T> extends AbstractList<T> implements MutableList<T>
+{
     private final MutableList<T> adapted;
 
-    public UnmodifiableMutableList(MutableList<T> adapted) {
+    public UnmodifiableMutableList(MutableList<T> adapted)
+    {
         this.adapted = adapted;
     }
 
     @Override
-    public MutableList<T> asUnmodifiable() {
+    public MutableList<T> asUnmodifiable()
+    {
         return this;
     }
 
     @Override
-    public T get(int index) {
+    public T get(int index)
+    {
         return this.adapted.get(index);
     }
 
     @Override
-    public int size() {
+    public int size()
+    {
         return this.adapted.size();
     }
 
     @Override
-    public boolean add(T t) {
+    public boolean add(T t)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public T set(int index, T element) {
+    public T set(int index, T element)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void add(int index, T element) {
+    public void add(int index, T element)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public T remove(int index) {
+    public T remove(int index)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void clear() {
+    public void clear()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, Collection<? extends T> c)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void removeRange(int fromIndex, int toIndex) {
+    protected void removeRange(int fromIndex, int toIndex)
+    {
         throw new UnsupportedOperationException();
     }
 

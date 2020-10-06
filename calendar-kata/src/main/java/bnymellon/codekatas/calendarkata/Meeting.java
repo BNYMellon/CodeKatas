@@ -82,9 +82,9 @@ public class Meeting implements Comparable<Meeting>
     public Interval getInterval()
     {
         return Interval.of(
-                LocalDateTime.of(this.date,this.startTime)
-                        .atZone(this.zoneId)
-                        .toInstant(),
+                LocalDateTime.of(this.date, this.startTime)
+                             .atZone(this.zoneId)
+                             .toInstant(),
                 this.duration);
     }
 
@@ -101,10 +101,10 @@ public class Meeting implements Comparable<Meeting>
         }
         Meeting meeting = (Meeting) o;
         return Objects.equals(this.getSubject(), meeting.getSubject()) &&
-                Objects.equals(this.getDate(), meeting.getDate()) &&
-                Objects.equals(this.getStartTime(), meeting.getStartTime()) &&
-                Objects.equals(this.getDuration(), meeting.getDuration()) &&
-                Objects.equals(this.getZoneId(), meeting.getZoneId());
+               Objects.equals(this.getDate(), meeting.getDate()) &&
+               Objects.equals(this.getStartTime(), meeting.getStartTime()) &&
+               Objects.equals(this.getDuration(), meeting.getDuration()) &&
+               Objects.equals(this.getZoneId(), meeting.getZoneId());
     }
 
     @Override
@@ -122,12 +122,12 @@ public class Meeting implements Comparable<Meeting>
     public String toString()
     {
         return "Meeting(" +
-                "subject='" + this.getSubject() + '\'' +
-                ", date=" + this.getDate() +
-                ", startTime=" + this.getStartTime() +
-                ", duration=" + this.getDuration() +
-                ", endTime=" + this.getEndTime() +
-                ')';
+               "subject='" + this.getSubject() + '\'' +
+               ", date=" + this.getDate() +
+               ", startTime=" + this.getStartTime() +
+               ", duration=" + this.getDuration() +
+               ", endTime=" + this.getEndTime() +
+               ')';
     }
 
     @Override

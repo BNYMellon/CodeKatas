@@ -67,15 +67,15 @@ public class IntListJMHBenchmark
     public static void main(String[] args) throws RunnerException
     {
         var options = new OptionsBuilder().include(".*" + IntListJMHBenchmark.class.getSimpleName() + ".*")
-                .forks(2)
-                .warmupIterations(10)
-                .warmupTime(TimeValue.seconds(5L))
-                .measurementIterations(10)
-                .measurementTime(TimeValue.seconds(5L))
-                .timeout(TimeValue.seconds(20))
-                .mode(Mode.Throughput)
-                .timeUnit(TimeUnit.SECONDS)
-                .build();
+                                          .forks(2)
+                                          .warmupIterations(10)
+                                          .warmupTime(TimeValue.seconds(5L))
+                                          .measurementIterations(10)
+                                          .measurementTime(TimeValue.seconds(5L))
+                                          .timeout(TimeValue.seconds(20))
+                                          .mode(Mode.Throughput)
+                                          .timeUnit(TimeUnit.SECONDS)
+                                          .build();
         new Runner(options).run();
     }
 

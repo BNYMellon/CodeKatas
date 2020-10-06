@@ -20,14 +20,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-
-public class UnmodifiableArrayListMultimapTest {
+public class UnmodifiableArrayListMultimapTest
+{
     private UnmodifiableArrayListMultimap<String, Integer> testObj;
     private ArrayListMultimap<String, Integer> inputMultimap;
 
     @Before
-    public void setup() {
+    public void setup()
+    {
         this.inputMultimap = new ArrayListMultimap<>();
         this.inputMultimap.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
         this.inputMultimap.putAll(MutableMap.of("B", MutableList.of(10, 10)));
@@ -35,12 +35,14 @@ public class UnmodifiableArrayListMultimapTest {
     }
 
     @Test
-    public void isConstructed() {
+    public void isConstructed()
+    {
         Assert.assertNotNull(new ArrayListMultimap<>());
     }
 
     @Test
-    public void isEmpty() {
+    public void isEmpty()
+    {
         this.testObj = new UnmodifiableArrayListMultimap(new ArrayListMultimap());
         Assert.assertTrue(this.testObj.isEmpty());
         this.testObj = new UnmodifiableArrayListMultimap(this.inputMultimap);
@@ -48,7 +50,8 @@ public class UnmodifiableArrayListMultimapTest {
     }
 
     @Test
-    public void get() {
+    public void get()
+    {
         MutableList<Integer> value = this.testObj.get("A");
         Assert.assertEquals(MutableList.of(1, 2, 3, 1), value);
         Assert.assertEquals(MutableList.empty(), this.testObj.get("C"));
@@ -56,39 +59,46 @@ public class UnmodifiableArrayListMultimapTest {
     }
 
     @Test
-    public void put() {
+    public void put()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", 1));
     }
 
     @Test
-    public void get_putIterable() {
+    public void get_putIterable()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", MutableList.of(1)));
     }
 
     @Test
-    public void putAll() {
+    public void putAll()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3))));
     }
 
     @Test
-    public void remove() {
+    public void remove()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
     }
 
     @Test
-    public void remove_keyValue() {
+    public void remove_keyValue()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
     }
 
     @Test
-    public void containsKey() {
+    public void containsKey()
+    {
         Assert.assertTrue(this.testObj.containsKey("A"));
         Assert.assertTrue(this.testObj.containsKey("B"));
         Assert.assertFalse(this.testObj.containsKey("C"));
     }
 
     @Test
-    public void containsValue() {
+    public void containsValue()
+    {
         Assert.assertTrue(this.testObj.containsValue(1));
         Assert.assertTrue(this.testObj.containsValue(2));
         Assert.assertTrue(this.testObj.containsValue(3));
@@ -97,17 +107,20 @@ public class UnmodifiableArrayListMultimapTest {
     }
 
     @Test
-    public void clear() {
+    public void clear()
+    {
         Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.clear());
     }
 
     @Test
-    public void keySet() {
+    public void keySet()
+    {
         Assert.assertEquals(MutableSet.of("A", "B"), this.testObj.keySet());
     }
 
     @Test
-    public void forEach() {
+    public void forEach()
+    {
         MutableList<String> combined = MutableList.empty();
         this.testObj.forEach((key, value) -> combined.add(key + value.toString()));
         Assert.assertEquals(

@@ -56,15 +56,15 @@ public class PersonJMHBenchmark
     public static void main(String[] args) throws RunnerException
     {
         var options = new OptionsBuilder().include(".*" + PersonJMHBenchmark.class.getSimpleName() + ".*")
-                .forks(2)
-                .warmupIterations(10)
-                .warmupTime(TimeValue.seconds(5L))
-                .measurementIterations(10)
-                .measurementTime(TimeValue.seconds(5L))
-                .timeout(TimeValue.seconds(20))
-                .mode(Mode.Throughput)
-                .timeUnit(TimeUnit.SECONDS)
-                .build();
+                                          .forks(2)
+                                          .warmupIterations(10)
+                                          .warmupTime(TimeValue.seconds(5L))
+                                          .measurementIterations(10)
+                                          .measurementTime(TimeValue.seconds(5L))
+                                          .timeout(TimeValue.seconds(20))
+                                          .mode(Mode.Throughput)
+                                          .timeUnit(TimeUnit.SECONDS)
+                                          .build();
         new Runner(options).run();
     }
 
@@ -97,8 +97,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .collect(Collectors.groupingBy(Person::getAge));
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
 
@@ -107,8 +107,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
-                        .select(person -> person.getHeightInInches() < 150)
-                        .groupBy(Person::getAge);
+                      .select(person -> person.getHeightInInches() < 150)
+                      .groupBy(Person::getAge);
         return grouped;
     }
 
@@ -127,8 +127,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .collect(Collectors2.toListMultimap(Person::getAge));
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .collect(Collectors2.toListMultimap(Person::getAge));
         return grouped;
     }
 
@@ -137,9 +137,9 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .filter(person -> person.getHeightInInches() > 80)
-                        .collect(Collectors.toList());
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .filter(person -> person.getHeightInInches() > 80)
+                      .collect(Collectors.toList());
         return filtered;
     }
 
@@ -148,9 +148,9 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
-                        .select(person -> person.getHeightInInches() < 150)
-                        .select(person -> person.getHeightInInches() > 80)
-                        .toList();
+                      .select(person -> person.getHeightInInches() < 150)
+                      .select(person -> person.getHeightInInches() > 80)
+                      .toList();
         return filtered;
     }
 
@@ -167,8 +167,8 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .collect(Collectors2.select(person -> person.getHeightInInches() > 80, Lists.mutable::empty));
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .collect(Collectors2.select(person -> person.getHeightInInches() > 80, Lists.mutable::empty));
         return filtered;
     }
 
@@ -213,8 +213,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().stream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .collect(Collectors.groupingBy(Person::getAge));
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
 
@@ -223,8 +223,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getECPeople()
-                        .select(person -> person.getHeightInInches() < 150)
-                        .groupBy(Person::getAge);
+                      .select(person -> person.getHeightInInches() < 150)
+                      .groupBy(Person::getAge);
         return grouped;
     }
 
@@ -232,9 +232,9 @@ public class PersonJMHBenchmark
     public Multimap<Integer, Person> filterAndGroupByAgeECLazy_serial()
     {
         var grouped = Person.getECPeople()
-                .asLazy()
-                .select(person -> person.getHeightInInches() < 150)
-                .groupBy(Person::getAge);
+                            .asLazy()
+                            .select(person -> person.getHeightInInches() < 150)
+                            .groupBy(Person::getAge);
         return grouped;
     }
 
@@ -243,9 +243,9 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().stream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .filter(person -> person.getHeightInInches() > 80)
-                        .collect(Collectors.groupingBy(Person::getAge));
+                      .filter(person -> person.getHeightInInches() < 150)
+                      .filter(person -> person.getHeightInInches() > 80)
+                      .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
 
@@ -253,8 +253,8 @@ public class PersonJMHBenchmark
     public List<Person> filterECEager_serial()
     {
         var filtered = Person.getECPeople()
-                .select(person -> person.getHeightInInches() < 150)
-                .select(person -> person.getHeightInInches() > 80);
+                             .select(person -> person.getHeightInInches() < 150)
+                             .select(person -> person.getHeightInInches() > 80);
         return filtered;
     }
 
@@ -262,10 +262,10 @@ public class PersonJMHBenchmark
     public List<Person> filterECLazy_serial()
     {
         var filtered = Person.getECPeople()
-                .asLazy()
-                .select(person -> person.getHeightInInches() < 150)
-                .select(person -> person.getHeightInInches() > 80)
-                .toList();
+                             .asLazy()
+                             .select(person -> person.getHeightInInches() < 150)
+                             .select(person -> person.getHeightInInches() > 80)
+                             .toList();
         return filtered;
     }
 
@@ -292,9 +292,9 @@ public class PersonJMHBenchmark
     {
         var uniqueAges =
                 Person.getJDKPeople().stream()
-                        .mapToInt(Person::getAge)
-                        .boxed()
-                        .collect(Collectors.toSet());
+                      .mapToInt(Person::getAge)
+                      .boxed()
+                      .collect(Collectors.toSet());
         var summary = uniqueAges.stream().mapToInt(i -> i).summaryStatistics();
         return summary;
     }
@@ -304,8 +304,8 @@ public class PersonJMHBenchmark
     {
         var uniqueAges =
                 Person.getECPeople()
-                        .parallelStream()
-                        .collect(Collectors2.collectInt(Person::getAge, IntSets.mutable::empty));
+                      .parallelStream()
+                      .collect(Collectors2.collectInt(Person::getAge, IntSets.mutable::empty));
         var summary = uniqueAges.summaryStatistics();
         return summary;
     }
@@ -315,9 +315,9 @@ public class PersonJMHBenchmark
     {
         var uniqueAges =
                 Person.getJDKPeople().parallelStream()
-                        .mapToInt(Person::getAge)
-                        .boxed()
-                        .collect(Collectors.toSet());
+                      .mapToInt(Person::getAge)
+                      .boxed()
+                      .collect(Collectors.toSet());
         var summary = uniqueAges.parallelStream().mapToInt(i -> i).summaryStatistics();
         return summary;
     }

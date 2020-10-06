@@ -56,13 +56,13 @@ public class MyCalendarTest
     private void setupWeekendMeetings()
     {
         this.calendar.addMeeting("Soccer Match",
-                LocalDate.of(2017, 7, 2),
-                LocalTime.of(13, 0),
-                Duration.ofHours(2));
+                                 LocalDate.of(2017, 7, 2),
+                                 LocalTime.of(13, 0),
+                                 Duration.ofHours(2));
         this.calendar.addMeeting("Swimming Championship",
-                LocalDate.of(2017, 7, 8),
-                LocalTime.of(13, 0),
-                Duration.ofHours(2));
+                                 LocalDate.of(2017, 7, 8),
+                                 LocalTime.of(13, 0),
+                                 Duration.ofHours(2));
     }
 
     /**
@@ -71,13 +71,13 @@ public class MyCalendarTest
     private void setupOverlappingWeekendMeetings()
     {
         this.calendar.addMeeting("Soccer Match",
-                LocalDate.of(2017, 7, 2),
-                LocalTime.of(12, 30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 2),
+                                 LocalTime.of(12, 30),
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Swimming Championship",
-                LocalDate.of(2017, 7, 8),
-                LocalTime.of(12, 30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 8),
+                                 LocalTime.of(12, 30),
+                                 Duration.ofHours(1));
     }
 
     /**
@@ -86,21 +86,21 @@ public class MyCalendarTest
     private void setupWeekdayMeetings()
     {
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 3),
-                LocalTime.NOON,
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 3),
+                                 LocalTime.NOON,
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 5),
-                LocalTime.NOON,
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 5),
+                                 LocalTime.NOON,
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 6),
-                LocalTime.NOON,
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 6),
+                                 LocalTime.NOON,
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 7),
-                LocalTime.NOON,
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 7),
+                                 LocalTime.NOON,
+                                 Duration.ofHours(1));
     }
 
     /**
@@ -109,21 +109,21 @@ public class MyCalendarTest
     private void setupOverlappingWeekdayMeetings()
     {
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 3),
-                LocalTime.NOON.plusMinutes(30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 3),
+                                 LocalTime.NOON.plusMinutes(30),
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 5),
-                LocalTime.NOON.plusMinutes(30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 5),
+                                 LocalTime.NOON.plusMinutes(30),
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 6),
-                LocalTime.NOON.plusMinutes(30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 6),
+                                 LocalTime.NOON.plusMinutes(30),
+                                 Duration.ofHours(1));
         this.calendar.addMeeting("Lunch",
-                LocalDate.of(2017, 7, 7),
-                LocalTime.NOON.plusMinutes(30),
-                Duration.ofHours(1));
+                                 LocalDate.of(2017, 7, 7),
+                                 LocalTime.NOON.plusMinutes(30),
+                                 Duration.ofHours(1));
     }
 
     @Test

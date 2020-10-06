@@ -72,13 +72,13 @@ public class HashBag<T> implements MutableBag<T>
     {
         Counter index = new Counter();
         this.backingMap.forEach((key, count) ->
-        {
-            for (int i = 0; i < count; i++)
-            {
-                biConsumer.accept(key, index.getCount());
-                index.increment();
-            }
-        });
+                                {
+                                    for (int i = 0; i < count; i++)
+                                    {
+                                        biConsumer.accept(key, index.getCount());
+                                        index.increment();
+                                    }
+                                });
     }
 
     @Override
@@ -86,8 +86,8 @@ public class HashBag<T> implements MutableBag<T>
     {
         int size = this.size();
         T1[] result = array.length < size
-                ? (T1[]) Array.newInstance(array.getClass().getComponentType(), size)
-                : array;
+                      ? (T1[]) Array.newInstance(array.getClass().getComponentType(), size)
+                      : array;
 
         this.forEachWithIndex((each, index) -> result[index] = (T1) each);
         if (result.length > size)
@@ -139,14 +139,14 @@ public class HashBag<T> implements MutableBag<T>
         MutableMap<T, Integer> map = MutableMap.empty();
         Counter counter = new Counter();
         c.forEach(each ->
-        {
-            Integer occurrences = this.backingMap.get(each);
-            if (occurrences != null)
-            {
-                map.put((T) each, occurrences);
-                counter.incrementBy(occurrences);
-            }
-        });
+                  {
+                      Integer occurrences = this.backingMap.get(each);
+                      if (occurrences != null)
+                      {
+                          map.put((T) each, occurrences);
+                          counter.incrementBy(occurrences);
+                      }
+                  });
         if (!map.isEmpty())
         {
             this.backingMap = map;
@@ -227,12 +227,12 @@ public class HashBag<T> implements MutableBag<T>
     public void forEach(Consumer<? super T> consumer)
     {
         this.backingMap.forEach((key, count) ->
-        {
-            for (int i = 0; i < count; i++)
-            {
-                consumer.accept(key);
-            }
-        });
+                                {
+                                    for (int i = 0; i < count; i++)
+                                    {
+                                        consumer.accept(key);
+                                    }
+                                });
     }
 
     @Override

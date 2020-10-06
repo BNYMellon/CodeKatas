@@ -77,8 +77,8 @@ public class DonutShopTest
     public void getTop2Donuts()
     {
         var expected = Lists.mutable.empty()
-                .with(pair(DonutType.BOSTON_CREAM, 15))
-                .with(pair(DonutType.GLAZED, 11));
+                                    .with(pair(DonutType.BOSTON_CREAM, 15))
+                                    .with(pair(DonutType.GLAZED, 11));
         Assert.assertEquals(expected, this.donutShop.getTopDonuts(2));
     }
 

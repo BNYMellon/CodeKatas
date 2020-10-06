@@ -30,10 +30,10 @@ public record Order(Customer customer, LocalDate date, MutableBag<DonutType> cou
     {
         this(customer, date, Bags.mutable.empty());
         ArrayAdapter.adapt(donutTypeCounts.split(","))
-                .asLazy()
-                .collect(pair -> pair.split(":"))
-                .collect(pair -> PrimitiveTuples.pair(DonutType.forAbbreviation(pair[0]), Integer.parseInt(pair[1])))
-                .each(this::add);
+                    .asLazy()
+                    .collect(pair -> pair.split(":"))
+                    .collect(pair -> PrimitiveTuples.pair(DonutType.forAbbreviation(pair[0]), Integer.parseInt(pair[1])))
+                    .each(this::add);
     }
 
     private void add(ObjectIntPair<DonutType> pair)
@@ -50,9 +50,9 @@ public record Order(Customer customer, LocalDate date, MutableBag<DonutType> cou
     public String toString()
     {
         return "Order(" +
-                "customer=" + this.customer +
-                ", date=" + this.date +
-                ", counts=" + this.counts.toStringOfItemToCount() +
-                ')';
+               "customer=" + this.customer +
+               ", date=" + this.date +
+               ", counts=" + this.counts.toStringOfItemToCount() +
+               ')';
     }
 }

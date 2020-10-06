@@ -46,9 +46,9 @@ public class FullWeek extends CalendarWindow
     public String toString()
     {
         return "FullWeek(" +
-                "start=" + this.getStart() +
-                ", end=" + this.getEnd() +
-                ", meetings=" + this.iterateMeetings() +
-                ')';
+               "start=" + this.getStart() +
+               ", end=" + this.getEnd() +
+               ", meetings=" + this.iterateMeetings() +
+               ')';
     }
 }

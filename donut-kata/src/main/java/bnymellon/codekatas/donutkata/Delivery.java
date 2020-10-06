@@ -20,7 +20,7 @@ import java.time.LocalDate;
 
 import org.eclipse.collections.api.list.ImmutableList;
 
-public record Delivery(Order order, ImmutableList<Donut>donuts)
+public record Delivery(Order order, ImmutableList<Donut> donuts)
 {
     public Delivery
     {
@@ -56,8 +56,8 @@ public record Delivery(Order order, ImmutableList<Donut>donuts)
     public String toString()
     {
         return "Delivery(" +
-                "order=" + this.order +
-                ", donuts=" + this.donuts.toBag().toStringOfItemToCount() +
-                ')';
+               "order=" + this.order +
+               ", donuts=" + this.donuts.toBag().toStringOfItemToCount() +
+               ')';
     }
 }

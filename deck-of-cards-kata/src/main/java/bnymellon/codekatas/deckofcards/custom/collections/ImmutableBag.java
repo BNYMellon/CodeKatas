@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public sealed interface ImmutableBag<T> extends ImmutableCollection<T>, Bag<T>
-    permits ImmutableEmptyBag, ImmutableHashBag
+        permits ImmutableEmptyBag, ImmutableHashBag
 {
     static <E> ImmutableBag<E> empty()
     {

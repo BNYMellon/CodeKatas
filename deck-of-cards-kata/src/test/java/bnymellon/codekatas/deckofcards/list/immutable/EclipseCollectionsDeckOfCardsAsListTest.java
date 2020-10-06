@@ -18,12 +18,11 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
-
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class EclipseCollectionsDeckOfCardsAsListTest
 {

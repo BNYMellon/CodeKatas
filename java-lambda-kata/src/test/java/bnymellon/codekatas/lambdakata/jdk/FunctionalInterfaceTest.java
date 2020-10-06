@@ -41,6 +41,7 @@ import org.junit.Test;
  * like Consumer, Function and Predicate.
  *
  * Please refer to this tutorial for an overview of Lambdas for Java 8.
+ *
  * @see <a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html">Lambda Quickstart</a>
  *
  * Then follow the TODOs in each test and convert the anonymous inner classes to lambdas and/or method references.
