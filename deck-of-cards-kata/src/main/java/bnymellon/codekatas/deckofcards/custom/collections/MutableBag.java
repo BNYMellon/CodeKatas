@@ -21,45 +21,63 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface MutableBag<T> extends MutableCollection<T> {
+public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
+{
+    default ImmutableBag<T> toImmutable()
+    {
+        if (this.isEmpty())
+        {
+            return ImmutableBag.empty();
+        }
+        return new ImmutableHashBag<>(this);
+    }
 
     int sizeDistinct();
 
-    static <E> MutableBag<E> empty() {
+    static <E> MutableBag<E> empty()
+    {
         return new HashBag<>();
     }
 
-    static <E> MutableBag<E> of(E one) {
+    static <E> MutableBag<E> of(E one)
+    {
         return new HashBag<E>().withAll(one);
     }
 
-    static <E> MutableBag<E> of(E... args) {
+    static <E> MutableBag<E> of(E... args)
+    {
         return new HashBag<E>().withAll(args);
     }
 
-    static <E> MutableBag<E> fromIterable(Iterable<E> iterable) {
+    static <E> MutableBag<E> fromIterable(Iterable<E> iterable)
+    {
         var mutableBag = MutableBag.<E>empty();
         iterable.forEach(mutableBag::add);
         return mutableBag;
     }
 
-    static <E> MutableBag<E> fromStream(Stream<E> stream) {
+    static <E> MutableBag<E> fromStream(Stream<E> stream)
+    {
         var mutableBag = MutableBag.<E>empty();
         stream.forEach(mutableBag::add);
         return mutableBag;
     }
 
     @Override
-    default MutableBag<T> peek(Consumer<? super T> consumer) {
+    default MutableBag<T> peek(Consumer<? super T> consumer)
+    {
         this.forEach(consumer);
         return this;
     }
 
     @Override
-    default MutableBag<T> filter(Predicate<? super T> predicate) {
+    default MutableBag<T> filter(Predicate<? super T> predicate)
+    {
         var mutableBag = MutableBag.<T>empty();
-        for (T each : this) {
-            if (predicate.test(each)) {
+        for (T each : this)
+        {
+            if (predicate.test(each))
+            {
                 mutableBag.add(each);
             }
         }
@@ -67,10 +85,13 @@ public interface MutableBag<T> extends MutableCollection<T> {
     }
 
     @Override
-    default MutableBag<T> filterNot(Predicate<? super T> predicate) {
+    default MutableBag<T> filterNot(Predicate<? super T> predicate)
+    {
         var mutableBag = MutableBag.<T>empty();
-        for (T each : this) {
-            if (!predicate.test(each)) {
+        for (T each : this)
+        {
+            if (!predicate.test(each))
+            {
                 mutableBag.add(each);
             }
         }
@@ -78,24 +99,28 @@ public interface MutableBag<T> extends MutableCollection<T> {
     }
 
     @Override
-    default <V> MutableBag<V> map(Function<? super T, ? extends V> function) {
+    default <V> MutableBag<V> map(Function<? super T, ? extends V> function)
+    {
         var mutableBag = MutableBag.<V>empty();
         this.forEach(each -> mutableBag.add(function.apply(each)));
         return mutableBag;
     }
 
     @Override
-    default <V> MutableBag<V> flatMap(Function<? super T, ? extends Iterable<V>> function) {
+    default <V> MutableBag<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
+    {
         var mutableBag = MutableBag.<V>empty();
-        this.forEach(each ->mutableBag.addAllIterable(function.apply(each)));
+        this.forEach(each -> mutableBag.addAllIterable(function.apply(each)));
         return mutableBag;
     }
 
-    default <K> ArrayListMultimap<K, T> groupBy(Function<? super T, ? extends K> function) {
+    default <K> ArrayListMultimap<K, T> groupBy(Function<? super T, ? extends K> function)
+    {
         throw new UnsupportedOperationException("groupBy is not supported yet");
     }
 
-    default <K> UnmodifiableArrayListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function) {
+    default <K> UnmodifiableArrayListMultimap<K, T> groupByUnmodifiable(Function<? super T, ? extends K> function)
+    {
         throw new UnsupportedOperationException("groupBy is not supported yet");
     }
 

@@ -15,18 +15,41 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class HashSet2<T> extends HashSet<T> implements MutableSet<T> {
+public class HashSet2<T> extends HashSet<T> implements MutableSet<T>
+{
+    public HashSet2(Collection<? extends T> collection)
+    {
+        super(collection);
+    }
 
-    final HashSet2<T> with(T one) {
+    public HashSet2(int initialCapacity, float loadFactor)
+    {
+        super(initialCapacity, loadFactor);
+    }
+
+    public HashSet2(int initialCapacity)
+    {
+        super(initialCapacity);
+    }
+
+    public HashSet2()
+    {
+        super();
+    }
+
+    final HashSet2<T> with(T one)
+    {
         this.add(one);
         return this;
     }
 
     @SafeVarargs
-    final HashSet2<T> withAll(T... args) {
+    final HashSet2<T> withAll(T... args)
+    {
         Collections.addAll(this, args);
         return this;
     }

@@ -17,6 +17,7 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.AbstractList;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 public class UnmodifiableMutableList<T> extends AbstractList<T> implements MutableList<T> {
     private final MutableList<T> adapted;
@@ -73,5 +74,11 @@ public class UnmodifiableMutableList<T> extends AbstractList<T> implements Mutab
     @Override
     protected void removeRange(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Stream<T> stream()
+    {
+        return this.adapted.stream();
     }
 }

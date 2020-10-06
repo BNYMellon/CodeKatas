@@ -19,29 +19,27 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MutableSetTest
+public class ImmutableSetTest
 {
     @Test
     public void filter()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // filter method on MutableSet
-        MutableSet<Integer> actual = set.filter(each -> each % 2 == 0);
+        ImmutableSet<Integer> actual = set.filter(each -> each % 2 == 0);
 
         // filter method on java.util.stream.Stream
         Set<Integer> actualStream = set.stream()
                 .filter(each -> each % 2 == 0)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(MutableSet::empty));
 
         var expected = MutableSet.of(2, 4);
         Assert.assertEquals(expected, actual);
@@ -51,15 +49,15 @@ public class MutableSetTest
     @Test
     public void filterNot()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // filterNot method on MutableSet
-        MutableSet<Integer> actual = set.filterNot(each -> each % 2 == 0);
+        ImmutableSet<Integer> actual = set.filterNot(each -> each % 2 == 0);
 
         // filter method on java.util.stream.Stream using negative predicate
         Set<Integer> actualStream = set.stream()
                 .filter(each -> each % 2 != 0)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(MutableSet::empty));
 
         var expected = MutableSet.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
@@ -69,15 +67,15 @@ public class MutableSetTest
     @Test
     public void map()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // map method on MutableSet
-        MutableSet<String> actual = set.map(String::valueOf);
+        ImmutableSet<String> actual = set.map(String::valueOf);
 
         // map method on java.util.stream.Stream
         Set<String> actualStream = set.stream()
                 .map(String::valueOf)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(MutableSet::empty));
 
         var expected = MutableSet.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
@@ -87,17 +85,17 @@ public class MutableSetTest
     @Test
     public void flatMap()
     {
-        MutableSet<List<Integer>> set = MutableSet.of(List.of(1), List.of(2));
+        ImmutableSet<List<Integer>> set = ImmutableSet.of(List.of(1), List.of(2));
 
         // flatMap method on MutableSet
-        MutableSet<Integer> actual = set.flatMap(each -> each);
+        ImmutableSet<Integer> actual = set.flatMap(each -> each);
 
         // flatMap method on java.util.stream.Stream
         Set<Integer> actualStream = set.stream()
                 .flatMap(List::stream)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(MutableSet::empty));
 
-        var expected = Set.of(1, 2);
+        var expected = MutableSet.of(1, 2);
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
     }
@@ -105,7 +103,7 @@ public class MutableSetTest
     @Test
     public void reduce()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // reduce method on MutableSet
         Optional<Integer> reduce = set.reduce(Integer::sum);
@@ -115,14 +113,14 @@ public class MutableSetTest
 
         Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
         Assert.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
-        MutableSet<Integer> empty = MutableSet.empty();
+        ImmutableSet<Integer> empty = ImmutableSet.empty();
         Assert.assertTrue(empty.reduce(Integer::sum).isEmpty());
     }
 
     @Test
     public void anyMatch()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // anyMatch method on MutableSet
         Assert.assertTrue(set.anyMatch(each -> each % 2 == 0));
@@ -136,7 +134,7 @@ public class MutableSetTest
     @Test
     public void allMatch()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // allMatch method on MutableSet
         Assert.assertFalse(set.allMatch(each -> each % 2 == 0));
@@ -150,7 +148,7 @@ public class MutableSetTest
     @Test
     public void noneMatch()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // noneMatch method on MutableSet
         Assert.assertFalse(set.noneMatch(each -> each % 2 == 0));
@@ -164,7 +162,7 @@ public class MutableSetTest
     @Test
     public void count()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // count method on MutableSet
         Assert.assertEquals(2, set.count(each -> each % 2 == 0));
@@ -179,21 +177,13 @@ public class MutableSetTest
                 .count());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void asUnmodifiable()
-    {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
-        Set<Integer> unmodifiable = set.asUnmodifiable();
-        unmodifiable.add(6);
-    }
-
     @Test
     public void countBy()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // countBy method on MutableSet
-        MutableBag<Integer> counts = set.countBy(each -> each % 2);
+        ImmutableBag<Integer> counts = set.countBy(each -> each % 2);
 
         // collect method on java.util.stream.Stream
         // + groupingBy & counting on java.util.stream.Collectors
@@ -211,16 +201,16 @@ public class MutableSetTest
     @Test
     public void groupBy()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
 
         // groupBy method on MutableSet returning Multimap
         MutableSetMultimap<Integer, Integer> grouped = set.groupBy(each -> each % 2);
 
         // collect method on java.util.stream.Stream + groupingBy on java.util.stream.Collectors
-        Map<Integer, Set<Integer>> groupedStream = set.stream()
+        Map<Integer, MutableSet<Integer>> groupedStream = set.stream()
                 .collect(Collectors.groupingBy(
                         each -> each % 2,
-                        Collectors.toSet()));
+                        Collectors.toCollection(MutableSet::empty)));
 
         var expected = MutableSetMultimap.<Integer, Integer>empty();
         var oddSet = MutableSet.of(1, 3, 5);
@@ -234,10 +224,10 @@ public class MutableSetTest
     @Test
     public void collect()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
-        Collector<Integer, ?, Map<Integer, Set<Integer>>> collector = Collectors.groupingBy(
+        ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
+        Collector<Integer, ?, Map<Integer, MutableSet<Integer>>> collector = Collectors.groupingBy(
                 each -> each % 2,
-                Collectors.toSet());
+                Collectors.toCollection(MutableSet::empty));
 
         // collect method on MutableSet
         var collectGroupingBy = set.collect(collector);
@@ -251,25 +241,21 @@ public class MutableSetTest
     @Test
     public void fromIterable()
     {
-        Iterable<Integer> expected = Set.of(1, 2, 3);
+        Iterable<Integer> expected = MutableSet.of(1, 2, 3);
 
         // fromIterable method on MutableSet
-        MutableSet<Integer> actual = MutableSet.fromIterable(expected);
-
-        // collect method on java.util.stream.Stream + toList on java.util.stream.Collectors
-        Set<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
-                .collect(Collectors.toSet());
+        ImmutableSet<Integer> actual = ImmutableSet.fromIterable(expected);
 
         Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
     }
 
     @Test
     public void fromStream()
     {
-        var expected = Set.of(1, 2, 3);
+        var expected = MutableSet.of(1, 2, 3);
         MutableSet<Integer> actual = MutableSet.fromStream(Stream.of(1, 2, 3));
-        Set<Integer> actualStream = Stream.of(1, 2, 3).collect(Collectors.toSet());
+        Set<Integer> actualStream = Stream.of(1, 2, 3)
+                .collect(Collectors.toCollection(MutableSet::empty));
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
     }

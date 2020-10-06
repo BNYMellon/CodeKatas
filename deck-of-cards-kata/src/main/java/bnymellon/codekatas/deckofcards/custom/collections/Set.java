@@ -15,37 +15,28 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-public class ArrayList2<T> extends ArrayList<T> implements MutableList<T>
+public interface Set<T> extends RichIterable<T>
 {
-    public ArrayList2(Collection<? extends T> collection)
-    {
-        super(collection);
-    }
+    @Override
+    Set<T> filter(Predicate<? super T> predicate);
 
-    public ArrayList2(int initialCapacity)
-    {
-        super(initialCapacity);
-    }
+    @Override
+    Set<T> filterNot(Predicate<? super T> predicate);
 
-    public ArrayList2()
-    {
-        super();
-    }
+    @Override
+    <V> Set<V> map(Function<? super T, ? extends V> function);
 
-    ArrayList2<T> with(T one)
-    {
-        this.add(one);
-        return this;
-    }
+    @Override
+    <V> Set<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
 
-    @SafeVarargs
-    final ArrayList2<T> withAll(T... args)
+    @Override
+    default Set<T> peek(Consumer<? super T> consumer)
     {
-        Collections.addAll(this, args);
+        this.forEach(consumer);
         return this;
     }
 }
