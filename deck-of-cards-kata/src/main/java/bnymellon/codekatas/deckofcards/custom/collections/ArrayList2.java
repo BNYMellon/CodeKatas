@@ -17,7 +17,6 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class ArrayList2<T> extends ArrayList<T> implements MutableList<T>
 {
@@ -34,18 +33,5 @@ public class ArrayList2<T> extends ArrayList<T> implements MutableList<T>
     public ArrayList2()
     {
         super();
-    }
-
-    ArrayList2<T> with(T one)
-    {
-        this.add(one);
-        return this;
-    }
-
-    @SafeVarargs
-    final ArrayList2<T> withAll(T... args)
-    {
-        Collections.addAll(this, args);
-        return this;
     }
 }

@@ -15,44 +15,59 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Iterator;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Iterator;
-
-public class HashBagTest {
+public class HashBagTest
+{
     private HashBag<String> testObj;
 
     @Before
-    public void setup() {
+    public void setup()
+    {
         this.testObj = new HashBag<>();
     }
 
     @Test
-    public void withAll() {
-        HashBag<String> bag = this.testObj.withAll("1", "2", "3", "2", "3", "3");
+    public void withAllVarArgs()
+    {
+        MutableBag<String> bag = this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertEquals(1, bag.getOccurrences("1"));
         Assert.assertEquals(2, bag.getOccurrences("2"));
         Assert.assertEquals(3, bag.getOccurrences("3"));
     }
 
     @Test
-    public void size_sizeDistinct() {
+    public void withAll()
+    {
+        MutableBag<String> bag = this.testObj.withAll(MutableList.of("1", "2", "3", "2", "3", "3"));
+        Assert.assertEquals(1, bag.getOccurrences("1"));
+        Assert.assertEquals(2, bag.getOccurrences("2"));
+        Assert.assertEquals(3, bag.getOccurrences("3"));
+    }
+
+    @Test
+    public void size_sizeDistinct()
+    {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertEquals(6, this.testObj.size());
         Assert.assertEquals(3, this.testObj.sizeDistinct());
     }
 
     @Test
-    public void isEmpty() {
+    public void isEmpty()
+    {
         Assert.assertTrue(this.testObj.isEmpty());
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertFalse(this.testObj.isEmpty());
     }
 
     @Test
-    public void contains() {
+    public void contains()
+    {
         Assert.assertFalse(this.testObj.contains("1"));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertTrue(this.testObj.contains("1"));
@@ -60,29 +75,24 @@ public class HashBagTest {
     }
 
     @Test
-    public void toArray() {
+    public void toArray()
+    {
         Assert.assertArrayEquals(new String[]{}, this.testObj.toArray());
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray());
     }
 
     @Test
-    public void toArray_target() {
+    public void toArray_target()
+    {
         Assert.assertArrayEquals(new String[]{}, this.testObj.toArray(new String[]{}));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray(new String[]{"0"}));
     }
 
     @Test
-    public void forEachWithIndex() {
-        MutableList<String> list = MutableList.empty();
-        this.testObj.withAll("1", "2", "3", "2", "3", "3")
-                .forEachWithIndex((each, index) -> list.add(each + index));
-        Assert.assertEquals(MutableList.of("10", "21", "22", "33", "34", "35"), list);
-    }
-
-    @Test
-    public void add() {
+    public void add()
+    {
         this.testObj.add("1");
         this.testObj.add("2");
         this.testObj.add("2");
@@ -91,7 +101,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void remove() {
+    public void remove()
+    {
         this.testObj.add("1");
         this.testObj.add("2");
         this.testObj.add("2");
@@ -104,7 +115,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void containsAll() {
+    public void containsAll()
+    {
         Assert.assertTrue(this.testObj.containsAll(MutableList.empty()));
         Assert.assertFalse(this.testObj.containsAll(MutableList.of("1")));
 
@@ -115,7 +127,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void addAll() {
+    public void addAll()
+    {
         Assert.assertFalse(this.testObj.addAll(MutableList.empty()));
         Assert.assertEquals(MutableBag.empty(), this.testObj);
         Assert.assertTrue(this.testObj.addAll(MutableList.of("1", "2", "2")));
@@ -123,7 +136,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void removeAll() {
+    public void removeAll()
+    {
         Assert.assertFalse(this.testObj.removeAll(MutableList.empty()));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertTrue(this.testObj.removeAll(MutableList.of("1", "2")));
@@ -134,7 +148,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void retailAll() {
+    public void retailAll()
+    {
         Assert.assertFalse(this.testObj.retainAll(MutableList.empty()));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertTrue(this.testObj.retainAll(MutableList.of("1", "2")));
@@ -146,7 +161,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void clear() {
+    public void clear()
+    {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertFalse(this.testObj.isEmpty());
         this.testObj.clear();
@@ -156,7 +172,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void getOccurrences() {
+    public void getOccurrences()
+    {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Assert.assertEquals(1, this.testObj.getOccurrences("1"));
         Assert.assertEquals(2, this.testObj.getOccurrences("2"));
@@ -165,7 +182,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void iterator() {
+    public void iterator()
+    {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Iterator<String> iterator = this.testObj.iterator();
 
@@ -186,7 +204,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void addOccurrence() {
+    public void addOccurrence()
+    {
         this.testObj.addOccurrence("1");
         Assert.assertEquals(MutableBag.of("1"), this.testObj);
         Assert.assertEquals(1, this.testObj.size());
@@ -194,7 +213,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void addOccurrences() {
+    public void addOccurrences()
+    {
         this.testObj.addOccurrences("1", 1);
         Assert.assertEquals(MutableBag.of("1"), this.testObj);
         Assert.assertEquals(1, this.testObj.size());
@@ -206,7 +226,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void removeOccurrence() {
+    public void removeOccurrence()
+    {
         Assert.assertFalse(this.testObj.removeOccurrence("1"));
         Assert.assertEquals(MutableBag.empty(), this.testObj);
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
@@ -220,7 +241,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void removeOccurrences() {
+    public void removeOccurrences()
+    {
         Assert.assertFalse(this.testObj.removeOccurrences("1", 1));
         Assert.assertEquals(MutableBag.empty(), this.testObj);
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
@@ -233,7 +255,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void forEachWithOccurrences() {
+    public void forEachWithOccurrences()
+    {
         MutableList<String> list = MutableList.empty();
         this.testObj.withAll("1", "2", "3", "2", "3", "3")
                 .forEachWithOccurrences((each, count) -> list.add(each + count));
@@ -241,7 +264,8 @@ public class HashBagTest {
     }
 
     @Test
-    public void forEach() {
+    public void forEach()
+    {
         MutableList<String> list = MutableList.empty();
         this.testObj.withAll("1", "2", "3", "2", "3", "3")
                 .forEach((each) -> list.add(each));
@@ -249,38 +273,52 @@ public class HashBagTest {
     }
 
     @Test
-    public void fromIterable() {
-        Assert.assertEquals(MutableBag.of("1", "2", "2", "3", "3", "3"),
+    public void fromIterable()
+    {
+        Assert.assertEquals(
+                MutableBag.of("1", "2", "2", "3", "3", "3"),
                 MutableBag.fromIterable(MutableList.of("1", "2", "2", "3", "3", "3")));
     }
 
     @Test
-    public void fromStream() {
-        Assert.assertEquals(MutableBag.of("1", "2", "2", "3", "3", "3"),
+    public void fromStream()
+    {
+        Assert.assertEquals(
+                MutableBag.of("1", "2", "2", "3", "3", "3"),
                 MutableBag.fromStream(MutableList.of("1", "2", "2", "3", "3", "3").stream()));
     }
 
     @Test
-    public void filter() {
-        Assert.assertEquals(MutableBag.of("2", "2"),
+    public void filter()
+    {
+        Assert.assertEquals(
+                MutableBag.of("2", "2"),
                 MutableBag.of("1", "2", "2", "3", "3", "3").filter(each -> Integer.valueOf(each) % 2 == 0));
     }
 
     @Test
-    public void filterNot() {
-        Assert.assertEquals(MutableBag.of("1", "3", "3", "3"),
+    public void filterNot()
+    {
+        Assert.assertEquals(
+                MutableBag.of("1", "3", "3", "3"),
                 MutableBag.of("1", "2", "2", "3", "3", "3").filterNot(each -> Integer.parseInt(each) % 2 == 0));
     }
 
     @Test
-    public void map() {
-        Assert.assertEquals(MutableBag.of(1, 2, 2, 3, 3, 3),
+    public void map()
+    {
+        Assert.assertEquals(
+                MutableBag.of(1, 2, 2, 3, 3, 3),
                 MutableBag.of("1", "2", "2", "3", "3", "3").map(Integer::valueOf));
     }
 
     @Test
-    public void flatMap() {
-        Assert.assertEquals(MutableBag.of("1", "2", "2", "3", "3", "3"),
-                MutableBag.of(MutableList.of("1"), MutableList.of("2", "2"), MutableList.of("3", "3", "3")).flatMap(each -> each));
+    public void flatMap()
+    {
+        Assert.assertEquals(
+                MutableBag.of("1", "2", "2", "3", "3", "3"),
+                MutableBag
+                        .of(MutableList.of("1"), MutableList.of("2", "2"), MutableList.of("3", "3", "3"))
+                        .flatMap(each -> each));
     }
 }

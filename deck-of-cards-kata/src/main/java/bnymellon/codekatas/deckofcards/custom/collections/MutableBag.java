@@ -15,10 +15,12 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
@@ -39,11 +41,6 @@ public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
         return new HashBag<>();
     }
 
-    static <E> MutableBag<E> of(E one)
-    {
-        return new HashBag<E>().withAll(one);
-    }
-
     static <E> MutableBag<E> of(E... args)
     {
         return new HashBag<E>().withAll(args);
@@ -61,6 +58,14 @@ public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
         var mutableBag = MutableBag.<E>empty();
         stream.forEach(mutableBag::add);
         return mutableBag;
+    }
+
+    static <E> Collector<E, ?, MutableBag<E>> collector()
+    {
+        return Collector.of(
+                MutableBag::empty,
+                MutableBag::add,
+                MutableBag::withAll);
     }
 
     @Override
@@ -135,4 +140,19 @@ public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
     boolean removeOccurrences(T element, int occurrences);
 
     void forEachWithOccurrences(BiConsumer<? super T, Integer> procedure);
+
+    default MutableBag<T> withAll(Collection<? extends T> collection)
+    {
+        this.addAll(collection);
+        return this;
+    }
+
+    default MutableBag<T> withAll(T... elements)
+    {
+        for (T element : elements)
+        {
+            this.addOccurrence(element);
+        }
+        return this;
+    }
 }

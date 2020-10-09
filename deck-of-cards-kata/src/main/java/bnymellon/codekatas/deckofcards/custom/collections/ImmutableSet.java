@@ -18,10 +18,11 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public sealed interface ImmutableSet<T> extends ImmutableCollection<T>, Set<T>
-    permits ImmutableEmptySet, ImmutableHashSet
+        permits ImmutableEmptySet, ImmutableHashSet
 {
     static <E> ImmutableSet<E> empty()
     {
@@ -49,6 +50,15 @@ public sealed interface ImmutableSet<T> extends ImmutableCollection<T>, Set<T>
     static <E> ImmutableSet<E> fromStream(Stream<E> stream)
     {
         return MutableSet.fromStream(stream).toImmutable();
+    }
+
+    static <E> Collector<E, MutableSet<E>, ImmutableSet<E>> collector()
+    {
+        return Collector.of(
+                MutableSet::empty,
+                MutableSet::add,
+                MutableSet::withAll,
+                MutableSet::toImmutable);
     }
 
     @Override
