@@ -26,16 +26,6 @@ public class HashBag<T> implements MutableBag<T>
     private MutableMap<T, Integer> backingMap = MutableMap.empty();
     private int size = 0;
 
-    HashBag<T> withAll(T... elements)
-    {
-        for (T element : elements)
-        {
-            this.backingMap.merge(element, 1, (existingValue, newValue) -> existingValue + 1);
-            this.size++;
-        }
-        return this;
-    }
-
     @Override
     public int sizeDistinct()
     {
@@ -68,7 +58,7 @@ public class HashBag<T> implements MutableBag<T>
         return result;
     }
 
-    public void forEachWithIndex(BiConsumer<? super T, Integer> biConsumer)
+    private void forEachWithIndex(BiConsumer<? super T, Integer> biConsumer)
     {
         Counter index = new Counter();
         this.backingMap.forEach((key, count) ->

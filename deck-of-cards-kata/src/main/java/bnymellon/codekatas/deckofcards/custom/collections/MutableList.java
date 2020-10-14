@@ -15,11 +15,13 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>, List<T>
@@ -60,6 +62,14 @@ public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>,
         var mutableList = MutableList.<E>empty();
         stream.forEach(mutableList::add);
         return mutableList;
+    }
+
+    static <E> Collector<E, ?, MutableList<E>> collector()
+    {
+        return Collector.of(
+                MutableList::empty,
+                MutableList::add,
+                MutableList::withAll);
     }
 
     default MutableList<T> asUnmodifiable()
@@ -134,6 +144,24 @@ public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>,
     default MutableList<T> shuffle(Random random)
     {
         Collections.shuffle(this, random);
+        return this;
+    }
+
+    default MutableList<T> with(T value)
+    {
+        this.add(value);
+        return this;
+    }
+
+    default MutableList<T> withAll(Collection<? extends T> collection)
+    {
+        this.addAll(collection);
+        return this;
+    }
+
+    default MutableList<T> withAll(T... args)
+    {
+        Collections.addAll(this, args);
         return this;
     }
 }

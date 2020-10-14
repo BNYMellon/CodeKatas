@@ -16,29 +16,34 @@
 
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class CustomCollectionsDeckOfCardsAsList {
-    private MutableList<Card> cards;
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
+
+public class CustomCollectionsDeckOfCardsAsList
+{
+    private ImmutableList<Card> cards;
     private MutableListMultimap<Suit, Card> cardsBySuit;
 
     /**
      * Use Custom Collections with {@link Card#streamCards()} to create an "immutable" List and store that in cards.
      * Group all of the cards by {@link Card#suit()} into an "immutable" Map and stored that in cardsBySuit.
      */
-    public CustomCollectionsDeckOfCardsAsList() {
-        this.cards = MutableList.fromStream(Card.streamCards().sorted()).asUnmodifiable();
+    public CustomCollectionsDeckOfCardsAsList()
+    {
+        // There are two ways to build an ImmutableList from a Stream
+        // this.cards = Card.streamCards().sorted().collect(ImmutableList.collector());
+        this.cards = ImmutableList.fromStream(Card.streamCards().sorted());
         this.cardsBySuit = this.cards.groupByUnmodifiable(Card::suit);
     }
 
-    public Deque<Card> shuffle(Random random) {
+    public Deque<Card> shuffle(Random random)
+    {
         // Shuffle the deck 3 times with the Random parameter and push the shuffled cards onto an ArrayDeque
         return this.cards.toList()
                 .shuffle(random)
@@ -47,52 +52,63 @@ public class CustomCollectionsDeckOfCardsAsList {
                 .toCollection(ArrayDeque::new, ArrayDeque::push);
     }
 
-    public MutableSet<Card> deal(Deque<Card> deque, int count) {
+    public Set<Card> deal(Deque<Card> deque, int count)
+    {
         var hand = MutableSet.<Card>empty();
         IntStream.range(0, count).forEach(i -> hand.add(deque.pop()));
         return hand;
     }
 
-    public MutableList<MutableSet<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand) {
+    public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
+    {
         var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 
-    public MutableList<MutableSet<Card>> dealHands(Deque<Card> shuffled, int hands, int cardsPerHand) {
-        return MutableList.fromStream(IntStream.range(0, hands)
-                .mapToObj(each -> this.deal(shuffled, cardsPerHand)))
-                .asUnmodifiable();
+    public List<Set<Card>> dealHands(Deque<Card> shuffled, int hands, int cardsPerHand)
+    {
+        return IntStream.range(0, hands)
+                .mapToObj(each -> this.deal(shuffled, cardsPerHand))
+                .collect(ImmutableList.collector());
     }
 
-    public MutableList<Card> diamonds() {
+    public List<Card> diamonds()
+    {
         return this.cardsBySuit.get(Suit.DIAMONDS);
     }
 
-    public MutableList<Card> hearts() {
+    public List<Card> hearts()
+    {
         return this.cardsBySuit.get(Suit.HEARTS);
     }
 
-    public MutableList<Card> spades() {
+    public List<Card> spades()
+    {
         return this.cardsBySuit.get(Suit.SPADES);
     }
 
-    public MutableList<Card> clubs() {
+    public List<Card> clubs()
+    {
         return this.cardsBySuit.get(Suit.CLUBS);
     }
 
-    public MutableBag<Suit> countsBySuit() {
+    public Bag<Suit> countsBySuit()
+    {
         return this.cards.countBy(Card::suit);
     }
 
-    public MutableBag<Rank> countsByRank() {
+    public Bag<Rank> countsByRank()
+    {
         return this.cards.countBy(Card::rank);
     }
 
-    public MutableList<Card> getCards() {
+    public List<Card> getCards()
+    {
         return this.cards;
     }
 
-    public MutableListMultimap<Suit, Card> getCardsBySuit() {
+    public MutableListMultimap<Suit, Card> getCardsBySuit()
+    {
         return this.cardsBySuit;
     }
 }

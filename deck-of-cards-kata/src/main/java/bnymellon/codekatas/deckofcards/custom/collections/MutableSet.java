@@ -15,10 +15,12 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public interface MutableSet<T> extends MutableCollection<T>, java.util.Set<T>, Set<T>
@@ -50,6 +52,14 @@ public interface MutableSet<T> extends MutableCollection<T>, java.util.Set<T>, S
         var mutableSet = MutableSet.<E>empty();
         stream.forEach(mutableSet::add);
         return mutableSet;
+    }
+
+    static <E> Collector<E, ?, MutableSet<E>> collector()
+    {
+        return Collector.of(
+                MutableSet::empty,
+                MutableSet::add,
+                MutableSet::withAll);
     }
 
     @Override
@@ -122,5 +132,23 @@ public interface MutableSet<T> extends MutableCollection<T>, java.util.Set<T>, S
             return ImmutableSet.empty();
         }
         return new ImmutableHashSet<>(this);
+    }
+
+    default MutableSet<T> with(T value)
+    {
+        this.add(value);
+        return this;
+    }
+
+    default MutableSet<T> withAll(Collection<? extends T> collection)
+    {
+        this.addAll(collection);
+        return this;
+    }
+
+    default MutableSet<T> withAll(T... args)
+    {
+        Collections.addAll(this, args);
+        return this;
     }
 }

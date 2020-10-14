@@ -210,7 +210,7 @@ public class ImmutableSetTest
         Map<Integer, MutableSet<Integer>> groupedStream = set.stream()
                 .collect(Collectors.groupingBy(
                         each -> each % 2,
-                        Collectors.toCollection(MutableSet::empty)));
+                        MutableSet.collector()));
 
         var expected = MutableSetMultimap.<Integer, Integer>empty();
         var oddSet = MutableSet.of(1, 3, 5);
@@ -227,7 +227,7 @@ public class ImmutableSetTest
         ImmutableSet<Integer> set = ImmutableSet.of(1, 2, 3, 4, 5);
         Collector<Integer, ?, Map<Integer, MutableSet<Integer>>> collector = Collectors.groupingBy(
                 each -> each % 2,
-                Collectors.toCollection(MutableSet::empty));
+                MutableSet.collector());
 
         // collect method on MutableSet
         var collectGroupingBy = set.collect(collector);
@@ -255,7 +255,7 @@ public class ImmutableSetTest
         var expected = MutableSet.of(1, 2, 3);
         MutableSet<Integer> actual = MutableSet.fromStream(Stream.of(1, 2, 3));
         Set<Integer> actualStream = Stream.of(1, 2, 3)
-                .collect(Collectors.toCollection(MutableSet::empty));
+                .collect(MutableSet.collector());
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(expected, actualStream);
     }

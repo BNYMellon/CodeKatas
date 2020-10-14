@@ -41,7 +41,7 @@ public class ImmutableBagTest
         // filter method on java.util.stream.Stream
         Bag<Integer> lazyFilter = bag.stream()
                 .filter(each -> each % 2 == 0)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                .collect(MutableBag.collector());
 
         var expected = MutableBag.of(2, 4);
         Assert.assertEquals(expected, eagerFilter);
@@ -114,7 +114,7 @@ public class ImmutableBagTest
         // filter method on java.util.stream.Stream using negative predicate
         Bag<Integer> actualStream = bag.stream()
                 .filter(each -> each % 2 != 0)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                .collect(MutableBag.collector());
 
         var expected = MutableBag.of(1, 3, 5);
         Assert.assertEquals(expected, actual);
@@ -132,7 +132,7 @@ public class ImmutableBagTest
         // map method on java.util.stream.Stream
         Bag<String> actualStream = bag.stream()
                 .map(String::valueOf)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                .collect(MutableBag.collector());
 
         var expected = MutableBag.of("1", "2", "3", "4", "5");
         Assert.assertEquals(expected, actual);
@@ -150,7 +150,7 @@ public class ImmutableBagTest
         // flatMap method on java.util.stream.Stream
         Bag<Integer> actualStream = bag.stream()
                 .flatMap(List::stream)
-                .collect(Collectors.toCollection(MutableBag::empty));
+                .collect(MutableBag.collector());
 
         var expected = MutableBag.of(1, 2);
         Assert.assertEquals(expected, actual);
