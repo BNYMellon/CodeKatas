@@ -40,7 +40,7 @@
         <kotlin.version>1.4.0</kotlin.version>
 
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>

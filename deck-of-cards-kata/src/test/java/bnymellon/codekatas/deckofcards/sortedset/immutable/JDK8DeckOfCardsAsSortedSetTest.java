@@ -23,13 +23,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class JDK8DeckOfCardsAsSortedSetTest
 {
@@ -46,13 +44,13 @@ public class JDK8DeckOfCardsAsSortedSetTest
     public void cardsAreImmutable()
     {
         var jdk2Cards = this.jdk2Deck.getCards();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2Cards.remove(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2Cards::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2Cards.add(null));
     }
@@ -122,19 +120,19 @@ public class JDK8DeckOfCardsAsSortedSetTest
     public void cardsBySuitIsImmutable()
     {
         var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.remove(Suit.CLUBS));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit.get(Suit.CLUBS)::clear);
     }

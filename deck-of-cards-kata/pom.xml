@@ -41,7 +41,7 @@
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
         <guava.version>29.0-jre</guava.version>
         <vavr.version>0.10.3</vavr.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>

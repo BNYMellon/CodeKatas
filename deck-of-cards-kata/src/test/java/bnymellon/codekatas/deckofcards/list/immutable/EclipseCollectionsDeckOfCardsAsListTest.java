@@ -18,12 +18,10 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
-import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class EclipseCollectionsDeckOfCardsAsListTest
 {
@@ -40,13 +38,13 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void cardsAreImmutable()
     {
         var ecCards = this.ecDeck.getCards().castToList();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ecCards::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.add(null));
     }
@@ -116,13 +114,13 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void cardsBySuitIsImmutable()
     {
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToList().remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToList().add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ecCardsBySuit.get(Suit.CLUBS).castToList()::clear);
     }
