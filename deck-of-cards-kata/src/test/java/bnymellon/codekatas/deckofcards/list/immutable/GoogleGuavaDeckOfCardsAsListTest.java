@@ -18,12 +18,10 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
-import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class GoogleGuavaDeckOfCardsAsListTest
 {
@@ -40,13 +38,13 @@ public class GoogleGuavaDeckOfCardsAsListTest
     public void cardsAreImmutable()
     {
         var ggCards = this.ggDeck.getCards();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCards.remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ggCards::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCards.add(null));
     }
@@ -116,19 +114,19 @@ public class GoogleGuavaDeckOfCardsAsListTest
     public void cardsBySuitIsImmutable()
     {
         var ggCardsBySuit = this.ggDeck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.removeAll(Suit.CLUBS));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ggCardsBySuit::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.get(Suit.CLUBS).remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.get(Suit.CLUBS).add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ggCardsBySuit.get(Suit.CLUBS)::clear);
     }

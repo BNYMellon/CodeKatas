@@ -21,7 +21,6 @@ import java.util.Random;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import bnymellon.codekatas.deckofcards.list.immutable.JDKImperativeDeckOfCardsAsList;
-import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -101,19 +100,19 @@ public class CustomCollectionsDeckOfCardsAsListTest
     public void cardsBySuitIsImmutable()
     {
         var jdk2CardsBySuit = this.customDeck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.remove(Suit.CLUBS));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit.get(Suit.CLUBS)::clear);
     }

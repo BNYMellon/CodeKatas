@@ -15,7 +15,6 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,25 +54,25 @@ public class UnmodifiableArrayListMultimapTest
         MutableList<Integer> value = this.testObj.get("A");
         Assert.assertEquals(MutableList.of(1, 2, 3, 1), value);
         Assert.assertEquals(MutableList.empty(), this.testObj.get("C"));
-        Verify.assertThrows(UnsupportedOperationException.class, () -> value.add(6));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> value.add(6));
     }
 
     @Test
     public void put()
     {
-        Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", 1));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", 1));
     }
 
     @Test
     public void get_putIterable()
     {
-        Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", MutableList.of(1)));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.testObj.put("A", MutableList.of(1)));
     }
 
     @Test
     public void putAll()
     {
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3))));
     }
@@ -81,13 +80,13 @@ public class UnmodifiableArrayListMultimapTest
     @Test
     public void remove()
     {
-        Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
     }
 
     @Test
     public void remove_keyValue()
     {
-        Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.testObj.remove("A"));
     }
 
     @Test
@@ -111,7 +110,7 @@ public class UnmodifiableArrayListMultimapTest
     @Test
     public void clear()
     {
-        Verify.assertThrows(UnsupportedOperationException.class, () -> this.testObj.clear());
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.testObj.clear());
     }
 
     @Test

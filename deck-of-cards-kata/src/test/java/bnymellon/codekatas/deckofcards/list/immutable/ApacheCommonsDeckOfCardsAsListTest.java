@@ -19,12 +19,10 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Test;
-
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class ApacheCommonsDeckOfCardsAsListTest
 {
@@ -41,13 +39,13 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void cardsAreImmutable()
     {
         var acCards = this.acDeck.getCards();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCards.remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 acCards::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCards.add(null));
     }
@@ -117,19 +115,19 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void cardsBySuitIsImmutable()
     {
         var acCardsBySuit = this.acDeck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.remove(Suit.CLUBS));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 acCardsBySuit::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.get(Suit.CLUBS).remove(0));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.get(Suit.CLUBS).add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 acCardsBySuit.get(Suit.CLUBS)::clear);
     }

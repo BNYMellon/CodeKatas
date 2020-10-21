@@ -39,7 +39,7 @@
 
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
         <threeten-extra.version>1.5.0</threeten-extra.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>

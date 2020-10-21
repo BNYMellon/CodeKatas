@@ -23,17 +23,15 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.stack.MutableStack;
-import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 
 public class EclipseCollectionsDeckOfCardsAsSortedSetTest
 {
@@ -50,13 +48,13 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     public void cardsAreImmutable()
     {
         var ecCards = this.ecDeck.getCards().castToSortedSet();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.remove(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ecCards::clear);
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.add(null));
     }
@@ -126,13 +124,13 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     public void cardsBySuitIsImmutable()
     {
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToSortedSet().remove(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToSortedSet().add(null));
-        Verify.assertThrows(
+        Assert.assertThrows(
                 UnsupportedOperationException.class,
                 ecCardsBySuit.get(Suit.CLUBS).castToSortedSet()::clear);
     }
