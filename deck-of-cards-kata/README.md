@@ -19,7 +19,7 @@ DeckOfCards with stubs provided for each of the Java Collections
 frameworks.  The implementations that can be worked on are building
 a DeckOfCards using an `ImmutableSortedList` or using an `ImmutableSortedSet`.
 
-Five Java Collections frameworks are currently available to 
+Six Java Collections frameworks are currently available to 
 learn in the kata.  They are:
  
 * [Java 8 Collections + Streams](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html)
@@ -27,6 +27,7 @@ learn in the kata.  They are:
 * [Google Guava 29.0-jre](https://google.github.io/guava/releases/29.0-jre/api/docs/)
 * [Eclipse Collections 10.4.0](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
 * [Vavr 0.10.3](http://www.vavr.io/vavr-docs/)
+* [Custom Collections Framework](./src/main/java/bnymellon/codekatas/deckofcards/custom/collections/) (Uses features from [Project Amber](https://openjdk.java.net/projects/amber/))
 
 There are two classes which are fully implemented and which have 
 passing tests.  They are:

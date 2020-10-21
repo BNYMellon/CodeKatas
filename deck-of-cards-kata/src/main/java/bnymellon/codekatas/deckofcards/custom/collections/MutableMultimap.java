@@ -19,7 +19,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public interface MutableMultimap<K, V> {
+public interface MutableMultimap<K, V>
+{
     int size();
 
     boolean isEmpty();

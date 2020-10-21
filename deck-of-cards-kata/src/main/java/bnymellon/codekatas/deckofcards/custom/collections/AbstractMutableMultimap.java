@@ -21,7 +21,8 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<V>>
-        implements MutableMultimap<K, V> {
+        implements MutableMultimap<K, V>
+{
     protected abstract MutableMap<K, C> getBackingMap();
 
     protected abstract void incrementSizeBy(int increment);
@@ -31,45 +32,54 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     protected abstract C createEmptyValueCollection();
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return this.getBackingMap().isEmpty();
     }
 
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(Object key)
+    {
         return this.getBackingMap().containsKey(key);
     }
 
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(Object value)
+    {
         Collection<C> values = this.getBackingMap().values();
         return values.stream().anyMatch(each -> each.contains(value));
     }
 
-    public void clear() {
+    public void clear()
+    {
         this.getBackingMap().clear();
         this.decrementSizeBy(this.size());
     }
 
     @Override
-    public Set<K> keySet() {
+    public Set<K> keySet()
+    {
         return this.getBackingMap().keySet();
     }
 
     @Override
-    public C get(Object key) {
+    public C get(Object key)
+    {
         C value = this.getBackingMap().get(key);
         return value == null ? this.createEmptyValueCollection() : value;
     }
 
     @Override
-    public boolean put(K key, RichIterable<V> value) {
+    public boolean put(K key, RichIterable<V> value)
+    {
         boolean isEmpty = value.anyMatch(each -> true);
-        if (!isEmpty) {
+        if (!isEmpty)
+        {
             return false;
         }
         C existing = this.getBackingMap().get(key);
-        if (existing == null) {
+        if (existing == null)
+        {
             existing = this.createEmptyValueCollection();
             this.getBackingMap().put(key, existing);
         }
@@ -81,12 +91,15 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public boolean put(K key, V value) {
-        if (value == null) {
+    public boolean put(K key, V value)
+    {
+        if (value == null)
+        {
             throw new IllegalArgumentException("Value cannot be null");
         }
         C existing = this.getBackingMap().get(key);
-        if (existing == null) {
+        if (existing == null)
+        {
             existing = this.createEmptyValueCollection();
             this.getBackingMap().put(key, existing);
         }
@@ -98,9 +111,11 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public C remove(Object key) {
+    public C remove(Object key)
+    {
         C removed = this.getBackingMap().remove(key);
-        if (removed != null) {
+        if (removed != null)
+        {
             this.decrementSizeBy(removed.size());
             return removed;
         }
@@ -108,14 +123,17 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public boolean remove(K key, V value) {
+    public boolean remove(K key, V value)
+    {
         C existing = this.getBackingMap().get(key);
-        if (existing != null) {
+        if (existing != null)
+        {
             int previousSize = existing.size();
             existing.remove(value);
             int newSize = existing.size();
             this.decrementSizeBy(previousSize - newSize);
-            if (newSize == 0) {
+            if (newSize == 0)
+            {
                 this.getBackingMap().remove(key);
             }
             return newSize != previousSize;
@@ -124,11 +142,14 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public void putAll(Map<? extends K, ? extends RichIterable<V>> map) {
-        if (!map.isEmpty()) {
+    public void putAll(Map<? extends K, ? extends RichIterable<V>> map)
+    {
+        if (!map.isEmpty())
+        {
             map.forEach((key, values) -> {
                 C existing = this.getBackingMap().get(key);
-                if (existing == null) {
+                if (existing == null)
+                {
                     existing = this.createEmptyValueCollection();
                     this.getBackingMap().put(key, existing);
                 }
@@ -141,7 +162,8 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public void forEach(BiConsumer<K, V> biConsumer) {
+    public void forEach(BiConsumer<K, V> biConsumer)
+    {
         this.getBackingMap()
                 .keySet()
                 .forEach(key -> {
@@ -151,13 +173,16 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return this.getBackingMap().hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MutableMultimap) {
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof MutableMultimap)
+        {
             return this.getBackingMap().equals(((AbstractMutableMultimap) obj).getBackingMap());
         }
         return false;

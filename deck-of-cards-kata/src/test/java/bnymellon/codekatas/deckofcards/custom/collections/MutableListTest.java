@@ -16,12 +16,6 @@
 
 package bnymellon.codekatas.deckofcards.custom.collections;
 
-import bnymellon.codekatas.deckofcards.APIComparisonCalculator;
-import org.eclipse.collections.api.set.sorted.MutableSortedSet;
-import org.eclipse.collections.api.tuple.Twin;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,17 +25,26 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class MutableListTest {
+import bnymellon.codekatas.deckofcards.APIComparisonCalculator;
+import org.eclipse.collections.api.set.sorted.MutableSortedSet;
+import org.eclipse.collections.api.tuple.Twin;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class MutableListTest
+{
 
     @Test
-    public void symmetricDiffAndIntersectionTest() {
+    public void symmetricDiffAndIntersectionTest()
+    {
         Twin<MutableSortedSet<String>> results =
                 new APIComparisonCalculator(true).compare(RichIterable.class, Stream.class);
         Assert.assertTrue(results.getOne().size() > results.getTwo().size());
     }
 
     @Test
-    public void filter() {
+    public void filter()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // filter method on MutableList
@@ -59,7 +62,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void filterMapReduce() {
+    public void filterMapReduce()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // calling filter, map, reduce on MutableList
@@ -86,7 +90,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void filterMapAnyMatch() {
+    public void filterMapAnyMatch()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // calling filter, map, anyMatch on MutableList
@@ -112,7 +117,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void filterNot() {
+    public void filterNot()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // filterNot method on MutableList
@@ -129,7 +135,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void map() {
+    public void map()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // map method on MutableList
@@ -146,7 +153,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void flatMap() {
+    public void flatMap()
+    {
         MutableList<List<Integer>> list = MutableList.of(List.of(1), List.of(2));
 
         // flatMap method on MutableList
@@ -163,7 +171,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void reduce() {
+    public void reduce()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // reduce method on MutableList
@@ -179,7 +188,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void anyMatch() {
+    public void anyMatch()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // anyMatch method on MutableList
@@ -192,7 +202,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void allMatch() {
+    public void allMatch()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // allMatch method on MutableList
@@ -205,7 +216,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void noneMatch() {
+    public void noneMatch()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // noneMatch method on MutableList
@@ -218,7 +230,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void count() {
+    public void count()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // count method on MutableList
@@ -235,7 +248,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void findFirst() {
+    public void findFirst()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // findFirst method on MutableList
@@ -248,14 +262,16 @@ public class MutableListTest {
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void asUnmodifiable() {
+    public void asUnmodifiable()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
         List<Integer> unmodifiable = list.asUnmodifiable();
         unmodifiable.add(6);
     }
 
     @Test
-    public void countBy() {
+    public void countBy()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // countBy method on MutableList
@@ -264,7 +280,8 @@ public class MutableListTest {
         // collect method on java.util.stream.Stream
         // + groupingBy & counting on java.util.stream.Collectors
         Map<Integer, Long> countsStream = list.stream()
-                .collect(Collectors.groupingBy(each -> each % 2,
+                .collect(Collectors.groupingBy(
+                        each -> each % 2,
                         Collectors.counting()));
 
         Assert.assertEquals(3, counts.getOccurrences(1));
@@ -274,7 +291,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void groupBy() {
+    public void groupBy()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
 
         // groupBy method on MutableList returning Multimap
@@ -294,7 +312,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void collect() {
+    public void collect()
+    {
         MutableList<Integer> list = MutableList.of(1, 2, 3, 4, 5);
         Collector<Integer, ?, Map<Integer, List<Integer>>> collector =
                 Collectors.groupingBy(
@@ -311,7 +330,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void toList() {
+    public void toList()
+    {
         MutableSet<Integer> set = MutableSet.of(1);
 
         // toList method on MutableList
@@ -326,7 +346,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void toSet() {
+    public void toSet()
+    {
         MutableList<Integer> list = MutableList.of(1);
 
         // toSet method on MutableList
@@ -341,7 +362,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void fromIterable() {
+    public void fromIterable()
+    {
         Iterable<Integer> expected = List.of(1, 2, 3);
 
         // fromIterable method on MutableList
@@ -357,7 +379,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void fromStream() {
+    public void fromStream()
+    {
         // fromStream method on MutableList
         MutableList<Integer> actual = MutableList.fromStream(Stream.of(1, 2, 3));
 
@@ -370,7 +393,8 @@ public class MutableListTest {
     }
 
     @Test
-    public void addAllIterable() {
+    public void addAllIterable()
+    {
         MutableList<Integer> list1 = MutableList.empty();
         var expected = List.of(1, 2, 3);
         list1.addAllIterable(expected::iterator);
