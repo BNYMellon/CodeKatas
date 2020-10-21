@@ -21,14 +21,19 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
-
-    default boolean addAllIterable(Iterable<T> iterable) {
-        if (iterable instanceof Collection<T> collection) {
+public interface MutableCollection<T> extends RichIterable<T>, Collection<T>
+{
+    default boolean addAllIterable(Iterable<T> iterable)
+    {
+        if (iterable instanceof Collection<T> collection)
+        {
             return this.addAll(collection);
-        } else {
+        }
+        else
+        {
             boolean result = false;
-            for (T each : iterable) {
+            for (T each : iterable)
+            {
                 result |= this.add(each);
             }
             return result;
@@ -36,7 +41,8 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
     }
 
     @Override
-    default MutableCollection<T> peek(Consumer<? super T> consumer) {
+    default MutableCollection<T> peek(Consumer<? super T> consumer)
+    {
         this.forEach(consumer);
         return this;
     }
@@ -59,7 +65,8 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T> {
     @Override
     <V> MutableCollection<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
 
-    default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function) {
+    default <K> MutableBag<K> countBy(Function<? super T, ? extends K> function)
+    {
         var counts = MutableBag.<K>empty();
         this.forEach(each -> counts.add(function.apply(each)));
         return counts;

@@ -20,7 +20,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public sealed interface ImmutableCollection<T> extends RichIterable<T>
-    permits ImmutableList, ImmutableBag, ImmutableSet
+        permits ImmutableList, ImmutableBag, ImmutableSet
 {
     @Override
     ImmutableCollection<T> filter(Predicate<? super T> predicate);
@@ -41,7 +41,8 @@ public sealed interface ImmutableCollection<T> extends RichIterable<T>
         return this;
     }
 
-    default <K> ImmutableBag<K> countBy(Function<? super T, ? extends K> function) {
+    default <K> ImmutableBag<K> countBy(Function<? super T, ? extends K> function)
+    {
         var counts = MutableBag.<K>empty();
         this.forEach(each -> counts.add(function.apply(each)));
         return counts.toImmutable();

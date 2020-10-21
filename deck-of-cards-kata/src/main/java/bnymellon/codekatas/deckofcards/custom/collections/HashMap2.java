@@ -17,9 +17,11 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.HashMap;
 
-public class HashMap2<K, V> extends HashMap<K, V> implements MutableMap<K, V> {
+public class HashMap2<K, V> extends HashMap<K, V> implements MutableMap<K, V>
+{
 
-    final HashMap2<K, V> withKeyValue(K key, V value) {
+    final HashMap2<K, V> withKeyValue(K key, V value)
+    {
         this.put(key, value);
         return this;
     }

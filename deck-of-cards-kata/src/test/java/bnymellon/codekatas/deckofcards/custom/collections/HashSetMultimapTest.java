@@ -15,35 +15,40 @@
  */
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.HashSet;
+
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-
-public class HashSetMultimapTest {
+public class HashSetMultimapTest
+{
     private HashSetMultimap<String, Integer> testObj;
 
     @Before
-    public void setup() {
+    public void setup()
+    {
         this.testObj = new HashSetMultimap<>();
     }
 
     @Test
-    public void isConstructed() {
+    public void isConstructed()
+    {
         Assert.assertNotNull(new HashSetMultimap<>());
     }
 
     @Test
-    public void isEmpty() {
+    public void isEmpty()
+    {
         Assert.assertTrue(this.testObj.isEmpty());
         this.testObj.put("A", 1);
         Assert.assertFalse(this.testObj.isEmpty());
     }
 
     @Test
-    public void get_put() {
+    public void get_put()
+    {
         this.testObj.put("A", 1);
         Assert.assertEquals(MutableSet.of(1), this.testObj.get("A"));
         Assert.assertEquals(1, this.testObj.size());
@@ -65,7 +70,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void get_putIterable() {
+    public void get_putIterable()
+    {
         this.testObj.put("A", MutableSet.of(1));
         Assert.assertEquals(MutableSet.of(1), this.testObj.get("A"));
         Assert.assertEquals(1, this.testObj.size());
@@ -81,7 +87,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void putAll() {
+    public void putAll()
+    {
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3)));
         Assert.assertEquals(MutableSet.of(1, 2, 3), this.testObj.get("A"));
         Assert.assertEquals(3, this.testObj.size());
@@ -91,7 +98,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void remove() {
+    public void remove()
+    {
         Assert.assertEquals(MutableSet.empty(), this.testObj.remove("A"));
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3)));
         this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
@@ -103,7 +111,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void remove_keyValue() {
+    public void remove_keyValue()
+    {
         Assert.assertEquals(MutableSet.empty(), this.testObj.remove("A"));
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
         this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
@@ -119,7 +128,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void containsKey() {
+    public void containsKey()
+    {
         Assert.assertFalse(this.testObj.containsKey("A"));
         this.testObj.putAll(MutableMap.of("A", MutableSet.of(1, 2, 3, 1)));
         Assert.assertTrue(this.testObj.containsKey("A"));
@@ -129,7 +139,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void containsValue() {
+    public void containsValue()
+    {
         Assert.assertFalse(this.testObj.containsValue(1));
         this.testObj.putAll(MutableMap.of("A", MutableSet.of(1, 2, 3, 1)));
         Assert.assertTrue(this.testObj.containsValue(1));
@@ -142,7 +153,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void clear() {
+    public void clear()
+    {
         Assert.assertEquals(0, this.testObj.size());
         this.testObj.clear();
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
@@ -153,7 +165,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void keySet() {
+    public void keySet()
+    {
         Assert.assertEquals(new HashSet<>(), this.testObj.keySet());
         this.testObj.putAll(MutableMap.of("A", MutableSet.of(1, 2, 3, 1)));
         this.testObj.putAll(MutableMap.of("B", MutableSet.of(10, 10)));
@@ -161,7 +174,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void forEach() {
+    public void forEach()
+    {
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
         this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
         MutableList<String> combined = MutableList.empty();
@@ -172,7 +186,8 @@ public class HashSetMultimapTest {
     }
 
     @Test
-    public void hashCodeEquals() {
+    public void hashCodeEquals()
+    {
         this.testObj.putAll(MutableMap.of("A", MutableList.of(1, 2, 3, 1)));
         this.testObj.putAll(MutableMap.of("B", MutableList.of(10, 10)));
 

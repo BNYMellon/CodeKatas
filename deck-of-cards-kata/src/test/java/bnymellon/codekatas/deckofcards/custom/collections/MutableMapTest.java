@@ -16,15 +16,16 @@
 
 package bnymellon.codekatas.deckofcards.custom.collections;
 
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
-
-public class MutableMapTest {
-
+public class MutableMapTest
+{
     @Test
-    public void of() {
+    public void of()
+    {
         Assert.assertEquals(Map.of(1, "1"), MutableMap.of(1, "1"));
         MutableMap<Integer, String> map = MutableMap.of(1, "1", 2, "2");
         Map<Integer, String> expected = Map.of(1, "1", 2, "2");
