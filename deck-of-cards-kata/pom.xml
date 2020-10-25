@@ -39,7 +39,7 @@
 
         <apache-collections.version>4.4</apache-collections.version>
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>30.0-jre</guava.version>
         <vavr.version>0.10.3</vavr.version>
         <junit.version>4.13.1</junit.version>
     </properties>
