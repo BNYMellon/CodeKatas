@@ -19,8 +19,8 @@ package bnymellon.codekatas.lambdakata.ec;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.block.factory.Procedures;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EclipseCollectionsCheckedExceptionsTest
 {
@@ -32,6 +32,6 @@ public class EclipseCollectionsCheckedExceptionsTest
         list.forEach(Procedures.throwing(each -> appendable.append(each)));
         // Method reference
         // list.forEach(Procedures.throwing(appendable::append));
-        Assert.assertEquals("123", appendable.toString());
+        Assertions.assertEquals("123", appendable.toString());
     }
 }

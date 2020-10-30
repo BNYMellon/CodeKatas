@@ -17,15 +17,15 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Iterator;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HashBagTest
 {
     private HashBag<String> testObj;
 
-    @Before
+    @BeforeEach
     public void setup()
     {
         this.testObj = new HashBag<>();
@@ -35,59 +35,59 @@ public class HashBagTest
     public void withAllVarArgs()
     {
         MutableBag<String> bag = this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertEquals(1, bag.getOccurrences("1"));
-        Assert.assertEquals(2, bag.getOccurrences("2"));
-        Assert.assertEquals(3, bag.getOccurrences("3"));
+        Assertions.assertEquals(1, bag.getOccurrences("1"));
+        Assertions.assertEquals(2, bag.getOccurrences("2"));
+        Assertions.assertEquals(3, bag.getOccurrences("3"));
     }
 
     @Test
     public void withAll()
     {
         MutableBag<String> bag = this.testObj.withAll(MutableList.of("1", "2", "3", "2", "3", "3"));
-        Assert.assertEquals(1, bag.getOccurrences("1"));
-        Assert.assertEquals(2, bag.getOccurrences("2"));
-        Assert.assertEquals(3, bag.getOccurrences("3"));
+        Assertions.assertEquals(1, bag.getOccurrences("1"));
+        Assertions.assertEquals(2, bag.getOccurrences("2"));
+        Assertions.assertEquals(3, bag.getOccurrences("3"));
     }
 
     @Test
     public void size_sizeDistinct()
     {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertEquals(6, this.testObj.size());
-        Assert.assertEquals(3, this.testObj.sizeDistinct());
+        Assertions.assertEquals(6, this.testObj.size());
+        Assertions.assertEquals(3, this.testObj.sizeDistinct());
     }
 
     @Test
     public void isEmpty()
     {
-        Assert.assertTrue(this.testObj.isEmpty());
+        Assertions.assertTrue(this.testObj.isEmpty());
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertFalse(this.testObj.isEmpty());
+        Assertions.assertFalse(this.testObj.isEmpty());
     }
 
     @Test
     public void contains()
     {
-        Assert.assertFalse(this.testObj.contains("1"));
+        Assertions.assertFalse(this.testObj.contains("1"));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.contains("1"));
-        Assert.assertFalse(this.testObj.contains("4"));
+        Assertions.assertTrue(this.testObj.contains("1"));
+        Assertions.assertFalse(this.testObj.contains("4"));
     }
 
     @Test
     public void toArray()
     {
-        Assert.assertArrayEquals(new String[]{}, this.testObj.toArray());
+        Assertions.assertArrayEquals(new String[]{}, this.testObj.toArray());
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray());
+        Assertions.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray());
     }
 
     @Test
     public void toArray_target()
     {
-        Assert.assertArrayEquals(new String[]{}, this.testObj.toArray(new String[]{}));
+        Assertions.assertArrayEquals(new String[]{}, this.testObj.toArray(new String[]{}));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray(new String[]{"0"}));
+        Assertions.assertArrayEquals(new String[]{"1", "2", "2", "3", "3", "3"}, this.testObj.toArray(new String[]{"0"}));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class HashBagTest
         this.testObj.add("2");
         this.testObj.add("2");
 
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
     }
 
     @Test
@@ -107,78 +107,78 @@ public class HashBagTest
         this.testObj.add("2");
         this.testObj.add("2");
 
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
         this.testObj.remove("2");
-        Assert.assertEquals(MutableBag.of("1"), this.testObj);
+        Assertions.assertEquals(MutableBag.of("1"), this.testObj);
         this.testObj.remove("1");
-        Assert.assertEquals(MutableBag.empty(), this.testObj);
+        Assertions.assertEquals(MutableBag.empty(), this.testObj);
     }
 
     @Test
     public void containsAll()
     {
-        Assert.assertTrue(this.testObj.containsAll(MutableList.empty()));
-        Assert.assertFalse(this.testObj.containsAll(MutableList.of("1")));
+        Assertions.assertTrue(this.testObj.containsAll(MutableList.empty()));
+        Assertions.assertFalse(this.testObj.containsAll(MutableList.of("1")));
 
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.containsAll(MutableList.of("1")));
-        Assert.assertTrue(this.testObj.containsAll(MutableList.of("1", "2")));
-        Assert.assertFalse(this.testObj.containsAll(MutableList.of("1", "2", "4")));
+        Assertions.assertTrue(this.testObj.containsAll(MutableList.of("1")));
+        Assertions.assertTrue(this.testObj.containsAll(MutableList.of("1", "2")));
+        Assertions.assertFalse(this.testObj.containsAll(MutableList.of("1", "2", "4")));
     }
 
     @Test
     public void addAll()
     {
-        Assert.assertFalse(this.testObj.addAll(MutableList.empty()));
-        Assert.assertEquals(MutableBag.empty(), this.testObj);
-        Assert.assertTrue(this.testObj.addAll(MutableList.of("1", "2", "2")));
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertFalse(this.testObj.addAll(MutableList.empty()));
+        Assertions.assertEquals(MutableBag.empty(), this.testObj);
+        Assertions.assertTrue(this.testObj.addAll(MutableList.of("1", "2", "2")));
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
     }
 
     @Test
     public void removeAll()
     {
-        Assert.assertFalse(this.testObj.removeAll(MutableList.empty()));
+        Assertions.assertFalse(this.testObj.removeAll(MutableList.empty()));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.removeAll(MutableList.of("1", "2")));
-        Assert.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
-        Assert.assertFalse(this.testObj.removeAll(MutableList.of("4")));
-        Assert.assertTrue(this.testObj.removeAll(MutableList.of("3", "3", "3")));
-        Assert.assertEquals(MutableBag.empty(), this.testObj);
+        Assertions.assertTrue(this.testObj.removeAll(MutableList.of("1", "2")));
+        Assertions.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
+        Assertions.assertFalse(this.testObj.removeAll(MutableList.of("4")));
+        Assertions.assertTrue(this.testObj.removeAll(MutableList.of("3", "3", "3")));
+        Assertions.assertEquals(MutableBag.empty(), this.testObj);
     }
 
     @Test
     public void retailAll()
     {
-        Assert.assertFalse(this.testObj.retainAll(MutableList.empty()));
+        Assertions.assertFalse(this.testObj.retainAll(MutableList.empty()));
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.retainAll(MutableList.of("1", "2")));
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
-        Assert.assertFalse(this.testObj.retainAll(MutableList.of("4")));
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
-        Assert.assertTrue(this.testObj.retainAll(MutableList.of("2", "4")));
-        Assert.assertEquals(MutableBag.of("2", "2"), this.testObj);
+        Assertions.assertTrue(this.testObj.retainAll(MutableList.of("1", "2")));
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertFalse(this.testObj.retainAll(MutableList.of("4")));
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertTrue(this.testObj.retainAll(MutableList.of("2", "4")));
+        Assertions.assertEquals(MutableBag.of("2", "2"), this.testObj);
     }
 
     @Test
     public void clear()
     {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertFalse(this.testObj.isEmpty());
+        Assertions.assertFalse(this.testObj.isEmpty());
         this.testObj.clear();
-        Assert.assertTrue(this.testObj.isEmpty());
-        Assert.assertEquals(0, this.testObj.size());
-        Assert.assertEquals(0, this.testObj.sizeDistinct());
+        Assertions.assertTrue(this.testObj.isEmpty());
+        Assertions.assertEquals(0, this.testObj.size());
+        Assertions.assertEquals(0, this.testObj.sizeDistinct());
     }
 
     @Test
     public void getOccurrences()
     {
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertEquals(1, this.testObj.getOccurrences("1"));
-        Assert.assertEquals(2, this.testObj.getOccurrences("2"));
-        Assert.assertEquals(3, this.testObj.getOccurrences("3"));
-        Assert.assertEquals(0, this.testObj.getOccurrences("4"));
+        Assertions.assertEquals(1, this.testObj.getOccurrences("1"));
+        Assertions.assertEquals(2, this.testObj.getOccurrences("2"));
+        Assertions.assertEquals(3, this.testObj.getOccurrences("3"));
+        Assertions.assertEquals(0, this.testObj.getOccurrences("4"));
     }
 
     @Test
@@ -187,71 +187,71 @@ public class HashBagTest
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
         Iterator<String> iterator = this.testObj.iterator();
 
-        Assert.assertEquals("1", iterator.next());
-        Assert.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("1", iterator.next());
+        Assertions.assertTrue(iterator.hasNext());
         iterator.remove();
-        Assert.assertEquals("2", iterator.next());
+        Assertions.assertEquals("2", iterator.next());
         iterator.remove();
-        Assert.assertEquals("2", iterator.next());
-        Assert.assertEquals("3", iterator.next());
+        Assertions.assertEquals("2", iterator.next());
+        Assertions.assertEquals("3", iterator.next());
         iterator.remove();
-        Assert.assertEquals("3", iterator.next());
+        Assertions.assertEquals("3", iterator.next());
         iterator.remove();
-        Assert.assertEquals("3", iterator.next());
+        Assertions.assertEquals("3", iterator.next());
         iterator.remove();
-        Assert.assertFalse(iterator.hasNext());
-        Assert.assertEquals(MutableBag.of("2"), this.testObj);
+        Assertions.assertFalse(iterator.hasNext());
+        Assertions.assertEquals(MutableBag.of("2"), this.testObj);
     }
 
     @Test
     public void addOccurrence()
     {
         this.testObj.addOccurrence("1");
-        Assert.assertEquals(MutableBag.of("1"), this.testObj);
-        Assert.assertEquals(1, this.testObj.size());
-        Assert.assertEquals(1, this.testObj.sizeDistinct());
+        Assertions.assertEquals(MutableBag.of("1"), this.testObj);
+        Assertions.assertEquals(1, this.testObj.size());
+        Assertions.assertEquals(1, this.testObj.sizeDistinct());
     }
 
     @Test
     public void addOccurrences()
     {
         this.testObj.addOccurrences("1", 1);
-        Assert.assertEquals(MutableBag.of("1"), this.testObj);
-        Assert.assertEquals(1, this.testObj.size());
-        Assert.assertEquals(1, this.testObj.sizeDistinct());
+        Assertions.assertEquals(MutableBag.of("1"), this.testObj);
+        Assertions.assertEquals(1, this.testObj.size());
+        Assertions.assertEquals(1, this.testObj.sizeDistinct());
         this.testObj.addOccurrences("2", 2);
-        Assert.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
-        Assert.assertEquals(3, this.testObj.size());
-        Assert.assertEquals(2, this.testObj.sizeDistinct());
+        Assertions.assertEquals(MutableBag.of("1", "2", "2"), this.testObj);
+        Assertions.assertEquals(3, this.testObj.size());
+        Assertions.assertEquals(2, this.testObj.sizeDistinct());
     }
 
     @Test
     public void removeOccurrence()
     {
-        Assert.assertFalse(this.testObj.removeOccurrence("1"));
-        Assert.assertEquals(MutableBag.empty(), this.testObj);
+        Assertions.assertFalse(this.testObj.removeOccurrence("1"));
+        Assertions.assertEquals(MutableBag.empty(), this.testObj);
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.removeOccurrence("1"));
-        Assert.assertEquals(MutableBag.of("2", "2", "3", "3", "3"), this.testObj);
-        Assert.assertTrue(this.testObj.removeOccurrence("2"));
-        Assert.assertEquals(MutableBag.of("2", "3", "3", "3"), this.testObj);
-        Assert.assertTrue(this.testObj.removeOccurrence("2"));
-        Assert.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
-        Assert.assertFalse(this.testObj.removeOccurrence("2"));
+        Assertions.assertTrue(this.testObj.removeOccurrence("1"));
+        Assertions.assertEquals(MutableBag.of("2", "2", "3", "3", "3"), this.testObj);
+        Assertions.assertTrue(this.testObj.removeOccurrence("2"));
+        Assertions.assertEquals(MutableBag.of("2", "3", "3", "3"), this.testObj);
+        Assertions.assertTrue(this.testObj.removeOccurrence("2"));
+        Assertions.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
+        Assertions.assertFalse(this.testObj.removeOccurrence("2"));
     }
 
     @Test
     public void removeOccurrences()
     {
-        Assert.assertFalse(this.testObj.removeOccurrences("1", 1));
-        Assert.assertEquals(MutableBag.empty(), this.testObj);
+        Assertions.assertFalse(this.testObj.removeOccurrences("1", 1));
+        Assertions.assertEquals(MutableBag.empty(), this.testObj);
         this.testObj.withAll("1", "2", "3", "2", "3", "3");
-        Assert.assertTrue(this.testObj.removeOccurrences("1", 2));
-        Assert.assertEquals(MutableBag.of("2", "2", "3", "3", "3"), this.testObj);
-        Assert.assertEquals(5, this.testObj.size());
-        Assert.assertTrue(this.testObj.removeOccurrences("2", 2));
-        Assert.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
-        Assert.assertFalse(this.testObj.removeOccurrences("2", 2));
+        Assertions.assertTrue(this.testObj.removeOccurrences("1", 2));
+        Assertions.assertEquals(MutableBag.of("2", "2", "3", "3", "3"), this.testObj);
+        Assertions.assertEquals(5, this.testObj.size());
+        Assertions.assertTrue(this.testObj.removeOccurrences("2", 2));
+        Assertions.assertEquals(MutableBag.of("3", "3", "3"), this.testObj);
+        Assertions.assertFalse(this.testObj.removeOccurrences("2", 2));
     }
 
     @Test
@@ -260,7 +260,7 @@ public class HashBagTest
         MutableList<String> list = MutableList.empty();
         this.testObj.withAll("1", "2", "3", "2", "3", "3")
                 .forEachWithOccurrences((each, count) -> list.add(each + count));
-        Assert.assertEquals(MutableList.of("11", "22", "33"), list);
+        Assertions.assertEquals(MutableList.of("11", "22", "33"), list);
     }
 
     @Test
@@ -269,13 +269,13 @@ public class HashBagTest
         MutableList<String> list = MutableList.empty();
         this.testObj.withAll("1", "2", "3", "2", "3", "3")
                 .forEach((each) -> list.add(each));
-        Assert.assertEquals(MutableList.of("1", "2", "2", "3", "3", "3"), list);
+        Assertions.assertEquals(MutableList.of("1", "2", "2", "3", "3", "3"), list);
     }
 
     @Test
     public void fromIterable()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of("1", "2", "2", "3", "3", "3"),
                 MutableBag.fromIterable(MutableList.of("1", "2", "2", "3", "3", "3")));
     }
@@ -283,7 +283,7 @@ public class HashBagTest
     @Test
     public void fromStream()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of("1", "2", "2", "3", "3", "3"),
                 MutableBag.fromStream(MutableList.of("1", "2", "2", "3", "3", "3").stream()));
     }
@@ -291,7 +291,7 @@ public class HashBagTest
     @Test
     public void filter()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of("2", "2"),
                 MutableBag.of("1", "2", "2", "3", "3", "3").filter(each -> Integer.valueOf(each) % 2 == 0));
     }
@@ -299,7 +299,7 @@ public class HashBagTest
     @Test
     public void filterNot()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of("1", "3", "3", "3"),
                 MutableBag.of("1", "2", "2", "3", "3", "3").filterNot(each -> Integer.parseInt(each) % 2 == 0));
     }
@@ -307,7 +307,7 @@ public class HashBagTest
     @Test
     public void map()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of(1, 2, 2, 3, 3, 3),
                 MutableBag.of("1", "2", "2", "3", "3", "3").map(Integer::valueOf));
     }
@@ -315,7 +315,7 @@ public class HashBagTest
     @Test
     public void flatMap()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 MutableBag.of("1", "2", "2", "3", "3", "3"),
                 MutableBag
                         .of(MutableList.of("1"), MutableList.of("2", "2"), MutableList.of("3", "3", "3"))

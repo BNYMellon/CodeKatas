@@ -19,8 +19,8 @@ package bnymellon.codekatas.codepointkata;
 import org.eclipse.collections.api.bag.primitive.CharBag;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.impl.factory.primitive.CharBags;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class CodePointKataTest
 {
@@ -47,7 +47,7 @@ public class CodePointKataTest
         // Hint: Look at ImmutableList.each(Procedure) or ImmutableList.injectInto(IV, Function2)
         var characters = CharBags.mutable.empty();
 
-        Assert.assertTrue(this.expectedBagOfCharacters(characters));
+        Assertions.assertTrue(this.expectedBagOfCharacters(characters));
 
         // Output the list of strings to a file and read the secret message
         // Hint: Look at Files.write() or FileWriter
@@ -89,10 +89,10 @@ public class CodePointKataTest
     @Test
     public void codePointsToHelloWorldHowAreYou()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 "Hello World!",
                 this.convertCodePointsToString(72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33));
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 "How are you?",
                 this.convertCodePointsToString(72, 111, 119, 32, 97, 114, 101, 32, 121, 111, 117, 63));
     }

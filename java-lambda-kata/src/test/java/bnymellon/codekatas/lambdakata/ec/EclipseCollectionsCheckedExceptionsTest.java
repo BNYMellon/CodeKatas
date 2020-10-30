@@ -21,8 +21,8 @@ import java.io.IOException;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.block.procedure.checked.CheckedProcedure;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EclipseCollectionsCheckedExceptionsTest
 {
@@ -41,6 +41,6 @@ public class EclipseCollectionsCheckedExceptionsTest
                 appendable.append(each);
             }
         });
-        Assert.assertEquals("123", appendable.toString());
+        Assertions.assertEquals("123", appendable.toString());
     }
 }

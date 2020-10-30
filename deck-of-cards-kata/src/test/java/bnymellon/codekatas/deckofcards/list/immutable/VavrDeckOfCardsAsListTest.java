@@ -18,8 +18,8 @@ package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
@@ -32,31 +32,31 @@ public class VavrDeckOfCardsAsListTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(this.jdkDeck.getCards(), this.vavrDeck.getCards().toJavaList());
+        Assertions.assertEquals(this.jdkDeck.getCards(), this.vavrDeck.getCards().toJavaList());
     }
 
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(this.jdkDeck.diamonds(), this.vavrDeck.diamonds().toJavaList());
+        Assertions.assertEquals(this.jdkDeck.diamonds(), this.vavrDeck.diamonds().toJavaList());
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(this.jdkDeck.hearts(), this.vavrDeck.hearts().toJavaList());
+        Assertions.assertEquals(this.jdkDeck.hearts(), this.vavrDeck.hearts().toJavaList());
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(this.jdkDeck.spades(), this.vavrDeck.spades().toJavaList());
+        Assertions.assertEquals(this.jdkDeck.spades(), this.vavrDeck.spades().toJavaList());
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(this.jdkDeck.clubs(), this.vavrDeck.clubs().toJavaList());
+        Assertions.assertEquals(this.jdkDeck.clubs(), this.vavrDeck.clubs().toJavaList());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class VavrDeckOfCardsAsListTest
 
         var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         var vavrHand = this.vavrDeck.deal(vavrShuffle, 5)._1().toJavaSet();
-        Assert.assertEquals(jdkHand, vavrHand);
+        Assertions.assertEquals(jdkHand, vavrHand);
     }
 
     @Test
@@ -75,11 +75,11 @@ public class VavrDeckOfCardsAsListTest
     {
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         var vavrHands = this.vavrDeck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
-        Assert.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
-        Assert.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
-        Assert.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
-        Assert.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
     }
 
     @Test
@@ -89,11 +89,11 @@ public class VavrDeckOfCardsAsListTest
         var vavrShuffled = this.vavrDeck.shuffle(new Random(1));
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         var vavrHands = this.vavrDeck.dealHands(vavrShuffled, 5, 5);
-        Assert.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
-        Assert.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
-        Assert.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
-        Assert.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
-        Assert.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(0), vavrHands.get(0).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(1), vavrHands.get(1).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
+        Assertions.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
     }
 
     @Test
@@ -101,13 +101,13 @@ public class VavrDeckOfCardsAsListTest
     {
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         var vavrCardsBySuit = this.vavrDeck.getCardsBySuit();
-        Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), vavrCardsBySuit.get(Suit.CLUBS).get().toJavaList());
+        Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), vavrCardsBySuit.get(Suit.CLUBS).get().toJavaList());
     }
 
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsBySuit().get(Suit.CLUBS),
                 this.vavrDeck.countsBySuit().get(Suit.CLUBS).get());
     }
@@ -115,7 +115,7 @@ public class VavrDeckOfCardsAsListTest
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsByRank().get(Rank.TEN),
                 this.vavrDeck.countsByRank().get(Rank.TEN).get());
     }

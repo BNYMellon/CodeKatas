@@ -31,8 +31,8 @@ import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
 import org.eclipse.collections.impl.list.Interval;
 import org.eclipse.collections.impl.list.mutable.FastList;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test will illustrate how you can use lambdas with Functional Interface types introduced in Java 8
@@ -63,9 +63,9 @@ public class EclipseCollectionsFunctionalInterfaceTest
             }
         };
         procedure.accept("zero");
-        Assert.assertEquals(Lists.mutable.with("ZERO"), result);
+        Assertions.assertEquals(Lists.mutable.with("ZERO"), result);
         strings.each(procedure);
-        Assert.assertEquals(Lists.mutable.with("ZERO", "ONE", "TWO", "THREE"), result);
+        Assertions.assertEquals(Lists.mutable.with("ZERO", "ONE", "TWO", "THREE"), result);
     }
 
     @Test
@@ -82,16 +82,16 @@ public class EclipseCollectionsFunctionalInterfaceTest
                 return integer % 2 == 0;
             }
         };
-        Assert.assertTrue(evenPredicate.test(2));
-        Assert.assertFalse(evenPredicate.test(1));
+        Assertions.assertTrue(evenPredicate.test(2));
+        Assertions.assertFalse(evenPredicate.test(1));
         MutableList<Integer> evens = numbers.select(evenPredicate);
-        Assert.assertTrue(evens.allSatisfy(evenPredicate));
-        Assert.assertTrue(evens.stream().allMatch(evenPredicate));
-        Assert.assertFalse(evens.noneSatisfy(evenPredicate));
-        Assert.assertFalse(evens.stream().noneMatch(evenPredicate));
-        Assert.assertTrue(evens.anySatisfy(evenPredicate));
-        Assert.assertTrue(evens.stream().anyMatch(evenPredicate));
-        Assert.assertEquals(Interval.evensFromTo(1, 10), evens);
+        Assertions.assertTrue(evens.allSatisfy(evenPredicate));
+        Assertions.assertTrue(evens.stream().allMatch(evenPredicate));
+        Assertions.assertFalse(evens.noneSatisfy(evenPredicate));
+        Assertions.assertFalse(evens.stream().noneMatch(evenPredicate));
+        Assertions.assertTrue(evens.anySatisfy(evenPredicate));
+        Assertions.assertTrue(evens.stream().anyMatch(evenPredicate));
+        Assertions.assertEquals(Interval.evensFromTo(1, 10), evens);
     }
 
     @Test
@@ -108,16 +108,16 @@ public class EclipseCollectionsFunctionalInterfaceTest
                 return integer % 2 == 1;
             }
         };
-        Assert.assertFalse(oddPredicate.test(2));
-        Assert.assertTrue(oddPredicate.test(1));
+        Assertions.assertFalse(oddPredicate.test(2));
+        Assertions.assertTrue(oddPredicate.test(1));
         MutableList<Integer> odds = numbers.select(oddPredicate);
-        Assert.assertTrue(odds.allSatisfy(oddPredicate));
-        Assert.assertTrue(odds.stream().allMatch(oddPredicate));
-        Assert.assertFalse(odds.noneSatisfy(oddPredicate));
-        Assert.assertFalse(odds.stream().noneMatch(oddPredicate));
-        Assert.assertTrue(odds.stream().anyMatch(oddPredicate));
-        Assert.assertTrue(odds.anySatisfy(oddPredicate));
-        Assert.assertEquals(Interval.oddsFromTo(1, 10), odds);
+        Assertions.assertTrue(odds.allSatisfy(oddPredicate));
+        Assertions.assertTrue(odds.stream().allMatch(oddPredicate));
+        Assertions.assertFalse(odds.noneSatisfy(oddPredicate));
+        Assertions.assertFalse(odds.stream().noneMatch(oddPredicate));
+        Assertions.assertTrue(odds.stream().anyMatch(oddPredicate));
+        Assertions.assertTrue(odds.anySatisfy(oddPredicate));
+        Assertions.assertEquals(Interval.oddsFromTo(1, 10), odds);
     }
 
     @Test
@@ -132,10 +132,10 @@ public class EclipseCollectionsFunctionalInterfaceTest
                 return string.toUpperCase();
             }
         };
-        Assert.assertEquals("UPPERCASE", toUppercase.apply("uppercase"));
+        Assertions.assertEquals("UPPERCASE", toUppercase.apply("uppercase"));
         MutableList<String> lowercase = Lists.mutable.with("a", "b", "c", "d");
         MutableList<String> uppercase = lowercase.collect(toUppercase);
-        Assert.assertEquals(Arrays.asList("A", "B", "C", "D"), uppercase);
+        Assertions.assertEquals(Arrays.asList("A", "B", "C", "D"), uppercase);
     }
 
     @Test
@@ -150,10 +150,10 @@ public class EclipseCollectionsFunctionalInterfaceTest
                 return FastList.newList();
             }
         };
-        Assert.assertEquals(Lists.mutable.empty(), supplier.get());
-        Assert.assertNotSame(supplier.get(), supplier.get());
+        Assertions.assertEquals(Lists.mutable.empty(), supplier.get());
+        Assertions.assertNotSame(supplier.get(), supplier.get());
         List<String> list = Stream.of("1", "2", "3").collect(Collectors.toCollection(supplier));
-        Assert.assertEquals(Lists.mutable.with("1", "2", "3"), list);
+        Assertions.assertEquals(Lists.mutable.with("1", "2", "3"), list);
     }
 
     @Test
@@ -170,8 +170,8 @@ public class EclipseCollectionsFunctionalInterfaceTest
             }
         };
         procedure2.accept("a", "one");
-        Assert.assertEquals(Maps.mutable.with("A", "ONE"), result);
+        Assertions.assertEquals(Maps.mutable.with("A", "ONE"), result);
         Maps.mutable.with("b", "two", "c", "three").forEachKeyValue(procedure2);
-        Assert.assertEquals(Maps.mutable.with("A", "ONE", "B", "TWO", "C", "THREE"), result);
+        Assertions.assertEquals(Maps.mutable.with("A", "ONE", "B", "TWO", "C", "THREE"), result);
     }
 }

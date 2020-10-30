@@ -18,17 +18,17 @@ package bnymellon.codekatas.deckofcards.custom.collections;
 
 import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class MutableMapTest
 {
     @Test
     public void of()
     {
-        Assert.assertEquals(Map.of(1, "1"), MutableMap.of(1, "1"));
+        Assertions.assertEquals(Map.of(1, "1"), MutableMap.of(1, "1"));
         MutableMap<Integer, String> map = MutableMap.of(1, "1", 2, "2");
         Map<Integer, String> expected = Map.of(1, "1", 2, "2");
-        Assert.assertEquals(expected, map);
+        Assertions.assertEquals(expected, map);
     }
 }

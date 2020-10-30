@@ -28,8 +28,8 @@ import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.MultiValuedMap;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ApacheCommonsDeckOfCardsAsSortedSetTest
 {
@@ -39,20 +39,20 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(this.jdkDeck.getCards(), this.acDeck.getCards());
+        Assertions.assertEquals(this.jdkDeck.getCards(), this.acDeck.getCards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
         var acCards = this.acDeck.getCards();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCards.remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 acCards::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCards.add(null));
     }
@@ -60,25 +60,25 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(this.jdkDeck.diamonds(), this.acDeck.diamonds());
+        Assertions.assertEquals(this.jdkDeck.diamonds(), this.acDeck.diamonds());
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(this.jdkDeck.hearts(), this.acDeck.hearts());
+        Assertions.assertEquals(this.jdkDeck.hearts(), this.acDeck.hearts());
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(this.jdkDeck.spades(), this.acDeck.spades());
+        Assertions.assertEquals(this.jdkDeck.spades(), this.acDeck.spades());
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(this.jdkDeck.clubs(), this.acDeck.clubs());
+        Assertions.assertEquals(this.jdkDeck.clubs(), this.acDeck.clubs());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
 
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Set<Card> acHand = this.acDeck.deal(acShuffle, 5);
-        Assert.assertEquals(jdkHand, acHand);
+        Assertions.assertEquals(jdkHand, acHand);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     {
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> acHands = this.acDeck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(jdkHands, acHands);
+        Assertions.assertEquals(jdkHands, acHands);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         Deque<Card> acShuffled = this.acDeck.shuffle(new Random(1));
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         List<Set<Card>> acHands = this.acDeck.dealHands(acShuffled, 5, 5);
-        Assert.assertEquals(jdkHands, acHands);
+        Assertions.assertEquals(jdkHands, acHands);
     }
 
     @Test
@@ -115,26 +115,26 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     {
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         MultiValuedMap<Suit, Card> acCardsBySuit = this.acDeck.getCardsBySuit();
-        Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new TreeSet<>(acCardsBySuit.get(Suit.CLUBS)));
+        Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new TreeSet<>(acCardsBySuit.get(Suit.CLUBS)));
     }
 
     @Test
     public void cardsBySuitIsImmutable()
     {
         var acCardsBySuit = this.acDeck.getCardsBySuit();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.remove(Suit.CLUBS));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 acCardsBySuit::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.get(Suit.CLUBS).remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> acCardsBySuit.get(Suit.CLUBS).add(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 acCardsBySuit.get(Suit.CLUBS)::clear);
     }
@@ -142,7 +142,7 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
                 this.acDeck.countsBySuit().getCount(Suit.CLUBS));
     }
@@ -150,7 +150,7 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
                 this.acDeck.countsByRank().getCount(Rank.EIGHT));
     }

@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class MutableSetTest
 {
@@ -44,8 +44,8 @@ public class MutableSetTest
                 .collect(Collectors.toSet());
 
         var expected = MutableSet.of(2, 4);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -62,8 +62,8 @@ public class MutableSetTest
                 .collect(Collectors.toSet());
 
         var expected = MutableSet.of(1, 3, 5);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -80,8 +80,8 @@ public class MutableSetTest
                 .collect(Collectors.toSet());
 
         var expected = MutableSet.of("1", "2", "3", "4", "5");
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -98,8 +98,8 @@ public class MutableSetTest
                 .collect(Collectors.toSet());
 
         var expected = Set.of(1, 2);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -113,10 +113,10 @@ public class MutableSetTest
         // reduce method on java.util.stream.Stream
         Optional<Integer> reduceStream = set.stream().reduce(Integer::sum);
 
-        Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
-        Assert.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduce.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
         MutableSet<Integer> empty = MutableSet.empty();
-        Assert.assertTrue(empty.reduce(Integer::sum).isEmpty());
+        Assertions.assertTrue(empty.reduce(Integer::sum).isEmpty());
     }
 
     @Test
@@ -125,12 +125,12 @@ public class MutableSetTest
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
 
         // anyMatch method on MutableSet
-        Assert.assertTrue(set.anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(set.anyMatch(each -> each < 0));
+        Assertions.assertTrue(set.anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(set.anyMatch(each -> each < 0));
 
         // anyMatch method on java.util.stream.Stream
-        Assert.assertTrue(set.stream().anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(set.stream().anyMatch(each -> each < 0));
+        Assertions.assertTrue(set.stream().anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(set.stream().anyMatch(each -> each < 0));
     }
 
     @Test
@@ -139,12 +139,12 @@ public class MutableSetTest
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
 
         // allMatch method on MutableSet
-        Assert.assertFalse(set.allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(set.allMatch(each -> each > 0));
+        Assertions.assertFalse(set.allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(set.allMatch(each -> each > 0));
 
         // allMatch method on java.util.stream.Stream
-        Assert.assertFalse(set.stream().allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(set.stream().allMatch(each -> each > 0));
+        Assertions.assertFalse(set.stream().allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(set.stream().allMatch(each -> each > 0));
     }
 
     @Test
@@ -153,12 +153,12 @@ public class MutableSetTest
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
 
         // noneMatch method on MutableSet
-        Assert.assertFalse(set.noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(set.noneMatch(each -> each < 0));
+        Assertions.assertFalse(set.noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(set.noneMatch(each -> each < 0));
 
         // noneMatch method on java.util.stream.Stream
-        Assert.assertFalse(set.stream().noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(set.stream().noneMatch(each -> each < 0));
+        Assertions.assertFalse(set.stream().noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(set.stream().noneMatch(each -> each < 0));
     }
 
     @Test
@@ -167,24 +167,27 @@ public class MutableSetTest
         MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
 
         // count method on MutableSet
-        Assert.assertEquals(2, set.count(each -> each % 2 == 0));
-        Assert.assertEquals(3, set.count(each -> each % 2 == 1));
+        Assertions.assertEquals(2, set.count(each -> each % 2 == 0));
+        Assertions.assertEquals(3, set.count(each -> each % 2 == 1));
 
         // filter + count method on java.util.stream.Stream
-        Assert.assertEquals(2L, set.stream()
+        Assertions.assertEquals(2L, set.stream()
                 .filter(each -> each % 2 == 0)
                 .count());
-        Assert.assertEquals(3L, set.stream()
+        Assertions.assertEquals(3L, set.stream()
                 .filter(each -> each % 2 == 1)
                 .count());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void asUnmodifiable()
     {
-        MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
-        Set<Integer> unmodifiable = set.asUnmodifiable();
-        unmodifiable.add(6);
+        Assertions.assertThrows(UnsupportedOperationException.class, () ->
+        {
+            MutableSet<Integer> set = MutableSet.of(1, 2, 3, 4, 5);
+            Set<Integer> unmodifiable = set.asUnmodifiable();
+            unmodifiable.add(6);
+        });
     }
 
     @Test
@@ -203,9 +206,9 @@ public class MutableSetTest
                         Collectors.counting()));
 
         var expected = MutableBag.of(1, 1, 1, 0, 0);
-        Assert.assertEquals(expected, counts);
+        Assertions.assertEquals(expected, counts);
         Map<Integer, Long> expectedStream = Map.of(1, 3L, 0, 2L);
-        Assert.assertEquals(expectedStream, countsStream);
+        Assertions.assertEquals(expectedStream, countsStream);
     }
 
     @Test
@@ -227,8 +230,8 @@ public class MutableSetTest
         var evenSet = MutableSet.of(2, 4);
         expected.put(1, oddSet);
         expected.put(0, evenSet);
-        Assert.assertEquals(expected, grouped);
-        Assert.assertEquals(Map.of(1, oddSet, 0, evenSet), groupedStream);
+        Assertions.assertEquals(expected, grouped);
+        Assertions.assertEquals(Map.of(1, oddSet, 0, evenSet), groupedStream);
     }
 
     @Test
@@ -245,7 +248,7 @@ public class MutableSetTest
         // collect method on java.util.stream.Stream
         var streamGroupingBy = set.stream().collect(collector);
 
-        Assert.assertEquals(streamGroupingBy, collectGroupingBy);
+        Assertions.assertEquals(streamGroupingBy, collectGroupingBy);
     }
 
     @Test
@@ -260,8 +263,8 @@ public class MutableSetTest
         Set<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
                 .collect(Collectors.toSet());
 
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -270,7 +273,7 @@ public class MutableSetTest
         var expected = Set.of(1, 2, 3);
         MutableSet<Integer> actual = MutableSet.fromStream(Stream.of(1, 2, 3));
         Set<Integer> actualStream = Stream.of(1, 2, 3).collect(Collectors.toSet());
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 }

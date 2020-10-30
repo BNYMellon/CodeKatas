@@ -27,8 +27,8 @@ import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.impl.utility.Iterate;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class JDKImperativeDeckOfCardsAsSortedSetTest
 {
@@ -37,22 +37,22 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(52, this.jdkDeck.getCards().size());
-        Assert.assertEquals(new Card(Rank.ACE, Suit.SPADES), this.jdkDeck.getCards().first());
-        Assert.assertEquals(new Card(Rank.KING, Suit.CLUBS), this.jdkDeck.getCards().last());
+        Assertions.assertEquals(52, this.jdkDeck.getCards().size());
+        Assertions.assertEquals(new Card(Rank.ACE, Suit.SPADES), this.jdkDeck.getCards().first());
+        Assertions.assertEquals(new Card(Rank.KING, Suit.CLUBS), this.jdkDeck.getCards().last());
     }
 
     @Test
     public void cardsAreImmutable()
     {
         var jdkCards = this.jdkDeck.getCards();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdkCards.remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdkCards::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdkCards.add(null));
     }
@@ -60,29 +60,29 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(13, this.jdkDeck.diamonds().size());
-        Assert.assertTrue(Iterate.allSatisfy(this.jdkDeck.diamonds(), Card::isDiamonds));
+        Assertions.assertEquals(13, this.jdkDeck.diamonds().size());
+        Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.diamonds(), Card::isDiamonds));
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(13, this.jdkDeck.hearts().size());
-        Assert.assertTrue(Iterate.allSatisfy(this.jdkDeck.hearts(), Card::isHearts));
+        Assertions.assertEquals(13, this.jdkDeck.hearts().size());
+        Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.hearts(), Card::isHearts));
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(13, this.jdkDeck.spades().size());
-        Assert.assertTrue(Iterate.allSatisfy(this.jdkDeck.spades(), Card::isSpades));
+        Assertions.assertEquals(13, this.jdkDeck.spades().size());
+        Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.spades(), Card::isSpades));
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(13, this.jdkDeck.clubs().size());
-        Assert.assertTrue(Iterate.allSatisfy(this.jdkDeck.clubs(), Card::isClubs));
+        Assertions.assertEquals(13, this.jdkDeck.clubs().size());
+        Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.clubs(), Card::isClubs));
     }
 
     @Test
@@ -90,16 +90,16 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
     {
         Deque<Card> jdkShuffle = this.jdkDeck.shuffle(new Random(1));
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
-        Assert.assertEquals(5, jdkHand.size());
-        Assert.assertEquals(47, jdkShuffle.size());
+        Assertions.assertEquals(5, jdkHand.size());
+        Assertions.assertEquals(47, jdkShuffle.size());
     }
 
     @Test
     public void shuffleAndDealHands()
     {
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(5, jdkHands.size());
-        Assert.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
+        Assertions.assertEquals(5, jdkHands.size());
+        Assertions.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
     }
 
     @Test
@@ -107,39 +107,39 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
     {
         Deque<Card> jdkShuffled = this.jdkDeck.shuffle(new Random(1));
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
-        Assert.assertEquals(5, jdkHands.size());
-        Assert.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
-        Assert.assertEquals(27, jdkShuffled.size());
+        Assertions.assertEquals(5, jdkHands.size());
+        Assertions.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
+        Assertions.assertEquals(27, jdkShuffled.size());
     }
 
     @Test
     public void cardsBySuit()
     {
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        Assert.assertEquals(4, jdkCardsBySuit.size());
-        Assert.assertEquals(13, jdkCardsBySuit.get(Suit.CLUBS).size());
-        Assert.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());
-        Assert.assertEquals(13, jdkCardsBySuit.get(Suit.SPADES).size());
-        Assert.assertEquals(13, jdkCardsBySuit.get(Suit.HEARTS).size());
+        Assertions.assertEquals(4, jdkCardsBySuit.size());
+        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.CLUBS).size());
+        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());
+        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.SPADES).size());
+        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.HEARTS).size());
     }
 
     @Test
     public void cardsBySuitIsImmutable()
     {
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdkCardsBySuit.remove(Suit.CLUBS));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdkCardsBySuit::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdkCardsBySuit.get(Suit.CLUBS).remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdkCardsBySuit.get(Suit.CLUBS).add(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdkCardsBySuit.get(Suit.CLUBS)::clear);
     }
@@ -147,12 +147,12 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(Long.valueOf(13), this.jdkDeck.countsBySuit().get(Suit.CLUBS));
+        Assertions.assertEquals(Long.valueOf(13), this.jdkDeck.countsBySuit().get(Suit.CLUBS));
     }
 
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(Long.valueOf(4), this.jdkDeck.countsByRank().get(Rank.TEN));
+        Assertions.assertEquals(Long.valueOf(4), this.jdkDeck.countsByRank().get(Rank.TEN));
     }
 }

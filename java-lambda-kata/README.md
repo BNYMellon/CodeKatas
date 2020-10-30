@@ -72,7 +72,7 @@ type that is expected in the method call.
 ````java
 List<String> list = Arrays.asList("2", "3", "1");
 Collections.sort(list, (one, two) -> one.compareTo(two));
-Assert.assertEquals(Arrays.asList("1", "2", "3"), list);
+Assertions.assertEquals(Arrays.asList("1", "2", "3"), list);
 ````
 
 That's Java Lambdas in 10 minutes!  Lambdas are awesome!  Now enjoy using them in the kata and your applications!

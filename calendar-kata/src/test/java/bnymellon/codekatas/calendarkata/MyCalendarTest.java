@@ -25,9 +25,9 @@ import java.util.TimeZone;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.SortedSetIterable;
 import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.threeten.extra.Interval;
 
 public class MyCalendarTest
@@ -40,7 +40,7 @@ public class MyCalendarTest
      *
      * @see MyCalendar#hasOverlappingMeeting(LocalDate, LocalTime, Duration) )
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         this.calendar = new MyCalendar(TimeZone.getTimeZone("UTC"));
@@ -138,7 +138,7 @@ public class MyCalendarTest
     @Test
     public void hasOverlappingMeeting()
     {
-        Assert.assertTrue(this.calendar.hasOverlappingMeeting(
+        Assertions.assertTrue(this.calendar.hasOverlappingMeeting(
                 LocalDate.of(2017, 7, 7),
                 LocalTime.NOON,
                 Duration.ofHours(1)));
@@ -156,7 +156,7 @@ public class MyCalendarTest
     public void getMeetingsForWorkWeekOf()
     {
         final WorkWeek week = this.calendar.getMeetingsForWorkWeekOf(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(4, week.getNumberOfMeetings());
+        Assertions.assertEquals(4, week.getNumberOfMeetings());
         System.out.println(week);
     }
 
@@ -164,7 +164,7 @@ public class MyCalendarTest
     public void getMeetingsForFullWeekOf()
     {
         final FullWeek week = this.calendar.getMeetingsForFullWeekOf(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(6, week.getNumberOfMeetings());
+        Assertions.assertEquals(6, week.getNumberOfMeetings());
         System.out.println(week);
     }
 
@@ -172,7 +172,7 @@ public class MyCalendarTest
     public void getMeetingsForMonthOf()
     {
         FullMonth month = this.calendar.getMeetingsForYearMonth(2017, Month.JULY);
-        Assert.assertEquals(6, month.getNumberOfMeetings());
+        Assertions.assertEquals(6, month.getNumberOfMeetings());
         System.out.println(month);
     }
 
@@ -180,10 +180,10 @@ public class MyCalendarTest
     public void getAvailableTimeslots()
     {
         MutableList<Interval> availableTimeslots1 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(2, availableTimeslots1.size());
+        Assertions.assertEquals(2, availableTimeslots1.size());
         System.out.println(availableTimeslots1);
         MutableList<Interval> availableTimeslots2 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 1));
-        Assert.assertEquals(1, availableTimeslots2.size());
+        Assertions.assertEquals(1, availableTimeslots2.size());
         System.out.println(availableTimeslots2);
     }
 }

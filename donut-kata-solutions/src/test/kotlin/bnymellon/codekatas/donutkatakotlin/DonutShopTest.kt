@@ -19,10 +19,10 @@ package bnymellon.codekatas.donutkatakotlin
 import org.eclipse.collections.impl.factory.Lists
 import org.eclipse.collections.impl.test.Verify
 import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples.pair
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.time.Clock
 import java.time.Instant
 import java.time.LocalDate
@@ -36,7 +36,7 @@ class DonutShopTest
     private val yesterday = this.today.minusDays(1)
     private var donutShop: DonutShop? = null
 
-    @Before
+    @BeforeEach
     fun setup()
     {
         this.donutShop = DonutShop()
@@ -50,18 +50,18 @@ class DonutShopTest
         this.donutShop!!.makeDonuts(DonutType.VANILLA_FROSTED, 10)
 
         val delivery1 = this.donutShop!!.deliverOrder("Ted Smith", this.today, "BC:2,BA:1,B:2")
-        Assert.assertEquals(6.75, delivery1.totalPrice, 0.001)
+        Assertions.assertEquals(6.75, delivery1.totalPrice, 0.001)
         val delivery2 = this.donutShop!!.deliverOrder("Mary Williams", this.today, "BC:1,G:1")
-        Assert.assertEquals(2.70, delivery2.totalPrice, 0.001)
+        Assertions.assertEquals(2.70, delivery2.totalPrice, 0.001)
         val delivery3 = this.donutShop!!.deliverOrder("Sally Prince", this.tomorrow, "BC:6,P:2,B:2,OF:2")
-        Assert.assertEquals(12.0, delivery3.totalPrice, 0.001)
+        Assertions.assertEquals(12.0, delivery3.totalPrice, 0.001)
         val delivery4 = this.donutShop!!.deliverOrder("Donnie Dapper", this.yesterday, "BC:6,P:2,B:2,OF:2,G:10")
-        Assert.assertEquals(20.9, delivery4.totalPrice, 0.001)
+        Assertions.assertEquals(20.9, delivery4.totalPrice, 0.001)
 
         println(this.donutShop)
     }
 
-    @After
+    @AfterEach
     fun tearDown()
     {
         this.donutShop = null
@@ -73,28 +73,28 @@ class DonutShopTest
         val expected = Lists.mutable.with(
             pair(DonutType.BOSTON_CREAM, 15),
             pair(DonutType.GLAZED, 11))
-        Assert.assertEquals(expected, this.donutShop!!.getTopDonuts(2))
+        Assertions.assertEquals(expected, this.donutShop!!.getTopDonuts(2))
     }
 
     @Test
     fun totalDeliveryValueByDate()
     {
-        Assert.assertEquals(9.45, this.donutShop!!.getTotalDeliveryValueFor(this.today), 0.001)
-        Assert.assertEquals(12.0, this.donutShop!!.getTotalDeliveryValueFor(this.tomorrow), 0.001)
-        Assert.assertEquals(20.9, this.donutShop!!.getTotalDeliveryValueFor(this.yesterday), 0.001)
+        Assertions.assertEquals(9.45, this.donutShop!!.getTotalDeliveryValueFor(this.today), 0.001)
+        Assertions.assertEquals(12.0, this.donutShop!!.getTotalDeliveryValueFor(this.tomorrow), 0.001)
+        Assertions.assertEquals(20.9, this.donutShop!!.getTotalDeliveryValueFor(this.yesterday), 0.001)
     }
 
     @Test
     fun getTopCustomer()
     {
-        Assert.assertEquals("Donnie Dapper", this.donutShop!!.topCustomer!!.name)
+        Assertions.assertEquals("Donnie Dapper", this.donutShop!!.topCustomer!!.name)
     }
 
     @Test
     fun getCustomersByDonutTypesOrdered()
     {
         val multimap = this.donutShop!!.customersByDonutTypesOrdered
-        Assert.assertEquals(6, multimap!!.keySet().size().toLong())
+        Assertions.assertEquals(6, multimap!!.keySet().size().toLong())
         Verify.assertIterableSize(1, multimap.get(DonutType.BAVARIAN_CREAM))
         Verify.assertAllSatisfy(
             multimap.get(DonutType.BAVARIAN_CREAM),
@@ -105,25 +105,25 @@ class DonutShopTest
     fun getDonutPriceStatistics()
     {
         val stats1 = this.donutShop!!.getDonutPriceStatistics(this.today, this.today)
-        Assert.assertEquals(9.45, stats1!!.sum, 0.01)
-        Assert.assertEquals(1.35, stats1.average, 0.01)
-        Assert.assertEquals(7L, stats1.count)
+        Assertions.assertEquals(9.45, stats1!!.sum, 0.01)
+        Assertions.assertEquals(1.35, stats1.average, 0.01)
+        Assertions.assertEquals(7L, stats1.count)
 
         val stats2 = this.donutShop!!.getDonutPriceStatistics(this.tomorrow, this.tomorrow)
-        Assert.assertEquals(12.0, stats2!!.sum, 0.01)
-        Assert.assertEquals(1.0, stats2.average, 0.01)
-        Assert.assertEquals(12L, stats2.count)
+        Assertions.assertEquals(12.0, stats2!!.sum, 0.01)
+        Assertions.assertEquals(1.0, stats2.average, 0.01)
+        Assertions.assertEquals(12L, stats2.count)
 
         val stats3 = this.donutShop!!.getDonutPriceStatistics(this.yesterday, this.yesterday)
-        Assert.assertEquals(20.9, stats3!!.sum, 0.001)
-        Assert.assertEquals(0.95, stats3.average, 0.01)
-        Assert.assertEquals(22L, stats3.count)
+        Assertions.assertEquals(20.9, stats3!!.sum, 0.001)
+        Assertions.assertEquals(0.95, stats3.average, 0.01)
+        Assertions.assertEquals(22L, stats3.count)
 
         val statsTotal = this.donutShop!!.getDonutPriceStatistics(this.yesterday, this.tomorrow)
-        Assert.assertEquals(42.35, statsTotal!!.sum, 0.01)
-        Assert.assertEquals(1.03, statsTotal.average, 0.01)
-        Assert.assertEquals(41L, statsTotal.count)
-        Assert.assertEquals(0.95, statsTotal.min, 0.01)
-        Assert.assertEquals(1.35, statsTotal.max, 0.01)
+        Assertions.assertEquals(42.35, statsTotal!!.sum, 0.01)
+        Assertions.assertEquals(1.03, statsTotal.average, 0.01)
+        Assertions.assertEquals(41L, statsTotal.count)
+        Assertions.assertEquals(0.95, statsTotal.min, 0.01)
+        Assertions.assertEquals(1.35, statsTotal.max, 0.01)
     }
 }

@@ -26,8 +26,8 @@ import java.util.SortedSet;
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class JDK8DeckOfCardsAsSortedSetTest
 {
@@ -37,20 +37,20 @@ public class JDK8DeckOfCardsAsSortedSetTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(this.jdk1Deck.getCards(), this.jdk2Deck.getCards());
+        Assertions.assertEquals(this.jdk1Deck.getCards(), this.jdk2Deck.getCards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
         var jdk2Cards = this.jdk2Deck.getCards();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2Cards.remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2Cards::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2Cards.add(null));
     }
@@ -58,25 +58,25 @@ public class JDK8DeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(this.jdk1Deck.diamonds(), this.jdk2Deck.diamonds());
+        Assertions.assertEquals(this.jdk1Deck.diamonds(), this.jdk2Deck.diamonds());
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(this.jdk1Deck.hearts(), this.jdk2Deck.hearts());
+        Assertions.assertEquals(this.jdk1Deck.hearts(), this.jdk2Deck.hearts());
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(this.jdk1Deck.spades(), this.jdk2Deck.spades());
+        Assertions.assertEquals(this.jdk1Deck.spades(), this.jdk2Deck.spades());
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(this.jdk1Deck.clubs(), this.jdk2Deck.clubs());
+        Assertions.assertEquals(this.jdk1Deck.clubs(), this.jdk2Deck.clubs());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class JDK8DeckOfCardsAsSortedSetTest
 
         Set<Card> jdk1Hand = this.jdk1Deck.deal(jdk1Shuffle, 5);
         Set<Card> jdk2Hand = this.jdk2Deck.deal(jdk2Shuffle, 5);
-        Assert.assertEquals(jdk1Hand, jdk2Hand);
+        Assertions.assertEquals(jdk1Hand, jdk2Hand);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class JDK8DeckOfCardsAsSortedSetTest
     {
         List<Set<Card>> jdk1Hands = this.jdk1Deck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> jdk2Hands = this.jdk2Deck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(jdk1Hands, jdk2Hands);
+        Assertions.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class JDK8DeckOfCardsAsSortedSetTest
         Deque<Card> jdk2Shuffled = this.jdk2Deck.shuffle(new Random(1));
         List<Set<Card>> jdk1Hands = this.jdk1Deck.dealHands(jdk1Shuffled, 5, 5);
         List<Set<Card>> jdk2Hands = this.jdk2Deck.dealHands(jdk2Shuffled, 5, 5);
-        Assert.assertEquals(jdk1Hands, jdk2Hands);
+        Assertions.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
@@ -113,26 +113,26 @@ public class JDK8DeckOfCardsAsSortedSetTest
     {
         Map<Suit, SortedSet<Card>> jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
         Map<Suit, SortedSet<Card>> jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
-        Assert.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
+        Assertions.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
     }
 
     @Test
     public void cardsBySuitIsImmutable()
     {
         var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.remove(Suit.CLUBS));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).add(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2CardsBySuit.get(Suit.CLUBS)::clear);
     }
@@ -140,7 +140,7 @@ public class JDK8DeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdk1Deck.countsBySuit().get(Suit.CLUBS),
                 this.jdk2Deck.countsBySuit().get(Suit.CLUBS));
     }
@@ -148,7 +148,7 @@ public class JDK8DeckOfCardsAsSortedSetTest
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdk1Deck.countsByRank().get(Rank.TEN),
                 this.jdk2Deck.countsByRank().get(Rank.TEN));
     }

@@ -30,8 +30,8 @@ import java.util.stream.IntStream;
 
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.list.Interval;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test will illustrate how you can use lambdas with older JDK Single Abstract Method types
@@ -56,15 +56,15 @@ public class ClassicSAMInterfaceTest
                 return one.compareTo(two);
             }
         };
-        Assert.assertEquals(0, comparator.compare(1, 1));
-        Assert.assertEquals(-1, comparator.compare(1, 2));
-        Assert.assertEquals(1, comparator.compare(3, 2));
+        Assertions.assertEquals(0, comparator.compare(1, 1));
+        Assertions.assertEquals(-1, comparator.compare(1, 2));
+        Assertions.assertEquals(1, comparator.compare(3, 2));
 
         var integers = IntStream.rangeClosed(1, 5).boxed().collect(Collectors.toList());
         Collections.shuffle(integers);
         integers.sort(comparator);
 
-        Assert.assertEquals(List.of(1, 2, 3, 4, 5), integers);
+        Assertions.assertEquals(List.of(1, 2, 3, 4, 5), integers);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ClassicSAMInterfaceTest
             }
         };
         runnable.run();
-        Assert.assertEquals(List.of(1), list);
+        Assertions.assertEquals(List.of(1), list);
         // TODO - convert the anonymous Inner class to a lambda
         Interval.fromTo(2, 10).run(new Runnable()
         {
@@ -93,7 +93,7 @@ public class ClassicSAMInterfaceTest
             }
         });
         var expectedList = Collections.nCopies(10, 1);
-        Assert.assertEquals(expectedList, list);
+        Assertions.assertEquals(expectedList, list);
     }
 
     @Test
@@ -110,15 +110,15 @@ public class ClassicSAMInterfaceTest
                 return set.add(1);
             }
         };
-        Assert.assertTrue(callable.call());
-        Assert.assertEquals(Set.of(1), set);
+        Assertions.assertTrue(callable.call());
+        Assertions.assertEquals(Set.of(1), set);
 
         var executor = Executors.newWorkStealingPool();
         var futures = executor.invokeAll(Collections.nCopies(5, callable));
 
         // Note: Functions.throwing() is a utility method in Eclipse Collections without which we would
         // have to wrap the call to Future.get() in a try-catch block.
-        Assert.assertTrue(futures.stream().map(Functions.throwing(Future::get)).noneMatch(b -> b));
-        Assert.assertEquals(Set.of(1), set);
+        Assertions.assertTrue(futures.stream().map(Functions.throwing(Future::get)).noneMatch(b -> b));
+        Assertions.assertEquals(Set.of(1), set);
     }
 }
