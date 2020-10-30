@@ -21,9 +21,9 @@ import org.eclipse.collections.api.list.primitive.IntList;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.list.mutable.FastList;
 import org.eclipse.collections.impl.list.mutable.primitive.IntArrayList;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class IntListTest
     private ExecutorService executor;
     private long expectedSum;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         this.executor = Executors.newWorkStealingPool();
@@ -68,32 +68,32 @@ public class IntListTest
     @Test
     public void sum()
     {
-        Assert.assertEquals(this.expectedSum, this.jdkList.stream().mapToLong(i -> i).sum());
-        Assert.assertEquals(this.expectedSum, this.jdkList.parallelStream().mapToLong(i -> i).sum());
-        Assert.assertEquals(this.expectedSum, this.ecIntList.sum());
-        Assert.assertEquals(this.expectedSum, this.ecList.sumOfInt(i -> i));
-        Assert.assertEquals(this.expectedSum, this.ecList.asParallel(this.executor, 100_000).sumOfInt(i -> i));
+        Assertions.assertEquals(this.expectedSum, this.jdkList.stream().mapToLong(i -> i).sum());
+        Assertions.assertEquals(this.expectedSum, this.jdkList.parallelStream().mapToLong(i -> i).sum());
+        Assertions.assertEquals(this.expectedSum, this.ecIntList.sum());
+        Assertions.assertEquals(this.expectedSum, this.ecList.sumOfInt(i -> i));
+        Assertions.assertEquals(this.expectedSum, this.ecList.asParallel(this.executor, 100_000).sumOfInt(i -> i));
     }
 
     @Test
     public void filter()
     {
-        Assert.assertEquals(this.jdkList.stream().filter(i -> i % 2 == 0).collect(Collectors.toList()),
+        Assertions.assertEquals(this.jdkList.stream().filter(i -> i % 2 == 0).collect(Collectors.toList()),
                             this.ecList.select(i -> i % 2 == 0));
-        Assert.assertEquals(this.ecIntList.select(i -> i % 2 == 0),
+        Assertions.assertEquals(this.ecIntList.select(i -> i % 2 == 0),
                             this.ecList.select(i -> i % 2 == 0).collectInt(Integer::intValue));
-        Assert.assertEquals(this.jdkList.parallelStream().filter(i -> i % 2 == 0).collect(Collectors.toList()),
+        Assertions.assertEquals(this.jdkList.parallelStream().filter(i -> i % 2 == 0).collect(Collectors.toList()),
                             this.ecList.asParallel(this.executor, 100_000).select(i -> i % 2 == 0).toList());
     }
 
     @Test
     public void transform()
     {
-        Assert.assertEquals(this.jdkList.stream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList()),
+        Assertions.assertEquals(this.jdkList.stream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList()),
                             this.ecList.collect(i -> i * 2).toList());
-        Assert.assertEquals(this.ecIntList.collectInt(i -> i * 2, IntLists.mutable.empty()),
+        Assertions.assertEquals(this.ecIntList.collectInt(i -> i * 2, IntLists.mutable.empty()),
                             this.ecList.collect(i -> i * 2).collectInt(Integer::intValue).toList());
-        Assert.assertEquals(this.jdkList.parallelStream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList()),
+        Assertions.assertEquals(this.jdkList.parallelStream().mapToInt(i -> i * 2).boxed().collect(Collectors.toList()),
                             this.ecList.asParallel(this.executor, 100_000).collect(i -> i * 2).toList());
     }
 }

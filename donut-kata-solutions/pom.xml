@@ -39,7 +39,7 @@
         <kotlin.version>1.4.10</kotlin.version>
 
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
-        <junit.version>4.13.1</junit.version>
+        <junit5.version>5.7.0</junit5.version>
     </properties>
 
     <dependencies>
@@ -70,9 +70,9 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
 

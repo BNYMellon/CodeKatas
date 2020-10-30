@@ -23,9 +23,9 @@ import java.time.Month;
 import java.util.TimeZone;
 
 import org.eclipse.collections.impl.test.Verify;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MyCalendar10Test
 {
@@ -37,7 +37,7 @@ public class MyCalendar10Test
      *
      * @see MyCalendar#hasOverlappingMeeting(LocalDate, LocalTime, Duration) )
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         this.calendar = new MyCalendar(TimeZone.getTimeZone("UTC"));
@@ -135,7 +135,7 @@ public class MyCalendar10Test
     @Test
     public void hasOverlappingMeeting()
     {
-        Assert.assertTrue(this.calendar.hasOverlappingMeeting(
+        Assertions.assertTrue(this.calendar.hasOverlappingMeeting(
                 LocalDate.of(2017, 7, 7),
                 LocalTime.NOON,
                 Duration.ofHours(1)));
@@ -153,7 +153,7 @@ public class MyCalendar10Test
     public void getMeetingsForWorkWeekOf()
     {
         var workWeek = this.calendar.getMeetingsForWorkWeekOf(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(4, workWeek.getNumberOfMeetings());
+        Assertions.assertEquals(4, workWeek.getNumberOfMeetings());
         System.out.println(workWeek);
     }
 
@@ -161,7 +161,7 @@ public class MyCalendar10Test
     public void getMeetingsForFullWeekOf()
     {
         var fullWeek = this.calendar.getMeetingsForFullWeekOf(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(6, fullWeek.getNumberOfMeetings());
+        Assertions.assertEquals(6, fullWeek.getNumberOfMeetings());
         System.out.println(fullWeek);
     }
 
@@ -169,7 +169,7 @@ public class MyCalendar10Test
     public void getMeetingsForMonthOf()
     {
         var fullMonth = this.calendar.getMeetingsForYearMonth(2017, Month.JULY);
-        Assert.assertEquals(6, fullMonth.getNumberOfMeetings());
+        Assertions.assertEquals(6, fullMonth.getNumberOfMeetings());
         System.out.println(fullMonth);
     }
 
@@ -177,10 +177,10 @@ public class MyCalendar10Test
     public void getAvailableTimeslots()
     {
         var availableTimeslots1 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 6));
-        Assert.assertEquals(2, availableTimeslots1.size());
+        Assertions.assertEquals(2, availableTimeslots1.size());
         System.out.println(availableTimeslots1);
         var availableTimeslots2 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 1));
-        Assert.assertEquals(1, availableTimeslots2.size());
+        Assertions.assertEquals(1, availableTimeslots2.size());
         System.out.println(availableTimeslots2);
     }
 }

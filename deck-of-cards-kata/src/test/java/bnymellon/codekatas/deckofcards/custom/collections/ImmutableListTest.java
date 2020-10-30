@@ -28,8 +28,8 @@ import java.util.stream.StreamSupport;
 import bnymellon.codekatas.deckofcards.APIComparisonCalculator;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.api.tuple.Twin;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ImmutableListTest
 {
@@ -38,7 +38,7 @@ public class ImmutableListTest
     {
         Twin<MutableSortedSet<String>> results =
                 new APIComparisonCalculator(true).compare(RichIterable.class, Stream.class);
-        Assert.assertTrue(results.getOne().size() > results.getTwo().size());
+        Assertions.assertTrue(results.getOne().size() > results.getTwo().size());
     }
 
     @Test
@@ -56,8 +56,8 @@ public class ImmutableListTest
                 .collect(Collectors.toList());
 
         var expected = List.of(2, 4);
-        Assert.assertEquals(expected, eagerFilter);
-        Assert.assertEquals(expected, lazyFilter);
+        Assertions.assertEquals(expected, eagerFilter);
+        Assertions.assertEquals(expected, lazyFilter);
     }
 
     @Test
@@ -84,8 +84,8 @@ public class ImmutableListTest
                 .reduce(String::concat);
 
         var expected = "24";
-        Assert.assertEquals(expected, eager.orElse(""));
-        Assert.assertEquals(expected, lazy.orElse(""));
+        Assertions.assertEquals(expected, eager.orElse(""));
+        Assertions.assertEquals(expected, lazy.orElse(""));
     }
 
     @Test
@@ -111,8 +111,8 @@ public class ImmutableListTest
                 .peek(i -> System.out.println("stream anyMatch: " + i))
                 .anyMatch("2"::equals);
 
-        Assert.assertTrue(eager);
-        Assert.assertTrue(lazy);
+        Assertions.assertTrue(eager);
+        Assertions.assertTrue(lazy);
     }
 
     @Test
@@ -129,8 +129,8 @@ public class ImmutableListTest
                 .collect(Collectors.toList());
 
         var expected = MutableList.of(1, 3, 5);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -147,8 +147,8 @@ public class ImmutableListTest
                 .collect(Collectors.toList());
 
         var expected = List.of("1", "2", "3", "4", "5");
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -165,8 +165,8 @@ public class ImmutableListTest
                 .collect(Collectors.toList());
 
         var expected = List.of(1, 2);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -180,10 +180,10 @@ public class ImmutableListTest
         // reduce method on java.util.stream.Stream
         Optional<Integer> reduceStream = list.stream().reduce(Integer::sum);
 
-        Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
-        Assert.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduce.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
         MutableList<Integer> empty = MutableList.empty();
-        Assert.assertTrue(empty.reduce(Integer::sum).isEmpty());
+        Assertions.assertTrue(empty.reduce(Integer::sum).isEmpty());
     }
 
     @Test
@@ -192,12 +192,12 @@ public class ImmutableListTest
         ImmutableList<Integer> list = ImmutableList.of(1, 2, 3, 4, 5);
 
         // anyMatch method on MutableList
-        Assert.assertTrue(list.anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(list.anyMatch(each -> each < 0));
+        Assertions.assertTrue(list.anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(list.anyMatch(each -> each < 0));
 
         // anyMatch method on java.util.stream.Stream
-        Assert.assertTrue(list.stream().anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(list.stream().anyMatch(each -> each < 0));
+        Assertions.assertTrue(list.stream().anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(list.stream().anyMatch(each -> each < 0));
     }
 
     @Test
@@ -206,12 +206,12 @@ public class ImmutableListTest
         ImmutableList<Integer> list = ImmutableList.of(1, 2, 3, 4, 5);
 
         // allMatch method on MutableList
-        Assert.assertFalse(list.allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(list.allMatch(each -> each > 0));
+        Assertions.assertFalse(list.allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(list.allMatch(each -> each > 0));
 
         // allMatch method on java.util.stream.Stream
-        Assert.assertFalse(list.stream().allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(list.stream().allMatch(each -> each > 0));
+        Assertions.assertFalse(list.stream().allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(list.stream().allMatch(each -> each > 0));
     }
 
     @Test
@@ -220,12 +220,12 @@ public class ImmutableListTest
         ImmutableList<Integer> list = ImmutableList.of(1, 2, 3, 4, 5);
 
         // noneMatch method on MutableList
-        Assert.assertFalse(list.noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(list.noneMatch(each -> each < 0));
+        Assertions.assertFalse(list.noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(list.noneMatch(each -> each < 0));
 
         // noneMatch method on java.util.stream.Stream
-        Assert.assertFalse(list.stream().noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(list.stream().noneMatch(each -> each < 0));
+        Assertions.assertFalse(list.stream().noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(list.stream().noneMatch(each -> each < 0));
     }
 
     @Test
@@ -234,14 +234,14 @@ public class ImmutableListTest
         ImmutableList<Integer> list = ImmutableList.of(1, 2, 3, 4, 5);
 
         // count method on MutableList
-        Assert.assertEquals(2, list.count(each -> each % 2 == 0));
-        Assert.assertEquals(3, list.count(each -> each % 2 == 1));
+        Assertions.assertEquals(2, list.count(each -> each % 2 == 0));
+        Assertions.assertEquals(3, list.count(each -> each % 2 == 1));
 
         // filter + count method on java.util.stream.Stream
-        Assert.assertEquals(2L, list.stream()
+        Assertions.assertEquals(2L, list.stream()
                 .filter(each -> each % 2 == 0)
                 .count());
-        Assert.assertEquals(3L, list.stream()
+        Assertions.assertEquals(3L, list.stream()
                 .filter(each -> each % 2 == 1)
                 .count());
     }
@@ -252,12 +252,12 @@ public class ImmutableListTest
         ImmutableList<Integer> list = ImmutableList.of(1, 2, 3, 4, 5);
 
         // findFirst method on MutableList
-        Assert.assertEquals(Integer.valueOf(2), list.findFirst(each -> each % 2 == 0).orElse(0));
-        Assert.assertEquals(Integer.valueOf(0), list.findFirst(each -> each < 0).orElse(0));
+        Assertions.assertEquals(Integer.valueOf(2), list.findFirst(each -> each % 2 == 0).orElse(0));
+        Assertions.assertEquals(Integer.valueOf(0), list.findFirst(each -> each < 0).orElse(0));
 
         // filter + findFirst method on java.util.stream.Stream
-        Assert.assertEquals(Integer.valueOf(2), list.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
-        Assert.assertEquals(Integer.valueOf(0), list.stream().filter(each -> each < 0).findFirst().orElse(0));
+        Assertions.assertEquals(Integer.valueOf(2), list.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
+        Assertions.assertEquals(Integer.valueOf(0), list.stream().filter(each -> each < 0).findFirst().orElse(0));
     }
 
     @Test
@@ -275,10 +275,10 @@ public class ImmutableListTest
                         each -> each % 2,
                         Collectors.counting()));
 
-        Assert.assertEquals(3, counts.getOccurrences(1));
-        Assert.assertEquals(2, counts.getOccurrences(0));
-        Assert.assertEquals(Long.valueOf(3L), countsStream.get(1));
-        Assert.assertEquals(Long.valueOf(2L), countsStream.get(0));
+        Assertions.assertEquals(3, counts.getOccurrences(1));
+        Assertions.assertEquals(2, counts.getOccurrences(0));
+        Assertions.assertEquals(Long.valueOf(3L), countsStream.get(1));
+        Assertions.assertEquals(Long.valueOf(2L), countsStream.get(0));
     }
 
     @Test
@@ -298,8 +298,8 @@ public class ImmutableListTest
         var zeroList = MutableList.of(2, 4);
         expected.put(1, oneList);
         expected.put(0, zeroList);
-        Assert.assertEquals(expected, grouped);
-        Assert.assertEquals(Map.of(1, oneList, 0, zeroList), groupedStream);
+        Assertions.assertEquals(expected, grouped);
+        Assertions.assertEquals(Map.of(1, oneList, 0, zeroList), groupedStream);
     }
 
     @Test
@@ -317,7 +317,7 @@ public class ImmutableListTest
         // collect method on java.util.stream.Stream
         var streamGroupingBy = list.stream().collect(collector);
 
-        Assert.assertEquals(streamGroupingBy, collectGroupingBy);
+        Assertions.assertEquals(streamGroupingBy, collectGroupingBy);
     }
 
     @Test
@@ -332,8 +332,8 @@ public class ImmutableListTest
         List<Integer> actualStream = set.stream().collect(Collectors.toList());
 
         var expected = List.of(1);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -348,8 +348,8 @@ public class ImmutableListTest
         Set<Integer> actualStream = list.stream().collect(Collectors.toSet());
 
         var expected = Set.of(1);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -365,8 +365,8 @@ public class ImmutableListTest
         List<Integer> actualStream = StreamSupport.stream(expected.spliterator(), false)
                 .collect(Collectors.toList());
 
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -379,7 +379,7 @@ public class ImmutableListTest
         List<Integer> actualStream = Stream.of(1, 2, 3).collect(Collectors.toList());
 
         var expected = List.of(1, 2, 3);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 }

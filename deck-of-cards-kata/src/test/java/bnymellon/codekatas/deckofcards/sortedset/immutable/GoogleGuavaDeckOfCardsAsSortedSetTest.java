@@ -27,8 +27,8 @@ import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import com.google.common.collect.ImmutableSetMultimap;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class GoogleGuavaDeckOfCardsAsSortedSetTest
 {
@@ -38,20 +38,20 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(this.jdkDeck.getCards(), this.ggDeck.getCards());
+        Assertions.assertEquals(this.jdkDeck.getCards(), this.ggDeck.getCards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
         var ggCards = this.ggDeck.getCards();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCards.remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 ggCards::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCards.add(null));
     }
@@ -59,25 +59,25 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(this.jdkDeck.diamonds(), this.ggDeck.diamonds());
+        Assertions.assertEquals(this.jdkDeck.diamonds(), this.ggDeck.diamonds());
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(this.jdkDeck.hearts(), this.ggDeck.hearts());
+        Assertions.assertEquals(this.jdkDeck.hearts(), this.ggDeck.hearts());
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(this.jdkDeck.spades(), this.ggDeck.spades());
+        Assertions.assertEquals(this.jdkDeck.spades(), this.ggDeck.spades());
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(this.jdkDeck.clubs(), this.ggDeck.clubs());
+        Assertions.assertEquals(this.jdkDeck.clubs(), this.ggDeck.clubs());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
 
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Set<Card> ggHand = this.ggDeck.deal(ggShuffle, 5);
-        Assert.assertEquals(jdkHand, ggHand);
+        Assertions.assertEquals(jdkHand, ggHand);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     {
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> ggHands = this.ggDeck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(jdkHands, ggHands);
+        Assertions.assertEquals(jdkHands, ggHands);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
         Deque<Card> ggShuffled = this.ggDeck.shuffle(new Random(1));
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         List<Set<Card>> ggHands = this.ggDeck.dealHands(ggShuffled, 5, 5);
-        Assert.assertEquals(jdkHands, ggHands);
+        Assertions.assertEquals(jdkHands, ggHands);
     }
 
     @Test
@@ -114,26 +114,26 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     {
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         ImmutableSetMultimap<Suit, Card> ggCardsBySuit = this.ggDeck.getCardsBySuit();
-        Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ggCardsBySuit.get(Suit.CLUBS));
+        Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ggCardsBySuit.get(Suit.CLUBS));
     }
 
     @Test
     public void cardsBySuitIsImmutable()
     {
         var ggCardsBySuit = this.ggDeck.getCardsBySuit();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.removeAll(Suit.CLUBS));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 ggCardsBySuit::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.get(Suit.CLUBS).remove(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ggCardsBySuit.get(Suit.CLUBS).add(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 ggCardsBySuit.get(Suit.CLUBS)::clear);
     }
@@ -141,7 +141,7 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
                 this.ggDeck.countsBySuit().count(Suit.CLUBS));
     }
@@ -149,7 +149,7 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
                 this.ggDeck.countsByRank().count(Rank.NINE));
     }

@@ -24,8 +24,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ImmutableBagTest
 {
@@ -44,8 +44,8 @@ public class ImmutableBagTest
                 .collect(MutableBag.collector());
 
         var expected = MutableBag.of(2, 4);
-        Assert.assertEquals(expected, eagerFilter);
-        Assert.assertEquals(expected, lazyFilter);
+        Assertions.assertEquals(expected, eagerFilter);
+        Assertions.assertEquals(expected, lazyFilter);
     }
 
     @Test
@@ -72,8 +72,8 @@ public class ImmutableBagTest
                 .reduce(String::concat);
 
         var expected = "24";
-        Assert.assertEquals(expected, eager.orElse(""));
-        Assert.assertEquals(expected, lazy.orElse(""));
+        Assertions.assertEquals(expected, eager.orElse(""));
+        Assertions.assertEquals(expected, lazy.orElse(""));
     }
 
     @Test
@@ -99,8 +99,8 @@ public class ImmutableBagTest
                 .peek(i -> System.out.println("stream anyMatch: " + i))
                 .anyMatch("2"::equals);
 
-        Assert.assertTrue(eager);
-        Assert.assertTrue(lazy);
+        Assertions.assertTrue(eager);
+        Assertions.assertTrue(lazy);
     }
 
     @Test
@@ -117,8 +117,8 @@ public class ImmutableBagTest
                 .collect(MutableBag.collector());
 
         var expected = MutableBag.of(1, 3, 5);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -135,8 +135,8 @@ public class ImmutableBagTest
                 .collect(MutableBag.collector());
 
         var expected = MutableBag.of("1", "2", "3", "4", "5");
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -153,8 +153,8 @@ public class ImmutableBagTest
                 .collect(MutableBag.collector());
 
         var expected = MutableBag.of(1, 2);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -168,10 +168,10 @@ public class ImmutableBagTest
         // reduce method on java.util.stream.Stream
         Optional<Integer> reduceStream = bag.stream().reduce(Integer::sum);
 
-        Assert.assertEquals(Integer.valueOf(15), reduce.orElse(0));
-        Assert.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduce.orElse(0));
+        Assertions.assertEquals(Integer.valueOf(15), reduceStream.orElse(0));
         MutableList<Integer> empty = MutableList.empty();
-        Assert.assertTrue(empty.reduce(Integer::sum).isEmpty());
+        Assertions.assertTrue(empty.reduce(Integer::sum).isEmpty());
     }
 
     @Test
@@ -180,12 +180,12 @@ public class ImmutableBagTest
         ImmutableBag<Integer> bag = ImmutableBag.of(1, 2, 3, 4, 5);
 
         // anyMatch method on MutableList
-        Assert.assertTrue(bag.anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(bag.anyMatch(each -> each < 0));
+        Assertions.assertTrue(bag.anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(bag.anyMatch(each -> each < 0));
 
         // anyMatch method on java.util.stream.Stream
-        Assert.assertTrue(bag.stream().anyMatch(each -> each % 2 == 0));
-        Assert.assertFalse(bag.stream().anyMatch(each -> each < 0));
+        Assertions.assertTrue(bag.stream().anyMatch(each -> each % 2 == 0));
+        Assertions.assertFalse(bag.stream().anyMatch(each -> each < 0));
     }
 
     @Test
@@ -194,12 +194,12 @@ public class ImmutableBagTest
         ImmutableBag<Integer> bag = ImmutableBag.of(1, 2, 3, 4, 5);
 
         // allMatch method on MutableList
-        Assert.assertFalse(bag.allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(bag.allMatch(each -> each > 0));
+        Assertions.assertFalse(bag.allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(bag.allMatch(each -> each > 0));
 
         // allMatch method on java.util.stream.Stream
-        Assert.assertFalse(bag.stream().allMatch(each -> each % 2 == 0));
-        Assert.assertTrue(bag.stream().allMatch(each -> each > 0));
+        Assertions.assertFalse(bag.stream().allMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(bag.stream().allMatch(each -> each > 0));
     }
 
     @Test
@@ -208,12 +208,12 @@ public class ImmutableBagTest
         ImmutableBag<Integer> bag = ImmutableBag.of(1, 2, 3, 4, 5);
 
         // noneMatch method on MutableList
-        Assert.assertFalse(bag.noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(bag.noneMatch(each -> each < 0));
+        Assertions.assertFalse(bag.noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(bag.noneMatch(each -> each < 0));
 
         // noneMatch method on java.util.stream.Stream
-        Assert.assertFalse(bag.stream().noneMatch(each -> each % 2 == 0));
-        Assert.assertTrue(bag.stream().noneMatch(each -> each < 0));
+        Assertions.assertFalse(bag.stream().noneMatch(each -> each % 2 == 0));
+        Assertions.assertTrue(bag.stream().noneMatch(each -> each < 0));
     }
 
     @Test
@@ -222,14 +222,14 @@ public class ImmutableBagTest
         ImmutableBag<Integer> bag = ImmutableBag.of(1, 2, 3, 4, 5);
 
         // count method on MutableList
-        Assert.assertEquals(2, bag.count(each -> each % 2 == 0));
-        Assert.assertEquals(3, bag.count(each -> each % 2 == 1));
+        Assertions.assertEquals(2, bag.count(each -> each % 2 == 0));
+        Assertions.assertEquals(3, bag.count(each -> each % 2 == 1));
 
         // filter + count method on java.util.stream.Stream
-        Assert.assertEquals(2L, bag.stream()
+        Assertions.assertEquals(2L, bag.stream()
                 .filter(each -> each % 2 == 0)
                 .count());
-        Assert.assertEquals(3L, bag.stream()
+        Assertions.assertEquals(3L, bag.stream()
                 .filter(each -> each % 2 == 1)
                 .count());
     }
@@ -240,12 +240,12 @@ public class ImmutableBagTest
         ImmutableBag<Integer> bag = ImmutableBag.of(1, 2, 3, 4, 5);
 
         // findFirst method on MutableList
-        Assert.assertEquals(Integer.valueOf(2), bag.findFirst(each -> each % 2 == 0).orElse(0));
-        Assert.assertEquals(Integer.valueOf(0), bag.findFirst(each -> each < 0).orElse(0));
+        Assertions.assertEquals(Integer.valueOf(2), bag.findFirst(each -> each % 2 == 0).orElse(0));
+        Assertions.assertEquals(Integer.valueOf(0), bag.findFirst(each -> each < 0).orElse(0));
 
         // filter + findFirst method on java.util.stream.Stream
-        Assert.assertEquals(Integer.valueOf(2), bag.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
-        Assert.assertEquals(Integer.valueOf(0), bag.stream().filter(each -> each < 0).findFirst().orElse(0));
+        Assertions.assertEquals(Integer.valueOf(2), bag.stream().filter(each -> each % 2 == 0).findFirst().orElse(0));
+        Assertions.assertEquals(Integer.valueOf(0), bag.stream().filter(each -> each < 0).findFirst().orElse(0));
     }
 
     @Test
@@ -263,10 +263,10 @@ public class ImmutableBagTest
                         each -> each % 2,
                         Collectors.counting()));
 
-        Assert.assertEquals(3, counts.getOccurrences(1));
-        Assert.assertEquals(2, counts.getOccurrences(0));
-        Assert.assertEquals(Long.valueOf(3L), countsStream.get(1));
-        Assert.assertEquals(Long.valueOf(2L), countsStream.get(0));
+        Assertions.assertEquals(3, counts.getOccurrences(1));
+        Assertions.assertEquals(2, counts.getOccurrences(0));
+        Assertions.assertEquals(Long.valueOf(3L), countsStream.get(1));
+        Assertions.assertEquals(Long.valueOf(2L), countsStream.get(0));
     }
 
     @Test
@@ -284,7 +284,7 @@ public class ImmutableBagTest
         // collect method on java.util.stream.Stream
         var streamGroupingBy = bag.stream().collect(collector);
 
-        Assert.assertEquals(streamGroupingBy, collectGroupingBy);
+        Assertions.assertEquals(streamGroupingBy, collectGroupingBy);
     }
 
     @Test
@@ -299,8 +299,8 @@ public class ImmutableBagTest
         List<Integer> actualStream = bag.stream().collect(Collectors.toList());
 
         var expected = List.of(1);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -315,8 +315,8 @@ public class ImmutableBagTest
         Set<Integer> actualStream = bag.stream().collect(Collectors.toSet());
 
         var expected = Set.of(1);
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(expected, actualStream);
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actualStream);
     }
 
     @Test
@@ -327,7 +327,7 @@ public class ImmutableBagTest
         // fromIterable method on MutableList
         ImmutableBag<Integer> actual = ImmutableBag.fromIterable(expected);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -337,6 +337,6 @@ public class ImmutableBagTest
         ImmutableBag<Integer> actual = ImmutableBag.fromStream(Stream.of(1, 2, 3));
 
         var expected = MutableBag.of(1, 2, 3);
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 }

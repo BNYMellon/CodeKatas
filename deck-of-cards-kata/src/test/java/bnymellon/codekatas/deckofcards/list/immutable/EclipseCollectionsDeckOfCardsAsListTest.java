@@ -20,8 +20,8 @@ import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EclipseCollectionsDeckOfCardsAsListTest
 {
@@ -31,20 +31,20 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void allCards()
     {
-        Assert.assertEquals(this.jdkDeck.getCards(), this.ecDeck.getCards());
+        Assertions.assertEquals(this.jdkDeck.getCards(), this.ecDeck.getCards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
         var ecCards = this.ecDeck.getCards().castToList();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.remove(0));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 ecCards::clear);
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.add(null));
     }
@@ -52,25 +52,25 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assert.assertEquals(this.jdkDeck.diamonds(), this.ecDeck.diamonds());
+        Assertions.assertEquals(this.jdkDeck.diamonds(), this.ecDeck.diamonds());
     }
 
     @Test
     public void hearts()
     {
-        Assert.assertEquals(this.jdkDeck.hearts(), this.ecDeck.hearts());
+        Assertions.assertEquals(this.jdkDeck.hearts(), this.ecDeck.hearts());
     }
 
     @Test
     public void spades()
     {
-        Assert.assertEquals(this.jdkDeck.spades(), this.ecDeck.spades());
+        Assertions.assertEquals(this.jdkDeck.spades(), this.ecDeck.spades());
     }
 
     @Test
     public void clubs()
     {
-        Assert.assertEquals(this.jdkDeck.clubs(), this.ecDeck.clubs());
+        Assertions.assertEquals(this.jdkDeck.clubs(), this.ecDeck.clubs());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
 
         var ecHand = this.ecDeck.deal(ecShuffle, 5);
         var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
-        Assert.assertEquals(jdkHand, ecHand);
+        Assertions.assertEquals(jdkHand, ecHand);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     {
         var ecHands = this.ecDeck.shuffleAndDeal(new Random(1), 5, 5);
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
-        Assert.assertEquals(jdkHands, ecHands);
+        Assertions.assertEquals(jdkHands, ecHands);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var jdkShuffled = this.jdkDeck.shuffle(new Random(1));
         var ecHands = this.ecDeck.dealHands(ecShuffled, 5, 5);
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
-        Assert.assertEquals(jdkHands, ecHands);
+        Assertions.assertEquals(jdkHands, ecHands);
     }
 
     @Test
@@ -107,20 +107,20 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     {
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        Assert.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
+        Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
     }
 
     @Test
     public void cardsBySuitIsImmutable()
     {
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToList().remove(0));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToList().add(null));
-        Assert.assertThrows(
+        Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 ecCardsBySuit.get(Suit.CLUBS).castToList()::clear);
     }
@@ -128,7 +128,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void countsBySuit()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
                 this.ecDeck.countsBySuit().occurrencesOf(Suit.CLUBS));
     }
@@ -136,7 +136,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void countsByRank()
     {
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
                 this.ecDeck.countsByRank().occurrencesOf(Rank.SEVEN));
     }
