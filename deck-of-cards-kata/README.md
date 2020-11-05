@@ -3,8 +3,8 @@
 The Deck of Cards Kata is an advanced kata which can help developers
 become familiar with multiple Java Collections Frameworks and multiple
 programming languages.  The Kata is based on the
-**_Collections.compare(JDK; Apache; Eclipse; Guava...)_**
-talk from the Devoxx US 2017 conference.  
+[**_Collections.compare(JDK; Apache; Eclipse; Guava...)_**](https://www.youtube.com/watch?v=hWwbPguayNA)
+Devoxx US 2017 conference talk by [Donald Raab](https://twitter.com/TheDonRaab), [Leonardo Lima](https://twitter.com/leomrlima), and [Nikhil Nanivadekar](https://twitter.com/NikhilNanivade).  
 
 The domain for the kata is Deck of Playing Cards.  There are three
 classes that are shared by all of the exercises.  These are 
