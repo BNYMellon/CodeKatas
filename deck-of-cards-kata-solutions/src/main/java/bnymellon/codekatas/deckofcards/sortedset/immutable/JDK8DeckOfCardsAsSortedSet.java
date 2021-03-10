@@ -82,7 +82,7 @@ public class JDK8DeckOfCardsAsSortedSet
     {
         return IntStream.rangeClosed(1, hands)
                 .mapToObj(i -> this.deal(shuffled, cardsPerHand))
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
     }
 
     public SortedSet<Card> diamonds()

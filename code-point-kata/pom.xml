@@ -33,9 +33,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java.version>15</java.version>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <java.version>16</java.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
 
         <eclipse-collections.version>10.4.0</eclipse-collections.version>
         <junit5.version>5.7.0</junit5.version>
