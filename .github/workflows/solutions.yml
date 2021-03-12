@@ -15,17 +15,23 @@ jobs:
       matrix:
         # os: [macos-latest, ubuntu-latest, windows-latest]
         os: [ubuntu-latest]
-        java-version: [15]
+        java-version: [16]
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
+      - name: 'Download JDK'
+        uses: sormuras/download-jdk@v1
+        id: download-jdk
+        with:
+          feature: ${{ matrix.java-version }}
       - name: Set JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: ${{ steps.download-jdk.outputs.version }}
+          jdkFile: "${{ steps.download-jdk.outputs.file }}"
       - name: Enable Maven Cache
         uses: actions/cache@v1
         with:

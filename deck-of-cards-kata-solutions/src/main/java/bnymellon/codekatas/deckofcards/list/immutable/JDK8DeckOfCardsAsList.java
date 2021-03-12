@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -41,7 +39,7 @@ public class JDK8DeckOfCardsAsList
 
     public JDK8DeckOfCardsAsList()
     {
-        this.cards = Card.streamCards().sorted().collect(Collectors.toUnmodifiableList());
+        this.cards = Card.streamCards().sorted().toList();
         this.cardsBySuit = Map.copyOf(this.cards.stream().collect(Collectors.groupingBy(Card::suit, Collectors.toUnmodifiableList())));
     }
 
@@ -73,7 +71,7 @@ public class JDK8DeckOfCardsAsList
     {
         return IntStream.rangeClosed(1, hands)
                 .mapToObj(i -> this.deal(shuffled, cardsPerHand))
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
     }
 
     public List<Card> diamonds()
