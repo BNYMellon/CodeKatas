@@ -19,17 +19,15 @@ package bnymellon.codekatas.deckofcards.sortedset.immutable;
 import java.util.Random;
 import java.util.Set;
 
+import bnymellon.codekatas.deckofcards.Card;
+import bnymellon.codekatas.deckofcards.Rank;
+import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.api.bag.Bag;
-import org.eclipse.collections.api.block.function.Function;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.stack.MutableStack;
-
-import bnymellon.codekatas.deckofcards.Card;
-import bnymellon.codekatas.deckofcards.Rank;
-import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.impl.list.primitive.IntInterval;
 
 public class EclipseCollectionsDeckOfCardsAsSortedSet
@@ -39,7 +37,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSet
 
     public EclipseCollectionsDeckOfCardsAsSortedSet()
     {
-        this.cards = Card.lazyCards().toSortedSet().toImmutable();
+        this.cards = Card.lazyCards().toImmutableSortedSet();
         this.cardsBySuit = this.cards.groupBy(Card::suit);
     }
 

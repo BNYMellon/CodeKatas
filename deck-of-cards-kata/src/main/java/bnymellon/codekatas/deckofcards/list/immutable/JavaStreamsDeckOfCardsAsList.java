@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.deckofcards.sortedset.immutable;
+package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Collections;
 import java.util.Deque;
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -33,20 +32,20 @@ import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
-public class JDK8DeckOfCardsAsSortedSet
+public class JavaStreamsDeckOfCardsAsList
 {
-    private SortedSet<Card> cards;
-    private Map<Suit, SortedSet<Card>> cardsBySuit;
+    private List<Card> cards;
+    private Map<Suit, List<Card>> cardsBySuit;
 
     /**
      * TODO Replace the null values below with something more useful.
-     * Use Java 8 Streams APIs with {@link Card#streamCards()} to create an "immutable" SortedSet and store that in cards.
+     * Use Java 8 Streams API with {@link Card#streamCards()} to create an "immutable" List and store that in cards.
      * Group all of the cards by {@link Card#suit()} into an "immutable" Map and stored that in cardsBySuit.
      *
-     * Hint: Look at {@link Collectors#groupingBy(Function)}, {@link Collections#unmodifiableSortedSet(SortedSet)}
+     * Hint: Look at {@link Collectors#groupingBy(Function)}, {@link Collections#unmodifiableList(List)}
      * {@link Collectors#collectingAndThen(Collector, Function)}, {@link Collectors#mapping(Function, Collector)}
      */
-    public JDK8DeckOfCardsAsSortedSet()
+    public JavaStreamsDeckOfCardsAsList()
     {
         this.cards = null;
         this.cardsBySuit = null;
@@ -55,53 +54,50 @@ public class JDK8DeckOfCardsAsSortedSet
     public Deque<Card> shuffle(Random random)
     {
         // TODO Shuffle the deck 3 times with the Random parameter and push the shuffled cards onto an ArrayDeque
-        // Hint: Look at IntStream.range() or IntStream.rangeClosed() and Collections.shuffle()
+        // Hint: Look at IntStream.range() or IntStream.rangeClosed() and Collections.shuffle().
         return null;
     }
 
     public Set<Card> deal(Deque<Card> deque, int count)
     {
-        Set<Card> hand = new HashSet<>();
+        var hand = new HashSet<Card>();
         IntStream.range(0, count).forEach(i -> hand.add(deque.pop()));
         return hand;
     }
 
     public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        Deque<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 
-    public List<Set<Card>> dealHands(
-            Deque<Card> shuffled,
-            int hands,
-            int cardsPerHand)
+    public List<Set<Card>> dealHands(Deque<Card> shuffled, int hands, int cardsPerHand)
     {
         // TODO Deal the number of hands with the cardsPerHand into an "immutable" List<Set<Card>>
         return null;
     }
 
-    public SortedSet<Card> diamonds()
+    public List<Card> diamonds()
     {
-        // TODO return all diamonds as an "Immutable" SortedSet
+        // TODO return all diamonds as an "Immutable" List
         return null;
     }
 
-    public SortedSet<Card> hearts()
+    public List<Card> hearts()
     {
-        // TODO return all hearts as an "Immutable" SortedSet
+        // TODO return all hearts as an "Immutable" List
         return null;
     }
 
-    public SortedSet<Card> spades()
+    public List<Card> spades()
     {
-        // TODO return all spades as an "Immutable" SortedSet
+        // TODO return all spades as an "Immutable" List
         return null;
     }
 
-    public SortedSet<Card> clubs()
+    public List<Card> clubs()
     {
-        // TODO return all clubs as an "Immutable" SortedSet
+        // TODO return all clubs as an "Immutable" List
         return null;
     }
 
@@ -119,12 +115,12 @@ public class JDK8DeckOfCardsAsSortedSet
         return null;
     }
 
-    public SortedSet<Card> getCards()
+    public List<Card> getCards()
     {
         return this.cards;
     }
 
-    public Map<Suit, SortedSet<Card>> getCardsBySuit()
+    public Map<Suit, List<Card>> getCardsBySuit()
     {
         return this.cardsBySuit;
     }

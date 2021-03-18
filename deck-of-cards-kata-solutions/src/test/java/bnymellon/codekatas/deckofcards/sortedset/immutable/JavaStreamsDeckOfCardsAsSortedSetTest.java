@@ -29,10 +29,10 @@ import bnymellon.codekatas.deckofcards.Suit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class JDK8DeckOfCardsAsSortedSetTest
+public class JavaStreamsDeckOfCardsAsSortedSetTest
 {
     private JDKImperativeDeckOfCardsAsSortedSet jdk1Deck = new JDKImperativeDeckOfCardsAsSortedSet();
-    private JDK8DeckOfCardsAsSortedSet jdk2Deck = new JDK8DeckOfCardsAsSortedSet();
+    private JavaStreamsDeckOfCardsAsSortedSet jdk2Deck = new JavaStreamsDeckOfCardsAsSortedSet();
 
     @Test
     public void allCards()

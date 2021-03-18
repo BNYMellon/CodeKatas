@@ -36,7 +36,7 @@ public class EclipseCollectionsDeckOfCardsAsList
 
     public EclipseCollectionsDeckOfCardsAsList()
     {
-        this.cards = Card.lazyCards().toSortedList().toImmutable();
+        this.cards = Card.lazyCards().toImmutableSortedList();
         this.cardsBySuit = this.cards.groupBy(Card::suit);
     }
 

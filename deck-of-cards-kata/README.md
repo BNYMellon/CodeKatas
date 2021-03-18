@@ -22,10 +22,10 @@ a DeckOfCards using an `ImmutableSortedList` or using an `ImmutableSortedSet`.
 Six Java Collections frameworks are currently available to 
 learn in the kata.  They are:
  
-* [Java 8 Collections + Streams](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html)
+* [Java Collections + Streams](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html)
 * [Apache Commons Collections 4.4](http://commons.apache.org/proper/commons-collections/apidocs/)
 * [Google Guava 30.0-jre](https://google.github.io/guava/releases/30.0-jre/api/docs/)
-* [Eclipse Collections 10.4.0](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
+* [Eclipse Collections 11.0.0.M2](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
 * [Vavr 0.10.3](http://www.vavr.io/vavr-docs/)
 * [Custom Collections Framework](./src/main/java/bnymellon/codekatas/deckofcards/custom/collections/) (Uses features from [Project Amber](https://openjdk.java.net/projects/amber/))
 
@@ -45,7 +45,7 @@ class that must be completed in order for a test to pass.
 ### How to get started
 
 * Refactor the imperative code in `Card` that calculates the cartesian product of `Rank` and `Suit`.
-	* Replace the code with Java 8 Streams - Look to use `flatMap` and `map`.
+	* Replace the code with Java Streams - Look to use `flatMap` and `map`.
 * Choose whether you could like to solve the kata using an `ImmutableSortedList`
 or an `ImmutableSortedSet`.
 	* [`ImmutableSortedList`](./src/test/java/bnymellon/codekatas/deckofcards/list/immutable/) Tests

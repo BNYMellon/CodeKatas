@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.deckofcards.sortedset.immutable;
+package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -34,73 +32,64 @@ import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 
-public class JDK8DeckOfCardsAsSortedSet
+public class JavaStreamsDeckOfCardsAsList
 {
-    private final SortedSet<Card> cards;
-    private final Map<Suit, SortedSet<Card>> cardsBySuit;
+    private final List<Card> cards;
+    private final Map<Suit, List<Card>> cardsBySuit;
 
-    public JDK8DeckOfCardsAsSortedSet()
+    public JavaStreamsDeckOfCardsAsList()
     {
-        this.cards = Collections.unmodifiableSortedSet(
-                Card.streamCards().sorted().collect(Collectors.toCollection(TreeSet::new)));
-        this.cardsBySuit = Map.copyOf(this.cards.stream()
-                .collect(Collectors.groupingBy(
-                        Card::suit,
-                        Collectors.collectingAndThen(
-                                Collectors.toCollection(TreeSet::new),
-                                Collections::unmodifiableSortedSet))));
+        this.cards = Card.streamCards().sorted().toList();
+        this.cardsBySuit = Map.copyOf(this.cards.stream().collect(Collectors.groupingBy(Card::suit, Collectors.toUnmodifiableList())));
     }
 
     public Deque<Card> shuffle(Random random)
     {
-        ArrayList<Card> shuffled = new ArrayList<>(this.cards);
-        Collections.shuffle(shuffled, random);
-        Collections.shuffle(shuffled, random);
-        Collections.shuffle(shuffled, random);
+        ArrayList<Card> shuffle = new ArrayList<>(this.cards);
+        Collections.shuffle(shuffle, random);
+        Collections.shuffle(shuffle, random);
+        Collections.shuffle(shuffle, random);
         ArrayDeque<Card> deque = new ArrayDeque<>();
-        shuffled.forEach(deque::push);
+        shuffle.forEach(deque::push);
         return deque;
     }
 
     public Set<Card> deal(Deque<Card> deque, int count)
     {
-        Set<Card> hand = new HashSet<>();
+        var hand = new HashSet<Card>();
         IntStream.range(0, count).forEach(i -> hand.add(deque.pop()));
         return hand;
     }
 
     public List<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        Deque<Card> shuffled = this.shuffle(random);
+        var shuffled = this.shuffle(random);
         return this.dealHands(shuffled, hands, cardsPerHand);
     }
 
-    public List<Set<Card>> dealHands(
-            Deque<Card> shuffled,
-            int hands,
-            int cardsPerHand)
+    public List<Set<Card>> dealHands(Deque<Card> shuffled, int hands, int cardsPerHand)
     {
         return IntStream.rangeClosed(1, hands)
                 .mapToObj(i -> this.deal(shuffled, cardsPerHand))
                 .toList();
     }
 
-    public SortedSet<Card> diamonds()
+    public List<Card> diamonds()
     {
         return this.cardsBySuit.get(Suit.DIAMONDS);
     }
 
-    public SortedSet<Card> hearts()
+    public List<Card> hearts()
     {
         return this.cardsBySuit.get(Suit.HEARTS);
     }
 
-    public SortedSet<Card> spades()
+    public List<Card> spades()
     {
         return this.cardsBySuit.get(Suit.SPADES);
     }
 
-    public SortedSet<Card> clubs()
+    public List<Card> clubs()
     {
         return this.cardsBySuit.get(Suit.CLUBS);
     }
@@ -117,12 +106,12 @@ public class JDK8DeckOfCardsAsSortedSet
                 .collect(Collectors.groupingBy(Card::rank, Collectors.counting()));
     }
 
-    public SortedSet<Card> getCards()
+    public List<Card> getCards()
     {
         return this.cards;
     }
 
-    public Map<Suit, SortedSet<Card>> getCardsBySuit()
+    public Map<Suit, List<Card>> getCardsBySuit()
     {
         return this.cardsBySuit;
     }
