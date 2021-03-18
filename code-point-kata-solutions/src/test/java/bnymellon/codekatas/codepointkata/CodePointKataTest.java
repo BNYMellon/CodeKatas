@@ -16,10 +16,20 @@
 
 package bnymellon.codekatas.codepointkata;
 
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.eclipse.collections.api.bag.primitive.CharBag;
 import org.eclipse.collections.api.bag.primitive.MutableCharBag;
 import org.eclipse.collections.api.list.ImmutableList;
+import org.eclipse.collections.impl.collector.Collectors2;
+import org.eclipse.collections.impl.factory.Strings;
 import org.eclipse.collections.impl.factory.primitive.CharBags;
+import org.eclipse.collections.impl.list.fixed.ArrayAdapter;
+import org.eclipse.collections.impl.string.immutable.CharAdapter;
+import org.eclipse.collections.impl.string.immutable.CodePointList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,29 +39,24 @@ public class CodePointKataTest
     public void translateTheSecretMessage() throws Exception
     {
         var url = this.getClass().getClassLoader().getResource("codepoints.txt");
-        // Hint: Look at Paths.get(URI)
-        // Hint: Look at Files.lines(Path) which returns a Stream<String>
+        Path path = Paths.get(url.toURI());
+        ImmutableList<String> list = Files.lines(path)
+                .filter(string -> !string.isBlank())
+                .map(string -> string.split(" "))
+                .map(array -> ArrayAdapter.adapt(array).collectInt(Integer::parseInt))
+                .map(ints -> CodePointList.from(ints.toArray()))
+                .map(CodePointList::toString)
+                .collect(Collectors2.toImmutableList());
 
-        // Write the code necessary to read the file of code points into an ImmutableList of String
-        // The code points are space separated, and need to be converted into a String
-        // Blank lines will need to be converted to empty Strings
-        // Hint: Look at String.split(String)
-        // Hint: Look at new String(int[], int, int) or CodePointList.from(int...)
-        // Hint: Look at Collectors2.toImmutableList()
-        ImmutableList<String> list = null;
-
-        // Write the code necessary to collect the list of Strings into a bag of characters
-        // Iterate over each String collecting it's characters into the characters Bag
-        // Hint: Look at CharAdapter.adapt(String)
-        // Hint: Look at CharAdapter.toBag() which returns a MutableCharBag.
-        // Hint: Look at ImmutableList.collect(Function)
-        // Hint: Look at ImmutableList.each(Procedure) or ImmutableList.injectInto(IV, Function2)
         var characters = CharBags.mutable.empty();
+        list.asLazy()
+                .collect(Strings::asChars)
+                .collect(CharAdapter::toBag)
+                .forEach(characters::addAll);
 
         Assertions.assertTrue(this.expectedBagOfCharacters(characters));
 
-        // Output the list of strings to a file and read the secret message
-        // Hint: Look at Files.write() or FileWriter
+        Files.write(Path.of("src", "test", "resources", "secretMessage.txt"), list);
     }
 
     private boolean expectedBagOfCharacters(CharBag actual)
@@ -102,7 +107,6 @@ public class CodePointKataTest
 
     private String convertCodePointsToString(int... codePoints)
     {
-        // Hint: Look at new String(int[], int, int) or CodePointList.from(int...)
-        return "";
+        return CodePointList.from(codePoints).toString();
     }
 }
