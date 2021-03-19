@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2020 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ import bnymellon.codekatas.deckofcards.Suit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class JDK8DeckOfCardsAsListTest
+public class JavaStreamsDeckOfCardsAsListTest
 {
     private JDKImperativeDeckOfCardsAsList jdk1Deck = new JDKImperativeDeckOfCardsAsList();
-    private JDK8DeckOfCardsAsList jdk2Deck = new JDK8DeckOfCardsAsList();
+    private JavaStreamsDeckOfCardsAsList jdk2Deck = new JavaStreamsDeckOfCardsAsList();
 
     @Test
     public void allCards()

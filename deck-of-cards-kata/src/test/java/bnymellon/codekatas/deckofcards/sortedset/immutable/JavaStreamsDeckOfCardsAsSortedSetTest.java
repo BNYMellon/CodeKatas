@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.deckofcards.list.immutable;
+package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
+import java.util.Deque;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.SortedSet;
 
+import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class JDK8DeckOfCardsAsListTest
+public class JavaStreamsDeckOfCardsAsSortedSetTest
 {
-    private JDKImperativeDeckOfCardsAsList jdk1Deck = new JDKImperativeDeckOfCardsAsList();
-    private JDK8DeckOfCardsAsList jdk2Deck = new JDK8DeckOfCardsAsList();
+    private JDKImperativeDeckOfCardsAsSortedSet jdk1Deck = new JDKImperativeDeckOfCardsAsSortedSet();
+    private JavaStreamsDeckOfCardsAsSortedSet jdk2Deck = new JavaStreamsDeckOfCardsAsSortedSet();
 
     @Test
     public void allCards()
@@ -40,7 +46,7 @@ public class JDK8DeckOfCardsAsListTest
         var jdk2Cards = this.jdk2Deck.getCards();
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
-                () -> jdk2Cards.remove(0));
+                () -> jdk2Cards.remove(null));
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 jdk2Cards::clear);
@@ -76,37 +82,37 @@ public class JDK8DeckOfCardsAsListTest
     @Test
     public void deal()
     {
-        var jdk1Shuffle = this.jdk1Deck.shuffle(new Random(1));
-        var jdk2Shuffle = this.jdk2Deck.shuffle(new Random(1));
+        Deque<Card> jdk1Shuffle = this.jdk1Deck.shuffle(new Random(1));
+        Deque<Card> jdk2Shuffle = this.jdk2Deck.shuffle(new Random(1));
 
-        var jdk1Hand = this.jdk1Deck.deal(jdk1Shuffle, 5);
-        var jdk2Hand = this.jdk2Deck.deal(jdk2Shuffle, 5);
+        Set<Card> jdk1Hand = this.jdk1Deck.deal(jdk1Shuffle, 5);
+        Set<Card> jdk2Hand = this.jdk2Deck.deal(jdk2Shuffle, 5);
         Assertions.assertEquals(jdk1Hand, jdk2Hand);
     }
 
     @Test
     public void shuffleAndDealHands()
     {
-        var jdk1Hands = this.jdk1Deck.shuffleAndDeal(new Random(1), 5, 5);
-        var jdk2Hands = this.jdk2Deck.shuffleAndDeal(new Random(1), 5, 5);
+        List<Set<Card>> jdk1Hands = this.jdk1Deck.shuffleAndDeal(new Random(1), 5, 5);
+        List<Set<Card>> jdk2Hands = this.jdk2Deck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
     public void dealHands()
     {
-        var jdk1Shuffled = this.jdk1Deck.shuffle(new Random(1));
-        var jdk2Shuffled = this.jdk2Deck.shuffle(new Random(1));
-        var jdk1Hands = this.jdk1Deck.dealHands(jdk1Shuffled, 5, 5);
-        var jdk2Hands = this.jdk2Deck.dealHands(jdk2Shuffled, 5, 5);
+        Deque<Card> jdk1Shuffled = this.jdk1Deck.shuffle(new Random(1));
+        Deque<Card> jdk2Shuffled = this.jdk2Deck.shuffle(new Random(1));
+        List<Set<Card>> jdk1Hands = this.jdk1Deck.dealHands(jdk1Shuffled, 5, 5);
+        List<Set<Card>> jdk2Hands = this.jdk2Deck.dealHands(jdk2Shuffled, 5, 5);
         Assertions.assertEquals(jdk1Hands, jdk2Hands);
     }
 
     @Test
     public void cardsBySuit()
     {
-        var jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
-        var jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
+        Map<Suit, SortedSet<Card>> jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
+        Map<Suit, SortedSet<Card>> jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
         Assertions.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
     }
 
@@ -122,7 +128,7 @@ public class JDK8DeckOfCardsAsListTest
                 jdk2CardsBySuit::clear);
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
-                () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(0));
+                () -> jdk2CardsBySuit.get(Suit.CLUBS).remove(null));
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> jdk2CardsBySuit.get(Suit.CLUBS).add(null));
