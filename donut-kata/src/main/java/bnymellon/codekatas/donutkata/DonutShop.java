@@ -94,8 +94,7 @@ public class DonutShop
         var donutList = order.counts()
                 .asLazy()
                 .collect(type -> new Donut(type, price))
-                .toList()
-                .toImmutable();
+                .toImmutableList();
         var delivery = new Delivery(order, donutList);
         this.deliveries.add(delivery);
         return delivery;
@@ -105,10 +104,7 @@ public class DonutShop
     {
         return PRICES.detectIfNone(
                 pair -> pair.getOne().contains(orderSize),
-                () ->
-                {
-                    throw new IllegalArgumentException("This order cannot be satisfied");
-                })
+                () -> { throw new IllegalArgumentException("This order cannot be satisfied");})
                 .getTwo();
     }
 

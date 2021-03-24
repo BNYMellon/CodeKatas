@@ -80,8 +80,7 @@ class DonutShop
         val donuts = order.getCounts()
             .asLazy()
             .collect { Donut(type = it, price = price) }
-            .toList()
-            .toImmutable()
+            .toImmutableList()
         val delivery = Delivery(order, donuts)
         this.deliveries.add(delivery)
         return delivery
