@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Bank of New York Mellon.
+ * Copyright 2021 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,35 +16,4 @@
 
 package bnymellon.codekatas.donutkatakotlin
 
-class Donut(val type: DonutType, val price: Double)
-{
-    override fun equals(other: Any?): Boolean
-    {
-        if (this === other)
-        {
-            return true
-        }
-        if (other == null || javaClass != other.javaClass)
-        {
-            return false
-        }
-        val donut = other as Donut?
-        return java.lang.Double.compare(donut!!.price, this.price) == 0 && this.type == donut.type
-    }
-
-    override fun hashCode(): Int
-    {
-        var result: Int = this.type.hashCode()
-        val temp: Long = java.lang.Double.doubleToLongBits(this.price)
-        result = 31 * result + (temp xor temp.ushr(32)).toInt()
-        return result
-    }
-
-    override fun toString(): String
-    {
-        return "Donut(" +
-            "type=" + this.type +
-            ", price=" + this.price +
-            ')'
-    }
-}
+data class Donut(val type: DonutType, val price: Double)
