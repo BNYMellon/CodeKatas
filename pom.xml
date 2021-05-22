@@ -34,6 +34,7 @@
         <module>donut-kata</module>
         <module>jmh-kata</module>
         <module>java-lambda-kata</module>
+        <module>kata-of-katas</module>
         <module>code-point-kata-solutions</module>
         <module>deck-of-cards-kata-solutions</module>
         <module>donut-kata-solutions</module>
