@@ -38,5 +38,6 @@
         <module>deck-of-cards-kata-solutions</module>
         <module>donut-kata-solutions</module>
         <module>java-lambda-kata-solutions</module>
+        <module>kata-of-katas-solutions</module>
     </modules>
 </project>
