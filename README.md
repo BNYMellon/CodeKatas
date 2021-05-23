@@ -19,11 +19,12 @@ I do and I understand.<br>
 2. [Deck of Cards Kata](./deck-of-cards-kata) - Practice using Java 8 Streams, Eclipse Collections, 
 Guava, Apache Commons and/or Vavr on a simple domain
 3. [Eclipse Collections Katas](https://github.com/eclipse/eclipse-collections-kata) - Practice and 
-learn Eclipse Collections Data Structures and Algorithms with two classic Katas
+learn Eclipse Collections Data Structures and Algorithms with two classic Katas (Company Kata and Pet Kata)
 4. [Donut Kata](./donut-kata) - Practice and learn more advanced Eclipse Collections APIs using Java or Kotlin
 5. [CodePoint Kata](./code-point-kata) - Read a secret message from a file into memory, translate it and then write out the revealed message to a file.
 6. [JMH Kata](./jmh-kata) - Experiment with the Java Microbenchmark Harness by running and writing micro-benchmark performance comparisons.
 7. [Calendar Kata](./calendar-kata) - Practice and learn the APIs in the Java 8 Date/Time and ThreeTen-Extra libraries.
+8. [Kata of Katas](./kata-of-katas) - Practice and learn advanced methods in Eclipse Collections.
 
 ## What you will need to build the katas
 1. Java 16 - enable preview features ([JEP 397](https://openjdk.java.net/jeps/397) - Sealed Classes)
