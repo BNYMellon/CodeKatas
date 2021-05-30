@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2020 The Bank of New York Mellon.
+  ~ Copyright 2021 The Bank of New York Mellon.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -39,9 +39,9 @@
 
         <apache-collections.version>4.4</apache-collections.version>
         <eclipse-collections.version>11.0.0.M2</eclipse-collections.version>
-        <guava.version>30.0-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version>
         <vavr.version>0.10.3</vavr.version>
-        <junit5.version>5.7.0</junit5.version>
+        <junit5.version>5.7.2</junit5.version>
     </properties>
 
     <dependencies>
