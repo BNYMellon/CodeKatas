@@ -30,6 +30,7 @@ public enum Kata
     DONUT(Language.JAVA, Language.KOTLIN, Library.ECLIPSE_COLLECTIONS),
     JAVA_LAMBDA(Language.JAVA, Library.JAVA_STREAM, Library.ECLIPSE_COLLECTIONS),
     CODE_POINT(Language.JAVA, Library.ECLIPSE_COLLECTIONS, Library.JAVA_STREAM),
+    TOP_METHODS(Language.JAVA, Library.ECLIPSE_COLLECTIONS, Library.JAVA_STREAM),
     KATA_OF_KATAS(Language.JAVA, Library.ECLIPSE_COLLECTIONS);
 
     public static final ImmutableSet<Kata> ALL = Sets.immutable.with(Kata.values());

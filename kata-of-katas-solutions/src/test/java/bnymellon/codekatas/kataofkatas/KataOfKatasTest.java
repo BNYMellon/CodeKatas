@@ -63,7 +63,7 @@ public class KataOfKatasTest
         ImmutableSet<Kata> intersect = techToKatas.get(Library.ECLIPSE_COLLECTIONS).intersect(techToKatas.get(Library.JAVA_STREAM));
 
         Assertions.assertEquals(
-                Sets.mutable.with(Kata.DECK_OF_CARDS, Kata.PET, Kata.JAVA_LAMBDA, Kata.CODE_POINT),
+                Sets.mutable.with(Kata.DECK_OF_CARDS, Kata.PET, Kata.JAVA_LAMBDA, Kata.CODE_POINT, Kata.TOP_METHODS),
                 intersect);
     }
 

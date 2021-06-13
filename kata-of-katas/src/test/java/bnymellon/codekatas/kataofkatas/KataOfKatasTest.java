@@ -65,7 +65,7 @@ public class KataOfKatasTest
         ImmutableSet<Kata> intersect = null;
 
         Assertions.assertEquals(
-                Sets.mutable.with(Kata.DECK_OF_CARDS, Kata.PET, Kata.JAVA_LAMBDA, Kata.CODE_POINT),
+                Sets.mutable.with(Kata.DECK_OF_CARDS, Kata.PET, Kata.JAVA_LAMBDA, Kata.CODE_POINT, Kata.TOP_METHODS),
                 intersect);
     }
 
