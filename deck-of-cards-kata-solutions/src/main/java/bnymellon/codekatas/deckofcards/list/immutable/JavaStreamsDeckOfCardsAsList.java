@@ -1,8 +1,11 @@
-/**
- * Copyright 2021 BNYMellon. All rights reserved.
- * Use of this source code is governed by a BSD-style
- * license that can be found in the LICENSE file.
- */
+  /**
+* Copyright © The Bank of New York Mellon 2021
+* Licensed under the BSD-3-Clause License (the “License”);
+* You may not use this file except in compliance with the License.
+* You may obtain a copy of the License at:
+* https://opensource.org/licenses/BSD-3-Clause
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED.  SEE THE LICENSE FOR FURTHER RESTRICTIONS.
+*/
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.ArrayDeque;
