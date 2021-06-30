@@ -11,7 +11,7 @@ Your task is to make them pass.
 I see and I remember.<br> 
 I do and I understand.<br> 
 <br>
-<b>-- Confucius</b></center></p>
+<center><b>-- Confucius</b></center></p>
 
 ## Katalogue
 
