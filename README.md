@@ -1,4 +1,5 @@
 [![][actions img]][actions]  
+[![][solutions actions img]][solutions actions]
 
 # **What is a Code Kata?**
 
@@ -33,3 +34,5 @@ learn Eclipse Collections Data Structures and Algorithms with two classic Katas 
 
 [actions]:https://github.com/BNYMellon/CodeKatas/actions?query=workflow%3A%22Code+Katas+CI+Build%22
 [actions img]:https://github.com/BNYMellon/CodeKatas/workflows/Code%20Katas%20CI%20Build/badge.svg?branch=master
+[solutions actions]:https://github.com/BNYMellon/CodeKatas/actions?query=workflow%3A%22Code+Katas+CI+Solutions+Build%22
+[solutions actions img]:https://github.com/BNYMellon/CodeKatas/workflows/Code%20Katas%20CI%20Solutions%20Build/badge.svg?branch=master
