@@ -120,9 +120,6 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
-                    <compilerArgs>
-                        --enable-preview
-                    </compilerArgs>
                 </configuration>
                 <executions>
                     <!-- Replacing default-compile as it is treated specially by maven -->
