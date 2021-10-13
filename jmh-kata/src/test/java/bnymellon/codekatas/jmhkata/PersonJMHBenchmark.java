@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Bank of New York Mellon.
+ * Copyright 2021 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +97,7 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
+                        .filter(person -> person.getHeightInInches() < 72)
                         .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
@@ -107,7 +107,7 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
-                        .select(person -> person.getHeightInInches() < 150)
+                        .select(person -> person.getHeightInInches() < 72)
                         .groupBy(Person::getAge);
         return grouped;
     }
@@ -116,7 +116,7 @@ public class PersonJMHBenchmark
     public MutableMultimap<Integer, Person> filterAndGroupByAgeECEager_parallel()
     {
         var select =
-                ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() < 150);
+                ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() < 72);
         var grouped =
                 ParallelIterate.groupBy(select, Person::getAge);
         return grouped;
@@ -127,7 +127,7 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
+                        .filter(person -> person.getHeightInInches() < 72)
                         .collect(Collectors2.toListMultimap(Person::getAge));
         return grouped;
     }
@@ -137,8 +137,8 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .filter(person -> person.getHeightInInches() > 80)
+                        .filter(person -> person.getHeightInInches() > 60)
+                        .filter(person -> person.getHeightInInches() < 72)
                         .collect(Collectors.toList());
         return filtered;
     }
@@ -148,8 +148,8 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getECPeople().asParallel(EXECUTOR_SERVICE, 100_000)
-                        .select(person -> person.getHeightInInches() < 150)
-                        .select(person -> person.getHeightInInches() > 80)
+                        .select(person -> person.getHeightInInches() > 60)
+                        .select(person -> person.getHeightInInches() < 72)
                         .toList();
         return filtered;
     }
@@ -158,8 +158,8 @@ public class PersonJMHBenchmark
     public Collection<Person> filterECEager_parallel()
     {
         var select =
-                ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() < 150);
-        return ParallelIterate.select(select, person -> person.getHeightInInches() > 80);
+                ParallelIterate.select(Person.getECPeople(), person -> person.getHeightInInches() > 60);
+        return ParallelIterate.select(select, person -> person.getHeightInInches() < 72);
     }
 
     @Benchmark
@@ -167,8 +167,8 @@ public class PersonJMHBenchmark
     {
         var filtered =
                 Person.getJDKPeople().parallelStream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .collect(Collectors2.select(person -> person.getHeightInInches() > 80, Lists.mutable::empty));
+                        .filter(person -> person.getHeightInInches() > 60)
+                        .collect(Collectors2.select(person -> person.getHeightInInches() < 72, Lists.mutable::empty));
         return filtered;
     }
 
@@ -213,7 +213,7 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().stream()
-                        .filter(person -> person.getHeightInInches() < 150)
+                        .filter(person -> person.getHeightInInches() < 72)
                         .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
@@ -223,7 +223,7 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getECPeople()
-                        .select(person -> person.getHeightInInches() < 150)
+                        .select(person -> person.getHeightInInches() < 72)
                         .groupBy(Person::getAge);
         return grouped;
     }
@@ -233,7 +233,7 @@ public class PersonJMHBenchmark
     {
         var grouped = Person.getECPeople()
                 .asLazy()
-                .select(person -> person.getHeightInInches() < 150)
+                .select(person -> person.getHeightInInches() < 72)
                 .groupBy(Person::getAge);
         return grouped;
     }
@@ -243,8 +243,8 @@ public class PersonJMHBenchmark
     {
         var grouped =
                 Person.getJDKPeople().stream()
-                        .filter(person -> person.getHeightInInches() < 150)
-                        .filter(person -> person.getHeightInInches() > 80)
+                        .filter(person -> person.getHeightInInches() > 60)
+                        .filter(person -> person.getHeightInInches() < 72)
                         .collect(Collectors.groupingBy(Person::getAge));
         return grouped;
     }
@@ -253,8 +253,8 @@ public class PersonJMHBenchmark
     public List<Person> filterECEager_serial()
     {
         var filtered = Person.getECPeople()
-                .select(person -> person.getHeightInInches() < 150)
-                .select(person -> person.getHeightInInches() > 80);
+                .select(person -> person.getHeightInInches() > 60)
+                .select(person -> person.getHeightInInches() < 72);
         return filtered;
     }
 
@@ -263,8 +263,8 @@ public class PersonJMHBenchmark
     {
         var filtered = Person.getECPeople()
                 .asLazy()
-                .select(person -> person.getHeightInInches() < 150)
-                .select(person -> person.getHeightInInches() > 80)
+                .select(person -> person.getHeightInInches() > 60)
+                .select(person -> person.getHeightInInches() < 72)
                 .toList();
         return filtered;
     }
