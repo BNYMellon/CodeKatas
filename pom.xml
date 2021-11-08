@@ -40,5 +40,7 @@
         <module>donut-kata-solutions</module>
         <module>java-lambda-kata-solutions</module>
         <module>kata-of-katas-solutions</module>
+        <module>pitest-mutation-kata</module>
+        <module>pitest-mutation-kata-solutions</module>
     </modules>
 </project>
