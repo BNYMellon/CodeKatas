@@ -24,9 +24,9 @@ learn in the kata.  They are:
  
 * [Java Collections + Streams](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html)
 * [Apache Commons Collections 4.4](http://commons.apache.org/proper/commons-collections/apidocs/)
-* [Google Guava 30.0-jre](https://google.github.io/guava/releases/30.0-jre/api/docs/)
-* [Eclipse Collections 11.0.0.M2](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
-* [Vavr 0.10.3](http://www.vavr.io/vavr-docs/)
+* [Google Guava 31.0.1-jre](https://google.github.io/guava/releases/30.0-jre/api/docs/)
+* [Eclipse Collections 11.0.0](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
+* [Vavr 0.10.4](http://www.vavr.io/vavr-docs/)
 * [Custom Collections Framework](./src/main/java/bnymellon/codekatas/deckofcards/custom/collections/) (Uses features from [Project Amber](https://openjdk.java.net/projects/amber/))
 
 There are two classes which are fully implemented and which have 
