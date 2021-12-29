@@ -25,9 +25,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import bnymellon.codekatas.deckofcards.APIComparisonCalculator;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.api.tuple.Twin;
+import org.eclipse.collections.impl.test.ClassComparer;
+import org.eclipse.collections.impl.tuple.Tuples;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -36,8 +37,13 @@ public class ImmutableListTest
     @Test
     public void symmetricDiffAndIntersectionTest()
     {
+        ClassComparer comparer = new ClassComparer(true, false, false);
+
         Twin<MutableSortedSet<String>> results =
-                new APIComparisonCalculator(true).compare(RichIterable.class, Stream.class);
+                Tuples.twin(
+                        comparer.symmetricDifference(ImmutableList.class, Stream.class),
+                        comparer.intersect(ImmutableList.class, Stream.class));
+
         Assertions.assertTrue(results.getOne().size() > results.getTwo().size());
     }
 
