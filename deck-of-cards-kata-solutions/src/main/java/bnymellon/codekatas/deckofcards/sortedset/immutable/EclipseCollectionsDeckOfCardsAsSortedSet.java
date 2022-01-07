@@ -30,23 +30,20 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.stack.MutableStack;
 import org.eclipse.collections.impl.list.primitive.IntInterval;
 
-public class EclipseCollectionsDeckOfCardsAsSortedSet
+public record EclipseCollectionsDeckOfCardsAsSortedSet(
+        ImmutableSortedSet<Card> cards,
+        ImmutableSortedSetMultimap<Suit, Card> cardsBySuit)
 {
-    private final ImmutableSortedSet<Card> cards;
-    private final ImmutableSortedSetMultimap<Suit, Card> cardsBySuit;
-
     public EclipseCollectionsDeckOfCardsAsSortedSet()
     {
-        this.cards = Card.lazyCards().toImmutableSortedSet();
-        this.cardsBySuit = this.cards.groupBy(Card::suit);
+        this(Card.lazyCards().toImmutableSortedSet(),
+                Card.lazyCards().toImmutableSortedSet().groupBy(Card::suit));
     }
 
     public MutableStack<Card> shuffle(Random random)
     {
-        return this.cards.toList()
-                .shuffleThis(random)
-                .shuffleThis(random)
-                .shuffleThis(random)
+        return IntInterval.oneTo(3)
+                .injectInto(this.cards.toList(), (list, i) -> list.shuffleThis(random))
                 .toStack();
     }
 
@@ -57,8 +54,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSet
 
     public ImmutableList<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        MutableStack<Card> shuffled = this.shuffle(random);
-        return this.dealHands(shuffled, hands, cardsPerHand);
+        return this.dealHands(this.shuffle(random), hands, cardsPerHand);
     }
 
     public ImmutableList<Set<Card>> dealHands(
