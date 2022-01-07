@@ -94,14 +94,4 @@ public record EclipseCollectionsDeckOfCardsAsSortedSet(
     {
         return this.cards.countBy(Card::rank);
     }
-
-    public ImmutableSortedSet<Card> getCards()
-    {
-        return this.cards;
-    }
-
-    public ImmutableSortedSetMultimap<Suit, Card> getCardsBySuit()
-    {
-        return this.cardsBySuit;
-    }
 }

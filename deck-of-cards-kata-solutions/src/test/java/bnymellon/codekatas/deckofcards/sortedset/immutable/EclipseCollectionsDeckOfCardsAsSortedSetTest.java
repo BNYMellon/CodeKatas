@@ -41,13 +41,13 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     @Test
     public void allCards()
     {
-        Assertions.assertEquals(this.ecDeck.getCards(), this.jdkDeck.getCards());
+        Assertions.assertEquals(this.ecDeck.cards(), this.jdkDeck.getCards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
-        var ecCards = this.ecDeck.getCards().castToSortedSet();
+        var ecCards = this.ecDeck.cards().castToSortedSet();
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.remove(null));
@@ -115,7 +115,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     @Test
     public void cardsBySuit()
     {
-        ImmutableSortedSetMultimap<Suit, Card> ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        ImmutableSortedSetMultimap<Suit, Card> ecCardsBySuit = this.ecDeck.cardsBySuit();
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assertions.assertEquals(ecCardsBySuit.get(Suit.CLUBS), jdkCardsBySuit.get(Suit.CLUBS));
     }
@@ -123,7 +123,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     @Test
     public void cardsBySuitIsImmutable()
     {
-        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        var ecCardsBySuit = this.ecDeck.cardsBySuit();
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToSortedSet().remove(null));
