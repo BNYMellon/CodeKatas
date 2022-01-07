@@ -31,13 +31,13 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void allCards()
     {
-        Assertions.assertEquals(this.jdkDeck.getCards(), this.ecDeck.getCards());
+        Assertions.assertEquals(this.jdkDeck.getCards(), this.ecDeck.cards());
     }
 
     @Test
     public void cardsAreImmutable()
     {
-        var ecCards = this.ecDeck.getCards().castToList();
+        var ecCards = this.ecDeck.cards().castToList();
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCards.remove(0));
@@ -105,7 +105,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void cardsBySuit()
     {
-        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        var ecCardsBySuit = this.ecDeck.cardsBySuit();
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
     }
@@ -113,7 +113,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void cardsBySuitIsImmutable()
     {
-        var ecCardsBySuit = this.ecDeck.getCardsBySuit();
+        var ecCardsBySuit = this.ecDeck.cardsBySuit();
         Assertions.assertThrows(
                 UnsupportedOperationException.class,
                 () -> ecCardsBySuit.get(Suit.CLUBS).castToList().remove(0));
