@@ -29,23 +29,20 @@ import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.stack.MutableStack;
 import org.eclipse.collections.impl.list.primitive.IntInterval;
 
-public class EclipseCollectionsDeckOfCardsAsList
+public record EclipseCollectionsDeckOfCardsAsList(
+        ImmutableList<Card> cards,
+        ImmutableListMultimap<Suit, Card> cardsBySuit)
 {
-    private final ImmutableList<Card> cards;
-    private final ImmutableListMultimap<Suit, Card> cardsBySuit;
-
     public EclipseCollectionsDeckOfCardsAsList()
     {
-        this.cards = Card.lazyCards().toImmutableSortedList();
-        this.cardsBySuit = this.cards.groupBy(Card::suit);
+        this(Card.lazyCards().toImmutableSortedList(),
+                Card.lazyCards().toImmutableSortedList().groupBy(Card::suit));
     }
 
     public MutableStack<Card> shuffle(Random random)
     {
-        return this.cards.toList()
-                .shuffleThis(random)
-                .shuffleThis(random)
-                .shuffleThis(random)
+        return IntInterval.oneTo(3)
+                .injectInto(this.cards.toList(), (list, i) -> list.shuffleThis(random))
                 .toStack();
     }
 
@@ -56,8 +53,7 @@ public class EclipseCollectionsDeckOfCardsAsList
 
     public ImmutableList<Set<Card>> shuffleAndDeal(Random random, int hands, int cardsPerHand)
     {
-        var shuffled = this.shuffle(random);
-        return this.dealHands(shuffled, hands, cardsPerHand);
+        return this.dealHands(this.shuffle(random), hands, cardsPerHand);
     }
 
     public ImmutableList<Set<Card>> dealHands(
