@@ -24,17 +24,12 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - name: Download JDK ${{ matrix.java-version }}
-        uses: sormuras/download-jdk@v1
+      - name: Set JDK ${{ matrix.java-version }} from jdk.java.net
+        uses: oracle-actions/setup-java@v1
         id: download-jdk
         with:
-          feature: ${{ matrix.java-version }}
-      - name: Set JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v2
-        with:
-          java-version: ${{ steps.download-jdk.outputs.version }}
-          distribution: jdkfile
-          jdkFile: ${{ steps.download-jdk.outputs.file }}
+          website: jdk.java.net
+          release: ${{ matrix.java-version }}
       - name: JDK Version
         run: java --version
       - name: Enable Maven Cache
