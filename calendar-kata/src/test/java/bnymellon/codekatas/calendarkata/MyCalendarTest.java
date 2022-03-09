@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2022 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -181,9 +181,18 @@ public class MyCalendarTest
     {
         MutableList<Interval> availableTimeslots1 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 6));
         Assertions.assertEquals(2, availableTimeslots1.size());
+        Assertions.assertTrue(availableTimeslots1.noneSatisfy(this::overlapsMeeting));
         System.out.println(availableTimeslots1);
         MutableList<Interval> availableTimeslots2 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 1));
         Assertions.assertEquals(1, availableTimeslots2.size());
+        Assertions.assertTrue(availableTimeslots1.noneSatisfy(this::overlapsMeeting));
         System.out.println(availableTimeslots2);
+    }
+
+    private boolean overlapsMeeting(Interval interval)
+    {
+        LocalDate date = LocalDate.ofInstant(interval.getStart(), this.calendar.getZoneId());
+        LocalTime startTime = LocalTime.ofInstant(interval.getStart(), this.calendar.getZoneId());
+        return this.calendar.hasOverlappingMeeting(date, startTime, interval.toDuration());
     }
 }

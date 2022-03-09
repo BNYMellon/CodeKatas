@@ -82,7 +82,7 @@ public class Meeting implements Comparable<Meeting>
     public Interval getInterval()
     {
         return Interval.of(
-                LocalDateTime.of(this.date,this.startTime)
+                LocalDateTime.of(this.date, this.startTime)
                         .atZone(this.zoneId)
                         .toInstant(),
                 this.duration);
