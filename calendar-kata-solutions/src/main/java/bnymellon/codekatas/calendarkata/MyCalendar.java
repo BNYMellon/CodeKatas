@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2022 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.calendarkata10;
+package bnymellon.codekatas.calendarkata;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -34,6 +34,7 @@ import org.eclipse.collections.api.multimap.sortedset.MutableSortedSetMultimap;
 import org.eclipse.collections.api.set.sorted.SortedSetIterable;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Multimaps;
+import org.eclipse.collections.impl.factory.Stacks;
 import org.threeten.extra.Interval;
 
 public class MyCalendar
@@ -59,8 +60,8 @@ public class MyCalendar
 
     public SortedSetIterable<Meeting> getMeetingsForDate(LocalDate date)
     {
-        var sortedSet = this.meetings.get(date);
-        return sortedSet;
+        SortedSetIterable<Meeting> set = this.meetings.get(date);
+        return set;
     }
 
     public WorkWeek getMeetingsForWorkWeekOf(LocalDate value)
@@ -77,7 +78,7 @@ public class MyCalendar
     {
         if (!this.hasOverlappingMeeting(date, startTime, duration))
         {
-            var meeting = new Meeting(subject, date, startTime, duration, this.getZoneId());
+            Meeting meeting = new Meeting(subject, date, startTime, duration, this.getZoneId());
             return this.meetings.put(date, meeting);
         }
         return false;
@@ -93,7 +94,10 @@ public class MyCalendar
      */
     public boolean hasOverlappingMeeting(LocalDate date, LocalTime startTime, Duration duration)
     {
-        return false;
+        Interval timeSlot = Interval.of(date.atTime(startTime).atZone(this.getZoneId()).toInstant(), duration);
+        return this.getMeetingsForDate(date)
+                .collect(Meeting::getInterval)
+                .anySatisfyWith(Interval::overlaps, timeSlot);
     }
 
     /**
@@ -109,7 +113,16 @@ public class MyCalendar
      */
     public MutableList<Interval> getAvailableTimeslots(LocalDate date)
     {
-        return Lists.mutable.empty();
+        Instant startOfDay = date.atTime(LocalTime.MIN).atZone(this.getZoneId()).toInstant();
+        Instant endofDay = date.atTime(LocalTime.MAX).atZone(this.getZoneId()).toInstant();
+        return this.getMeetingsForDate(date)
+                .collect(Meeting::getInterval)
+                .injectInto(Stacks.mutable.of(Interval.of(startOfDay, endofDay)), (slots, meeting) ->
+                {
+                    slots.push(slots.pop().withEnd(meeting.getStart()));
+                    slots.push(Interval.of(meeting.getEnd(), endofDay));
+                    return slots;
+                }).toList();
     }
 
     @Override

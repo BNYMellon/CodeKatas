@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2022 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.calendarkata10;
+package bnymellon.codekatas.calendarkata;
 
 import java.time.LocalDate;
 
@@ -43,7 +43,7 @@ public class CalendarWindow
 
     protected String iterateMeetings()
     {
-        var builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         this.range.stream().forEach(date -> {
             builder.append("Date=" + date);
             builder.append(" {Meetings= ");

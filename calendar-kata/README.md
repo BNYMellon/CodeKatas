@@ -17,10 +17,5 @@ There are several domain classes that are shared by all of the exercises.  These
 
 ### How to get started
 
-Java 8 Version:
 * There are failing tests in [`MyCalendarTest`](./src/test/java/bnymellon/codekatas/calendarkata/MyCalendarTest.java)
-	* Make the tests pass by following and completing the TODOs in MyCalendar, WorkWeek, FullMonth and FullWeek. 
-
-Java 10 Version (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) feature):
-* There are failing tests in [`MyCalendarTest`](./src/test/java/bnymellon/codekatas/calendarkata10/MyCalendar10Test.java)
-	* Make the tests pass by following and completing the TODOs in MyCalendar, WorkWeek, FullMonth and FullWeek. 
+	* Make the tests pass by following and completing the TODOs in MyCalendar, WorkWeek, FullMonth and FullWeek.

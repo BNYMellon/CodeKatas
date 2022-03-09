@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2022 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.calendarkata10;
+package bnymellon.codekatas.calendarkata;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -28,8 +28,7 @@ import org.threeten.extra.Interval;
 
 public class Meeting implements Comparable<Meeting>
 {
-    public static final Comparator<Meeting> COMPARATOR = Comparator.comparing(Meeting::getDate).thenComparing(
-            Meeting::getStartTime);
+    public static final Comparator<Meeting> COMPARATOR = Comparator.comparing(Meeting::getDate).thenComparing(Meeting::getStartTime);
     private String subject;
     private LocalDate date;
     private LocalTime startTime;
@@ -83,7 +82,7 @@ public class Meeting implements Comparable<Meeting>
     public Interval getInterval()
     {
         return Interval.of(
-                LocalDateTime.of(this.date,this.startTime)
+                LocalDateTime.of(this.date, this.startTime)
                         .atZone(this.zoneId)
                         .toInstant(),
                 this.duration);
@@ -100,7 +99,7 @@ public class Meeting implements Comparable<Meeting>
         {
             return false;
         }
-        var meeting = (Meeting) o;
+        Meeting meeting = (Meeting) o;
         return Objects.equals(this.getSubject(), meeting.getSubject()) &&
                 Objects.equals(this.getDate(), meeting.getDate()) &&
                 Objects.equals(this.getStartTime(), meeting.getStartTime()) &&

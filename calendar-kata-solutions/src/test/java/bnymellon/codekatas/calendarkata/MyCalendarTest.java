@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Bank of New York Mellon.
+ * Copyright 2022 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package bnymellon.codekatas.calendarkata10;
+package bnymellon.codekatas.calendarkata;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -22,12 +22,15 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.TimeZone;
 
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.set.sorted.SortedSetIterable;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.threeten.extra.Interval;
 
-public class MyCalendar10Test
+public class MyCalendarTest
 {
     private MyCalendar calendar;
 
@@ -144,7 +147,7 @@ public class MyCalendar10Test
     @Test
     public void getMeetingsForDate()
     {
-        var meetingsForJuly6 = this.calendar.getMeetingsForDate(LocalDate.of(2017, 7, 6));
+        SortedSetIterable<Meeting> meetingsForJuly6 = this.calendar.getMeetingsForDate(LocalDate.of(2017, 7, 6));
         Verify.assertSize(1, meetingsForJuly6);
         System.out.println(meetingsForJuly6);
     }
@@ -152,35 +155,44 @@ public class MyCalendar10Test
     @Test
     public void getMeetingsForWorkWeekOf()
     {
-        var workWeek = this.calendar.getMeetingsForWorkWeekOf(LocalDate.of(2017, 7, 6));
-        Assertions.assertEquals(4, workWeek.getNumberOfMeetings());
-        System.out.println(workWeek);
+        final WorkWeek week = this.calendar.getMeetingsForWorkWeekOf(LocalDate.of(2017, 7, 6));
+        Assertions.assertEquals(4, week.getNumberOfMeetings());
+        System.out.println(week);
     }
 
     @Test
     public void getMeetingsForFullWeekOf()
     {
-        var fullWeek = this.calendar.getMeetingsForFullWeekOf(LocalDate.of(2017, 7, 6));
-        Assertions.assertEquals(6, fullWeek.getNumberOfMeetings());
-        System.out.println(fullWeek);
+        final FullWeek week = this.calendar.getMeetingsForFullWeekOf(LocalDate.of(2017, 7, 6));
+        Assertions.assertEquals(6, week.getNumberOfMeetings());
+        System.out.println(week);
     }
 
     @Test
     public void getMeetingsForMonthOf()
     {
-        var fullMonth = this.calendar.getMeetingsForYearMonth(2017, Month.JULY);
-        Assertions.assertEquals(6, fullMonth.getNumberOfMeetings());
-        System.out.println(fullMonth);
+        FullMonth month = this.calendar.getMeetingsForYearMonth(2017, Month.JULY);
+        Assertions.assertEquals(6, month.getNumberOfMeetings());
+        System.out.println(month);
     }
 
     @Test
     public void getAvailableTimeslots()
     {
-        var availableTimeslots1 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 6));
+        MutableList<Interval> availableTimeslots1 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 6));
         Assertions.assertEquals(2, availableTimeslots1.size());
+        Assertions.assertTrue(availableTimeslots1.noneSatisfy(this::overlapsMeeting));
         System.out.println(availableTimeslots1);
-        var availableTimeslots2 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 1));
+        MutableList<Interval> availableTimeslots2 = this.calendar.getAvailableTimeslots(LocalDate.of(2017, 7, 1));
         Assertions.assertEquals(1, availableTimeslots2.size());
+        Assertions.assertTrue(availableTimeslots1.noneSatisfy(this::overlapsMeeting));
         System.out.println(availableTimeslots2);
+    }
+
+    private boolean overlapsMeeting(Interval interval)
+    {
+        LocalDate date = LocalDate.ofInstant(interval.getStart(), this.calendar.getZoneId());
+        LocalTime startTime = LocalTime.ofInstant(interval.getStart(), this.calendar.getZoneId());
+        return this.calendar.hasOverlappingMeeting(date, startTime, interval.toDuration());
     }
 }
