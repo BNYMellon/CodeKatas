@@ -15,12 +15,9 @@
  */
 package bnymellon.codekatas.pitestmutationkata;
 
+import org.eclipse.collections.impl.test.Verify;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.eclipse.collections.impl.test.Verify.assertEqualsAndHashCode;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PositionTest
 {
@@ -30,14 +27,14 @@ public class PositionTest
     public void position()
     {
         Position position = this.newPosition();
-        assertNotNull(position.getPositionId());
-        assertEquals(5, position.getQuantity());
-        assertEquals(10, position.getValueOne());
-        assertEquals(20, position.getValueTwo());
-        assertEquals(30, position.getValueThree());
-        assertEquals(0, position.getAdditionCounter());
+        Assertions.assertNotNull(position.getPositionId());
+        Assertions.assertEquals(5, position.getQuantity());
+        Assertions.assertEquals(10, position.getValueOne());
+        Assertions.assertEquals(20, position.getValueTwo());
+        Assertions.assertEquals(30, position.getValueThree());
+        Assertions.assertEquals(0, position.getAdditionCounter());
 
-        assertEquals(POSITION_ID, position.getPositionId());
+        Assertions.assertEquals(POSITION_ID, position.getPositionId());
     }
 
     @Test
@@ -46,12 +43,12 @@ public class PositionTest
         Position position = this.newPosition();
         Position positionTwo = new Position("id2", 2, 100, 200, 300);
         position = position.add(positionTwo);
-        assertEquals(110, position.getValueOne());
-        assertEquals(220, position.getValueTwo());
+        Assertions.assertEquals(110, position.getValueOne());
+        Assertions.assertEquals(220, position.getValueTwo());
 
-        assertEquals(7, position.getQuantity());
-        assertEquals(330, position.getValueThree());
-        assertEquals(1, position.getAdditionCounter());
+        Assertions.assertEquals(7, position.getQuantity());
+        Assertions.assertEquals(330, position.getValueThree());
+        Assertions.assertEquals(1, position.getAdditionCounter());
     }
 
     @Test
@@ -59,10 +56,10 @@ public class PositionTest
     {
         Position positionOne = this.newPosition();
         Position positionTwo = this.newPosition();
-        assertEqualsAndHashCode(positionOne, positionTwo);
-        assertNotEquals(positionOne, new Position("id2", 0, 0, 0, 0));
+        Verify.assertEqualsAndHashCode(positionOne, positionTwo);
+        Assertions.assertNotEquals(positionOne, new Position("id2", 0, 0, 0, 0));
 
-        assertNotEquals(0, positionOne.hashCode());
+        Assertions.assertNotEquals(0, positionOne.hashCode());
     }
 
     private Position newPosition()
