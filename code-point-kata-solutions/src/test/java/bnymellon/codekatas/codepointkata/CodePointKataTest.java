@@ -16,17 +16,16 @@
 
 package bnymellon.codekatas.codepointkata;
 
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.eclipse.collections.api.bag.primitive.CharBag;
 import org.eclipse.collections.api.bag.primitive.MutableCharBag;
+import org.eclipse.collections.api.factory.primitive.CharBags;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.impl.collector.Collectors2;
 import org.eclipse.collections.impl.factory.Strings;
-import org.eclipse.collections.impl.factory.primitive.CharBags;
 import org.eclipse.collections.impl.list.fixed.ArrayAdapter;
 import org.eclipse.collections.impl.string.immutable.CharAdapter;
 import org.eclipse.collections.impl.string.immutable.CodePointList;
