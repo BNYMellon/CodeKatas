@@ -21,7 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 
-import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

@@ -16,7 +16,7 @@
 
 package bnymellon.codekatas.donutkatakotlin
 
-import org.eclipse.collections.impl.factory.Lists
+import org.eclipse.collections.api.factory.Lists
 import org.eclipse.collections.impl.test.Verify
 import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples.pair
 import org.junit.jupiter.api.AfterEach

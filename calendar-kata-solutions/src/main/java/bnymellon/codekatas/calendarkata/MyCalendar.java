@@ -29,12 +29,11 @@ import java.util.TimeZone;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.block.function.Function2;
 import org.eclipse.collections.api.block.predicate.Predicate2;
+import org.eclipse.collections.api.factory.Stacks;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.sortedset.MutableSortedSetMultimap;
 import org.eclipse.collections.api.set.sorted.SortedSetIterable;
-import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Multimaps;
-import org.eclipse.collections.impl.factory.Stacks;
 import org.threeten.extra.Interval;
 
 public class MyCalendar
