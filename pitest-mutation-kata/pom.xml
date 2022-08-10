@@ -36,7 +36,7 @@
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <junit5.version>5.8.2</junit5.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <pitest-maven.version>1.7.6</pitest-maven.version>
+        <pitest-maven.version>1.9.4</pitest-maven.version>
     </properties>
     <dependencies>
         <dependency>
@@ -82,7 +82,7 @@
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.14</version>
+                        <version>1.0.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
