@@ -80,6 +80,12 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card>
         return Comparator.comparing(Card::suit).thenComparing(Card::rank).compare(this, other);
     }
 
+    @Override
+    public String toString()
+    {
+        return "|" + rank.toString() + suit.toString() + "|";
+    }
+
     public boolean isDiamonds()
     {
         return this.suit == Suit.DIAMONDS;
