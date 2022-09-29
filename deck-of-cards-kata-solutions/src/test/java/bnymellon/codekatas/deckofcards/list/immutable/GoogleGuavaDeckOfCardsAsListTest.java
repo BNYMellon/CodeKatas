@@ -20,6 +20,8 @@ import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -134,16 +136,31 @@ public class GoogleGuavaDeckOfCardsAsListTest
     @Test
     public void countsBySuit()
     {
-        Assertions.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
-                this.ggDeck.countsBySuit().count(Suit.CLUBS));
+        Multiset<Suit> set = HashMultiset.create();
+        set.add(Suit.HEARTS,13);
+        set.add(Suit.CLUBS,13);
+        set.add(Suit.DIAMONDS,13);
+        set.add(Suit.SPADES,13);
+        Assertions.assertEquals(set, this.ggDeck.countsBySuit());
     }
 
     @Test
     public void countsByRank()
     {
-        Assertions.assertEquals(
-                this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
-                this.ggDeck.countsByRank().count(Rank.NINE));
+        Multiset<Rank> set = HashMultiset.create();
+        set.add(Rank.ACE,4);
+        set.add(Rank.KING,4);
+        set.add(Rank.QUEEN,4);
+        set.add(Rank.JACK,4);
+        set.add(Rank.TWO,4);
+        set.add(Rank.THREE,4);
+        set.add(Rank.FOUR,4);
+        set.add(Rank.FIVE,4);
+        set.add(Rank.SIX,4);
+        set.add(Rank.SEVEN,4);
+        set.add(Rank.EIGHT,4);
+        set.add(Rank.NINE,4);
+        set.add(Rank.TEN,4);
+        Assertions.assertEquals(set, this.ggDeck.countsByRank());
     }
 }

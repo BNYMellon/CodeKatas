@@ -20,6 +20,8 @@ import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.eclipse.collections.api.factory.Bags;
+import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -52,25 +54,29 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdkDeck.diamonds(), this.ecDeck.diamonds());
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                this.ecDeck.diamonds().makeString(","));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdkDeck.hearts(), this.ecDeck.hearts());
+        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                this.ecDeck.hearts().makeString(","));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdkDeck.spades(), this.ecDeck.spades());
+        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                this.ecDeck.spades().makeString(","));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdkDeck.clubs(), this.ecDeck.clubs());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                this.ecDeck.clubs().makeString(","));
     }
 
     @Test
@@ -106,8 +112,16 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void cardsBySuit()
     {
         var ecCardsBySuit = this.ecDeck.cardsBySuit();
-        var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
+        Assertions.assertEquals(13, ecCardsBySuit.get(Suit.CLUBS).size());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|" ,
+                this.ecDeck.cardsBySuit().get(Suit.CLUBS).makeString(","));
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|" ,
+                this.ecDeck.cardsBySuit().get(Suit.DIAMONDS).makeString(","));
+        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|" ,
+                this.ecDeck.cardsBySuit().get(Suit.SPADES).makeString(","));
+        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|" ,
+                this.ecDeck.cardsBySuit().get(Suit.HEARTS).makeString(","));
+
     }
 
     @Test
@@ -129,15 +143,32 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void countsBySuit()
     {
         Assertions.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
-                this.ecDeck.countsBySuit().occurrencesOf(Suit.CLUBS));
+                Bags.mutable.withOccurrences(
+                        PrimitiveTuples.pair("♥", 13),
+                        PrimitiveTuples.pair("♣", 13),
+                        PrimitiveTuples.pair("♦", 13),
+                        PrimitiveTuples.pair("♠", 13)),
+                this.ecDeck.countsBySuit().collect(Suit::toString));
     }
 
     @Test
     public void countsByRank()
     {
         Assertions.assertEquals(
-                this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
-                this.ecDeck.countsByRank().occurrencesOf(Rank.SEVEN));
+                Bags.mutable.withOccurrences(
+                        PrimitiveTuples.pair("A", 4),
+                        PrimitiveTuples.pair("Q", 4),
+                        PrimitiveTuples.pair("K", 4),
+                        PrimitiveTuples.pair("3", 4),
+                        PrimitiveTuples.pair("2", 4),
+                        PrimitiveTuples.pair("J", 4),
+                        PrimitiveTuples.pair("10", 4),
+                        PrimitiveTuples.pair("7", 4),
+                        PrimitiveTuples.pair("6", 4),
+                        PrimitiveTuples.pair("5", 4),
+                        PrimitiveTuples.pair("4", 4),
+                        PrimitiveTuples.pair("9", 4),
+                        PrimitiveTuples.pair("8", 4)),
+                this.ecDeck.countsByRank().collect(Rank::toString));
     }
 }
