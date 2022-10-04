@@ -18,8 +18,21 @@ package bnymellon.codekatas.deckofcards;
 
 public enum Suit
 {
-    SPADES,
-    DIAMONDS,
-    HEARTS,
-    CLUBS
+    SPADES("♠"),
+    DIAMONDS("♦"),
+    HEARTS("♥"),
+    CLUBS("♣");
+
+    private final String emoji;
+
+    Suit(String emoji)
+    {
+        this.emoji = emoji;
+    }
+
+    @Override
+    public String toString()
+    {
+        return emoji;
+    }
 }
