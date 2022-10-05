@@ -18,6 +18,7 @@ package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
 import java.util.Deque;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -26,6 +27,7 @@ import java.util.SortedSet;
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -58,25 +60,29 @@ public class JavaStreamsDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdk1Deck.diamonds(), this.jdk2Deck.diamonds());
+        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+                Iterate.makeString(this.jdk2Deck.diamonds()));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdk1Deck.hearts(), this.jdk2Deck.hearts());
+        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+                Iterate.makeString(jdk2Deck.hearts()));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdk1Deck.spades(), this.jdk2Deck.spades());
+        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+                Iterate.makeString(this.jdk2Deck.spades()));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdk1Deck.clubs(), this.jdk2Deck.clubs());
+        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
+                Iterate.makeString(this.jdk2Deck.clubs()));
     }
 
     @Test
@@ -111,9 +117,16 @@ public class JavaStreamsDeckOfCardsAsSortedSetTest
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, SortedSet<Card>> jdk1CardsBySuit = this.jdk1Deck.getCardsBySuit();
-        Map<Suit, SortedSet<Card>> jdk2CardsBySuit = this.jdk2Deck.getCardsBySuit();
-        Assertions.assertEquals(jdk1CardsBySuit.get(Suit.CLUBS), jdk2CardsBySuit.get(Suit.CLUBS));
+        Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdk1Deck.getCardsBySuit();
+        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.CLUBS).size());
+        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
+                Iterate.makeString(jdkCardsBySuit.get(Suit.CLUBS)));
+        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+                Iterate.makeString(jdkCardsBySuit.get(Suit.DIAMONDS)));
+        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+                Iterate.makeString(jdkCardsBySuit.get(Suit.SPADES)));
+        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+                Iterate.makeString(jdkCardsBySuit.get(Suit.HEARTS)));
     }
 
     @Test
@@ -140,16 +153,22 @@ public class JavaStreamsDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assertions.assertEquals(
-                this.jdk1Deck.countsBySuit().get(Suit.CLUBS),
-                this.jdk2Deck.countsBySuit().get(Suit.CLUBS));
+        Map<Suit, Long> map = new HashMap<>();
+        for (Suit suit: Suit.values())
+        {
+            map.put(suit, 13L);
+        }
+        Assertions.assertEquals(map, this.jdk2Deck.countsBySuit());
     }
 
     @Test
     public void countsByRank()
     {
-        Assertions.assertEquals(
-                this.jdk1Deck.countsByRank().get(Rank.TEN),
-                this.jdk2Deck.countsByRank().get(Rank.TEN));
+        Map<Rank, Long> map = new HashMap<>();
+        for (Rank rank: Rank.values())
+        {
+            map.put(rank, 4L);
+        }
+        Assertions.assertEquals(map, this.jdk2Deck.countsByRank());
     }
 }

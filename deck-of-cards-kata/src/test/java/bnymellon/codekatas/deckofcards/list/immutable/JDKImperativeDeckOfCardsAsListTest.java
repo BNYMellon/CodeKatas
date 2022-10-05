@@ -16,7 +16,11 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
@@ -55,28 +59,32 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(13, this.jdkDeck.diamonds().size());
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                this.jdkDeck.getCardsBySuit().get(Suit.DIAMONDS).stream().map(Objects::toString).collect(Collectors.joining(",")));
         Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.diamonds(), Card::isDiamonds));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(13, this.jdkDeck.hearts().size());
+        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                this.jdkDeck.getCardsBySuit().get(Suit.HEARTS).stream().map(Objects::toString).collect(Collectors.joining(",")));
         Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.hearts(), Card::isHearts));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(13, this.jdkDeck.spades().size());
+        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                this.jdkDeck.getCardsBySuit().get(Suit.SPADES).stream().map(Objects::toString).collect(Collectors.joining(",")));
         Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.spades(), Card::isSpades));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(13, this.jdkDeck.clubs().size());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                this.jdkDeck.getCardsBySuit().get(Suit.CLUBS).stream().map(Objects::toString).collect(Collectors.joining(",")));
         Assertions.assertTrue(Iterate.allSatisfy(this.jdkDeck.clubs(), Card::isClubs));
     }
 
@@ -111,11 +119,14 @@ public class JDKImperativeDeckOfCardsAsListTest
     public void cardsBySuit()
     {
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        Assertions.assertEquals(4, jdkCardsBySuit.size());
-        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.CLUBS).size());
-        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.DIAMONDS).size());
-        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.SPADES).size());
-        Assertions.assertEquals(13, jdkCardsBySuit.get(Suit.HEARTS).size());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                jdkCardsBySuit.get(Suit.CLUBS).stream().map(Objects::toString).collect(Collectors.joining(",")));
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                jdkCardsBySuit.get(Suit.DIAMONDS).stream().map(Objects::toString).collect(Collectors.joining(",")));
+         Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                jdkCardsBySuit.get(Suit.SPADES).stream().map(Objects::toString).collect(Collectors.joining(",")));
+         Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                jdkCardsBySuit.get(Suit.HEARTS).stream().map(Objects::toString).collect(Collectors.joining(",")));
     }
 
     @Test
@@ -142,12 +153,20 @@ public class JDKImperativeDeckOfCardsAsListTest
     @Test
     public void countsBySuit()
     {
-        Assertions.assertEquals(Long.valueOf(13), this.jdkDeck.countsBySuit().get(Suit.CLUBS));
+        Map<Suit, Long> map = new HashMap<>();
+        for (Suit suit: Suit.values()){
+            map.put(suit, 13L);
+        }
+        Assertions.assertEquals(map, this.jdkDeck.countsBySuit());
     }
 
     @Test
     public void countsByRank()
     {
-        Assertions.assertEquals(Long.valueOf(4), this.jdkDeck.countsByRank().get(Rank.TEN));
+        Map<Rank, Long> map = new HashMap<>();
+        for (Rank rank: Rank.values()) {
+            map.put(rank,4L);
+        }
+        Assertions.assertEquals(map,this.jdkDeck.countsByRank());
     }
 }
