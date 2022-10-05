@@ -27,7 +27,12 @@ import java.util.TreeSet;
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.bag.HashBag;
+import org.apache.commons.collections4.multiset.HashMultiSet;
+import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -60,25 +65,29 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdkDeck.diamonds(), this.acDeck.diamonds());
+        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+                Iterate.makeString(this.acDeck.diamonds()));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdkDeck.hearts(), this.acDeck.hearts());
+        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+                Iterate.makeString(this.acDeck.hearts()));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdkDeck.spades(), this.acDeck.spades());
+        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+                Iterate.makeString(this.acDeck.spades()));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdkDeck.clubs(), this.acDeck.clubs());
+        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
+                Iterate.makeString(this.acDeck.clubs()));
     }
 
     @Test
@@ -142,16 +151,31 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Assertions.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
-                this.acDeck.countsBySuit().getCount(Suit.CLUBS));
+        Bag<Suit> bag = new HashBag<>();
+        bag.add(Suit.CLUBS, 13);
+        bag.add(Suit.DIAMONDS, 13);
+        bag.add(Suit.SPADES, 13);
+        bag.add(Suit.HEARTS, 13);
+        Assertions.assertEquals(bag, this.acDeck.countsBySuit());
     }
 
     @Test
     public void countsByRank()
     {
-        Assertions.assertEquals(
-                this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
-                this.acDeck.countsByRank().getCount(Rank.EIGHT));
+        MultiSet<Rank> set = new HashMultiSet<>();
+        set.add(Rank.ACE, 4);
+        set.add(Rank.KING, 4);
+        set.add(Rank.QUEEN, 4);
+        set.add(Rank.JACK, 4);
+        set.add(Rank.TWO, 4);
+        set.add(Rank.THREE, 4);
+        set.add(Rank.FOUR, 4);
+        set.add(Rank.FIVE, 4);
+        set.add(Rank.SIX, 4);
+        set.add(Rank.SEVEN, 4);
+        set.add(Rank.EIGHT, 4);
+        set.add(Rank.NINE, 4);
+        set.add(Rank.TEN, 4);
+        Assertions.assertEquals(set, this.acDeck.countsByRank());
     }
 }

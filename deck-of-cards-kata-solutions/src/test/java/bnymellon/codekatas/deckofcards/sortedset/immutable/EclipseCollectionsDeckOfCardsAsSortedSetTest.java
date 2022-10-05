@@ -26,10 +26,13 @@ import java.util.SortedSet;
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import org.eclipse.collections.api.factory.Bags;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.stack.MutableStack;
+import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
+import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -62,25 +65,29 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.ecDeck.diamonds(), this.jdkDeck.diamonds());
+        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+                Iterate.makeString(this.jdkDeck.diamonds()));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.ecDeck.hearts(), this.jdkDeck.hearts());
+        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+                Iterate.makeString(this.jdkDeck.hearts()));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.ecDeck.spades(), this.jdkDeck.spades());
+        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+                Iterate.makeString(this.jdkDeck.spades()));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.ecDeck.clubs(), this.jdkDeck.clubs());
+        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|", 
+                Iterate.makeString(this.jdkDeck.clubs()));
     }
 
     @Test
@@ -139,15 +146,32 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     public void countsBySuit()
     {
         Assertions.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS).intValue(),
-                this.ecDeck.countsBySuit().occurrencesOf(Suit.CLUBS));
+                Bags.mutable.withOccurrences(
+                        PrimitiveTuples.pair("♥", 13),
+                        PrimitiveTuples.pair("♣", 13),
+                        PrimitiveTuples.pair("♦", 13),
+                        PrimitiveTuples.pair("♠", 13)),
+                this.ecDeck.countsBySuit().collect(Suit::toString));
     }
 
     @Test
     public void countsByRank()
     {
         Assertions.assertEquals(
-                this.jdkDeck.countsByRank().get(Rank.TEN).intValue(),
-                this.ecDeck.countsByRank().occurrencesOf(Rank.SEVEN));
+                Bags.mutable.withOccurrences(
+                        PrimitiveTuples.pair("A", 4),
+                        PrimitiveTuples.pair("Q", 4),
+                        PrimitiveTuples.pair("K", 4),
+                        PrimitiveTuples.pair("3", 4),
+                        PrimitiveTuples.pair("2", 4),
+                        PrimitiveTuples.pair("J", 4),
+                        PrimitiveTuples.pair("10", 4),
+                        PrimitiveTuples.pair("7", 4),
+                        PrimitiveTuples.pair("6", 4),
+                        PrimitiveTuples.pair("5", 4),
+                        PrimitiveTuples.pair("4", 4),
+                        PrimitiveTuples.pair("9", 4),
+                        PrimitiveTuples.pair("8", 4)),
+                this.ecDeck.countsByRank().collect(Rank::toString));
     }
 }
