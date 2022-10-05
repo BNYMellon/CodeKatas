@@ -16,17 +16,16 @@
 
 package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.SortedSet;
 
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -44,25 +43,29 @@ public class VavrDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdkDeck.diamonds(), this.vavrDeck.diamonds().toJavaSet());
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                this.vavrDeck.diamonds().mkString(","));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdkDeck.hearts(), this.vavrDeck.hearts().toJavaSet());
+        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                this.vavrDeck.hearts().mkString(","));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdkDeck.spades(), this.vavrDeck.spades().toJavaSet());
+        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                this.vavrDeck.spades().mkString(","));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdkDeck.clubs(), this.vavrDeck.clubs().toJavaSet());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                this.vavrDeck.clubs().mkString(","));
     }
 
     @Test
@@ -107,18 +110,23 @@ public class VavrDeckOfCardsAsSortedSetTest
     @Test
     public void cardsBySuit()
     {
-        Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
-        io.vavr.collection.Map<Suit, ? extends io.vavr.collection.SortedSet<Card>> vavrCardsBySuit =
-                this.vavrDeck.getCardsBySuit();
-        Assertions.assertEquals(new ArrayList<>(jdkCardsBySuit.get(Suit.CLUBS)), vavrCardsBySuit.get(Suit.CLUBS).get().toJavaList());
+        var vavrCardsBySuit = this.vavrDeck.getCardsBySuit();
+        Assertions.assertEquals(4, vavrCardsBySuit.size());
+        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                vavrCardsBySuit.get(Suit.CLUBS).get().mkString(","));
+        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                vavrCardsBySuit.get(Suit.SPADES).get().mkString(","));
+        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                vavrCardsBySuit.get(Suit.HEARTS).get().mkString(","));
+        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                vavrCardsBySuit.get(Suit.DIAMONDS).get().mkString(","));
     }
 
     @Test
     public void countsBySuit()
     {
-        Assertions.assertEquals(
-                this.jdkDeck.countsBySuit().get(Suit.CLUBS),
-                this.vavrDeck.countsBySuit().get(Suit.CLUBS).get());
+        Map<Suit, Long> map = HashMap.of(Suit.CLUBS, 13L, Suit.SPADES, 13L, Suit.DIAMONDS,13L, Suit.HEARTS,13L);
+        Assertions.assertEquals(map, this.vavrDeck.countsBySuit());
     }
 
     @Test
