@@ -145,10 +145,10 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void countsBySuit()
     {
         Bag<Suit> bag = new HashBag<>();
-        bag.add(Suit.CLUBS,13);
-        bag.add(Suit.DIAMONDS,13);
-        bag.add(Suit.SPADES,13);
-        bag.add(Suit.HEARTS,13);
+        for (Suit suit : Suit.values())
+        {
+            bag.add(suit, 13);
+        }
         Assertions.assertEquals(bag, this.acDeck.countsBySuit());
     }
 
@@ -156,19 +156,10 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void countsByRank()
     {
         MultiSet<Rank> set = new HashMultiSet<>();
-        set.add(Rank.ACE,4);
-        set.add(Rank.KING,4);
-        set.add(Rank.QUEEN,4);
-        set.add(Rank.JACK,4);
-        set.add(Rank.TWO,4);
-        set.add(Rank.THREE,4);
-        set.add(Rank.FOUR,4);
-        set.add(Rank.FIVE,4);
-        set.add(Rank.SIX,4);
-        set.add(Rank.SEVEN,4);
-        set.add(Rank.EIGHT,4);
-        set.add(Rank.NINE,4);
-        set.add(Rank.TEN,4);
+        for (Rank rank : Rank.values())
+        {
+            set.add(rank, 4);
+        }
         Assertions.assertEquals(set, this.acDeck.countsByRank());
     }
 }

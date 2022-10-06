@@ -16,7 +16,10 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Card;
