@@ -167,6 +167,6 @@ public class JDKImperativeDeckOfCardsAsListTest
         for (Rank rank: Rank.values()) {
             map.put(rank,4L);
         }
-        Assertions.assertEquals(map,this.jdkDeck.countsByRank());
+        Assertions.assertEquals(map, this.jdkDeck.countsByRank());
     }
 }

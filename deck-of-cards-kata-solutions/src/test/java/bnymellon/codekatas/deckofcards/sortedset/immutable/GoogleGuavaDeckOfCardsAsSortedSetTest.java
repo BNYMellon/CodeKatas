@@ -144,10 +144,10 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     public void countsBySuit()
     {
         Multiset<Suit> set = HashMultiset.create();
-        set.add(Suit.HEARTS,13);
-        set.add(Suit.CLUBS,13);
-        set.add(Suit.DIAMONDS,13);
-        set.add(Suit.SPADES,13);
+        for (Suit suit: Suit.values())
+        {
+            set.add(suit, 13);
+        }
         Assertions.assertEquals(set, this.ggDeck.countsBySuit());
     }
 
@@ -155,19 +155,10 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     public void countsByRank()
     {
         Multiset<Rank> set = HashMultiset.create();
-        set.add(Rank.ACE,4);
-        set.add(Rank.KING,4);
-        set.add(Rank.QUEEN,4);
-        set.add(Rank.JACK,4);
-        set.add(Rank.TWO,4);
-        set.add(Rank.THREE,4);
-        set.add(Rank.FOUR,4);
-        set.add(Rank.FIVE,4);
-        set.add(Rank.SIX,4);
-        set.add(Rank.SEVEN,4);
-        set.add(Rank.EIGHT,4);
-        set.add(Rank.NINE,4);
-        set.add(Rank.TEN,4);
+        for (Rank rank : Rank.values())
+        {
+            set.add(rank, 4);
+        }
         Assertions.assertEquals(set, this.ggDeck.countsByRank());
     }
 }
