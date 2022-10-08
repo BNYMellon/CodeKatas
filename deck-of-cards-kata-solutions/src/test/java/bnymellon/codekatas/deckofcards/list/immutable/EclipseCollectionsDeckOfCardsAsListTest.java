@@ -54,28 +54,32 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
                 this.ecDeck.diamonds().makeString(","));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
                 this.ecDeck.hearts().makeString(","));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
                 this.ecDeck.spades().makeString(","));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
                 this.ecDeck.clubs().makeString(","));
     }
 
@@ -113,15 +117,18 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     {
         var ecCardsBySuit = this.ecDeck.cardsBySuit();
         Assertions.assertEquals(13, ecCardsBySuit.get(Suit.CLUBS).size());
-        Assertions.assertEquals("|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|" ,
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
                 this.ecDeck.cardsBySuit().get(Suit.CLUBS).makeString(","));
-        Assertions.assertEquals("|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|" ,
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
                 this.ecDeck.cardsBySuit().get(Suit.DIAMONDS).makeString(","));
-        Assertions.assertEquals("|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|" ,
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
                 this.ecDeck.cardsBySuit().get(Suit.SPADES).makeString(","));
-        Assertions.assertEquals("|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|" ,
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
                 this.ecDeck.cardsBySuit().get(Suit.HEARTS).makeString(","));
-
     }
 
     @Test
