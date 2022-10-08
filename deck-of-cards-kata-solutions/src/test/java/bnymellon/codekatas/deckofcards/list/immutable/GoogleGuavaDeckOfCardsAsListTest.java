@@ -17,10 +17,10 @@
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+import com.google.common.base.Joiner;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import org.junit.jupiter.api.Assertions;
@@ -57,7 +57,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
-                this.ggDeck.diamonds().stream().map(Object::toString).collect(Collectors.joining(",")));
+                Joiner.on(',').join(this.ggDeck.diamonds()));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
-                this.ggDeck.hearts().stream().map(Object::toString).collect(Collectors.joining(",")));
+                Joiner.on(',').join(this.ggDeck.hearts()));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
-                this.ggDeck.spades().stream().map(Object::toString).collect(Collectors.joining(",")));
+                Joiner.on(',').join(this.ggDeck.spades()));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
-                this.ggDeck.clubs().stream().map(Object::toString).collect(Collectors.joining(",")));
+                Joiner.on(',').join(this.ggDeck.clubs()));
     }
 
     @Test
