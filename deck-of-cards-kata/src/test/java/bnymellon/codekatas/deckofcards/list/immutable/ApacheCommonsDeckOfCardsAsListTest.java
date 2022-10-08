@@ -58,28 +58,32 @@ public class ApacheCommonsDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+        Assertions.assertEquals(
+                "|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
                 Iterate.makeString(this.acDeck.diamonds()));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+        Assertions.assertEquals(
+                "|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
                 Iterate.makeString(this.acDeck.hearts()));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+        Assertions.assertEquals(
+                "|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
                 Iterate.makeString(this.acDeck.spades()));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
+        Assertions.assertEquals(
+                "|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
                 Iterate.makeString(this.acDeck.clubs()));
     }
 
@@ -145,9 +149,9 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void countsBySuit()
     {
         Bag<Suit> bag = new HashBag<>();
-        for (Suit suit: Suit.values())
+        for (Suit suit : Suit.values())
         {
-            bag.add(suit,13);
+            bag.add(suit, 13);
         }
         Assertions.assertEquals(bag, this.acDeck.countsBySuit());
     }
@@ -156,9 +160,9 @@ public class ApacheCommonsDeckOfCardsAsListTest
     public void countsByRank()
     {
         MultiSet<Rank> set = new HashMultiSet<>();
-        for (Rank rank: Rank.values())
+        for (Rank rank : Rank.values())
         {
-            set.add(rank,4);
+            set.add(rank, 4);
         }
         Assertions.assertEquals(set, this.acDeck.countsByRank());
     }

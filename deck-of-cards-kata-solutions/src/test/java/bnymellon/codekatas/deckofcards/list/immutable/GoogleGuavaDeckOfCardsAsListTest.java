@@ -17,6 +17,7 @@
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
@@ -54,25 +55,33 @@ public class GoogleGuavaDeckOfCardsAsListTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdkDeck.diamonds(), this.ggDeck.diamonds());
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                this.ggDeck.diamonds().stream().map(Object::toString).collect(Collectors.joining(",")));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdkDeck.hearts(), this.ggDeck.hearts());
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                this.ggDeck.hearts().stream().map(Object::toString).collect(Collectors.joining(",")));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdkDeck.spades(), this.ggDeck.spades());
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                this.ggDeck.spades().stream().map(Object::toString).collect(Collectors.joining(",")));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdkDeck.clubs(), this.ggDeck.clubs());
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                this.ggDeck.clubs().stream().map(Object::toString).collect(Collectors.joining(",")));
     }
 
     @Test
@@ -137,7 +146,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     public void countsBySuit()
     {
         Multiset<Suit> set = HashMultiset.create();
-        for (Suit suit: Suit.values())
+        for (Suit suit : Suit.values())
         {
             set.add(suit, 13);
         }
@@ -148,7 +157,7 @@ public class GoogleGuavaDeckOfCardsAsListTest
     public void countsByRank()
     {
         Multiset<Rank> set = HashMultiset.create();
-        for (Rank rank: Rank.values())
+        for (Rank rank : Rank.values())
         {
             set.add(rank, 4);
         }
