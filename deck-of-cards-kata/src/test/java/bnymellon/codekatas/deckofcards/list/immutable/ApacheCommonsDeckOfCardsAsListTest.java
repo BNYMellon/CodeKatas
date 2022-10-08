@@ -22,10 +22,10 @@ import java.util.Random;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.bag.HashBag;
 import org.apache.commons.collections4.multiset.HashMultiSet;
-import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +60,7 @@ public class ApacheCommonsDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
-                Iterate.makeString(this.acDeck.diamonds()));
+                IterableUtils.toString(this.acDeck.diamonds(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ApacheCommonsDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
-                Iterate.makeString(this.acDeck.hearts()));
+                IterableUtils.toString(this.acDeck.hearts(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ApacheCommonsDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
-                Iterate.makeString(this.acDeck.spades()));
+                IterableUtils.toString(this.acDeck.spades(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ApacheCommonsDeckOfCardsAsListTest
     {
         Assertions.assertEquals(
                 "|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
-                Iterate.makeString(this.acDeck.clubs()));
+                IterableUtils.toString(this.acDeck.clubs(), Object::toString, ", ", "", ""));
     }
 
     @Test
