@@ -16,11 +16,14 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
+import java.util.List;
 import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.eclipse.collections.api.factory.Bags;
+import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.impl.factory.Sets;
 import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -92,6 +95,9 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var ecHand = this.ecDeck.deal(ecShuffle, 5);
         var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Assertions.assertEquals(jdkHand, ecHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                ecHand.toSortedList().makeString(", "));
     }
 
     @Test
@@ -100,6 +106,14 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var ecHands = this.ecDeck.shuffleAndDeal(new Random(1), 5, 5);
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, ecHands);
+        var hands = ecHands.collect(each -> Sets.adapt(each).toSortedList().makeString(", "));
+        List<String> expectedHands = Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -110,6 +124,14 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var ecHands = this.ecDeck.dealHands(ecShuffled, 5, 5);
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, ecHands);
+        var hands = ecHands.collect(each -> Sets.adapt(each).toSortedList().makeString(", "));
+        List<String> expectedHands = Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -118,6 +140,18 @@ public class EclipseCollectionsDeckOfCardsAsListTest
         var ecCardsBySuit = this.ecDeck.getCardsBySuit();
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), ecCardsBySuit.get(Suit.CLUBS));
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                this.ecDeck.getCardsBySuit().get(Suit.CLUBS).makeString(","));
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                this.ecDeck.getCardsBySuit().get(Suit.DIAMONDS).makeString(","));
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                this.ecDeck.getCardsBySuit().get(Suit.SPADES).makeString(","));
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                this.ecDeck.getCardsBySuit().get(Suit.HEARTS).makeString(","));
     }
 
     @Test
@@ -139,11 +173,7 @@ public class EclipseCollectionsDeckOfCardsAsListTest
     public void countsBySuit()
     {
         Assertions.assertEquals(
-                Bags.mutable.withOccurrences(
-                        PrimitiveTuples.pair("♥", 13),
-                        PrimitiveTuples.pair("♣", 13),
-                        PrimitiveTuples.pair("♦", 13),
-                        PrimitiveTuples.pair("♠", 13)),
+                Bags.mutable.withOccurrences("♥", 13, "♣", 13, "♦", 13, "♠", 13),
                 this.ecDeck.countsBySuit().collect(Suit::toString));
     }
 
