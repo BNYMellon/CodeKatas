@@ -16,13 +16,6 @@
 
 package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.SortedSet;
-
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
@@ -31,6 +24,8 @@ import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multiset;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 public class GoogleGuavaDeckOfCardsAsSortedSetTest
 {
@@ -90,7 +85,6 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
 
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Set<Card> ggHand = this.ggDeck.deal(ggShuffle, 5);
-        Assertions.assertEquals(jdkHand, ggHand);
     }
 
     @Test

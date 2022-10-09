@@ -16,15 +16,23 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import com.google.common.base.Joiner;
+
+import com.google.common.collect.Ordering;
 import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 public class GoogleGuavaDeckOfCardsAsListTest
 {
@@ -93,6 +101,9 @@ public class GoogleGuavaDeckOfCardsAsListTest
         var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         var ggHand = this.ggDeck.deal(ggShuffle, 5);
         Assertions.assertEquals(jdkHand, ggHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                Joiner.on(", ").join(Ordering.natural().sortedCopy(Lists.newArrayList(ggHand))));
     }
 
     @Test
@@ -101,6 +112,16 @@ public class GoogleGuavaDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         var ggHands = this.ggDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, ggHands);
+        var hands = Lists.newArrayList(
+                Iterables.concat(Collections.singleton(Collections2.transform(
+                        ggHands, o -> Joiner.on(", ").join(Ordering.natural().sortedCopy(o))))));
+        List<String> expectedHands = org.eclipse.collections.impl.factory.Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -111,6 +132,16 @@ public class GoogleGuavaDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         var ggHands = this.ggDeck.dealHands(ggShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, ggHands);
+        var hands = Lists.newArrayList(
+                Iterables.concat(Collections.singleton(Collections2.transform(
+                        ggHands, o -> Joiner.on(", ").join(Ordering.natural().sortedCopy(o))))));
+        List<String> expectedHands = org.eclipse.collections.impl.factory.Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
