@@ -17,7 +17,9 @@
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
@@ -96,6 +98,9 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         var acHand = this.acDeck.deal(acShuffle, 5);
         Assertions.assertEquals(jdkHand, acHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                IterableUtils.toString(acHand.stream().sorted().toList(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -104,6 +109,15 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         var acHands = this.acDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
+        var hands = acHands.stream().map(each ->
+                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", ""));
+        List<String> expectedHands = List.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -114,6 +128,15 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         var acHands = this.acDeck.dealHands(acShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
+        var hands = acHands.stream().map(each ->
+                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toList());
+        List<String> expectedHands = List.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -122,6 +145,18 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         var acCardsBySuit = this.acDeck.getCardsBySuit();
         Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new ArrayList<>(acCardsBySuit.get(Suit.CLUBS)));
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                IterableUtils.toString(this.acDeck.getCardsBySuit().get(Suit.CLUBS), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                IterableUtils.toString(this.acDeck.getCardsBySuit().get(Suit.DIAMONDS), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                IterableUtils.toString(this.acDeck.getCardsBySuit().get(Suit.SPADES), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                IterableUtils.toString(this.acDeck.getCardsBySuit().get(Suit.HEARTS), Object::toString, ",", "", ""));
     }
 
     @Test
