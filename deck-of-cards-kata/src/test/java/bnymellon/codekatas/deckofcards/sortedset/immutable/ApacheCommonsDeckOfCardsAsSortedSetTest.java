@@ -23,16 +23,17 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.bag.HashBag;
 import org.apache.commons.collections4.multiset.HashMultiSet;
-import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -66,28 +67,28 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     public void diamonds()
     {
         Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
-                Iterate.makeString(this.acDeck.diamonds()));
+                IterableUtils.toString(this.acDeck.diamonds(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void hearts()
     {
         Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
-                Iterate.makeString(this.acDeck.hearts()));
+                IterableUtils.toString(this.acDeck.hearts(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void spades()
     {
         Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
-                Iterate.makeString(this.acDeck.spades()));
+                IterableUtils.toString(this.acDeck.spades(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void clubs()
     {
         Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
-                Iterate.makeString(this.acDeck.clubs()));
+                IterableUtils.toString(this.acDeck.clubs(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -99,6 +100,9 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Set<Card> acHand = this.acDeck.deal(acShuffle, 5);
         Assertions.assertEquals(jdkHand, acHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                IterableUtils.toString(acHand.stream().sorted().toList(), Object::toString, ", ", "", ""));
     }
 
     @Test
@@ -107,6 +111,15 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> acHands = this.acDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
+        var hands = acHands.stream().map(each ->
+                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toSet());
+        Set<String> expectedHands = Set.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -117,6 +130,15 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         List<Set<Card>> acHands = this.acDeck.dealHands(acShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
+        var hands = acHands.stream().map(each ->
+                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toSet());
+        Set<String> expectedHands = Set.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
