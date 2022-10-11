@@ -31,6 +31,8 @@ import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.stack.MutableStack;
+import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.impl.factory.Sets;
 import org.eclipse.collections.impl.tuple.primitive.PrimitiveTuples;
 import org.eclipse.collections.impl.utility.Iterate;
 import org.junit.jupiter.api.Assertions;
@@ -99,6 +101,9 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
         MutableSet<Card> ecHand = this.ecDeck.deal(ecShuffle, 5);
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Assertions.assertEquals(ecHand, jdkHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                ecHand.toSortedSet().makeString(", "));
     }
 
     @Test
@@ -107,6 +112,14 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
         ImmutableList<Set<Card>> ecHands = this.ecDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(ecHands, jdkHands);
+        var hands = ecHands.collect(each -> Sets.adapt(each).toSortedSet().makeString(", "));
+        List<String> expectedHands = Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -117,6 +130,14 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
         ImmutableList<Set<Card>> ecHands = this.ecDeck.dealHands(ecShuffled, 5, 5);
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         Assertions.assertEquals(ecHands, jdkHands);
+        var hands = ecHands.collect(each -> Sets.adapt(each).toSortedSet().makeString(", "));
+        List<String> expectedHands = Lists.mutable.with(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -146,11 +167,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     public void countsBySuit()
     {
         Assertions.assertEquals(
-                Bags.mutable.withOccurrences(
-                        PrimitiveTuples.pair("♥", 13),
-                        PrimitiveTuples.pair("♣", 13),
-                        PrimitiveTuples.pair("♦", 13),
-                        PrimitiveTuples.pair("♠", 13)),
+                Bags.mutable.withOccurrences("♥", 13, "♣", 13, "♦", 13, "♠", 13),
                 this.ecDeck.countsBySuit().collect(Suit::toString));
     }
 
