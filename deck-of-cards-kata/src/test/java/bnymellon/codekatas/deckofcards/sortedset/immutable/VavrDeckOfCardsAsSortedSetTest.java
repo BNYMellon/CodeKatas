@@ -76,8 +76,11 @@ public class VavrDeckOfCardsAsSortedSetTest
         io.vavr.collection.List<Card> vavrShuffle = this.vavrDeck.shuffle(new Random(1));
 
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
-        Set<Card> vavrHand = this.vavrDeck.deal(vavrShuffle, 5)._1().toJavaSet();
-        Assertions.assertEquals(jdkHand, vavrHand);
+        io.vavr.collection.Set<Card> vavrHand = this.vavrDeck.deal(vavrShuffle, 5)._1();
+        Assertions.assertEquals(jdkHand, vavrHand.toJavaSet());
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                vavrHand.toSortedSet().mkString(", "));
     }
 
     @Test
@@ -91,6 +94,11 @@ public class VavrDeckOfCardsAsSortedSetTest
         Assertions.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
         Assertions.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
         Assertions.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
+        Assertions.assertEquals("|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|", vavrHands.get(0).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|10♠|, |J♠|, |10♥|, |5♣|, |9♣|", vavrHands.get(1).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|2♠|, |9♠|, |4♦|, |A♣|, |10♣|", vavrHands.get(2).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|", vavrHands.get(3).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|A♦|, |A♥|, |2♥|, |J♥|, |6♣|", vavrHands.get(4).toSortedSet().mkString(", "));
     }
 
     @Test
@@ -106,6 +114,11 @@ public class VavrDeckOfCardsAsSortedSetTest
         Assertions.assertEquals(jdkHands.get(2), vavrHands.get(2).toJavaSet());
         Assertions.assertEquals(jdkHands.get(3), vavrHands.get(3).toJavaSet());
         Assertions.assertEquals(jdkHands.get(4), vavrHands.get(4).toJavaSet());
+        Assertions.assertEquals("|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|", vavrHands.get(0).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|10♠|, |J♠|, |10♥|, |5♣|, |9♣|", vavrHands.get(1).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|2♠|, |9♠|, |4♦|, |A♣|, |10♣|", vavrHands.get(2).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|", vavrHands.get(3).toSortedSet().mkString(", "));
+        Assertions.assertEquals("|A♦|, |A♥|, |2♥|, |J♥|, |6♣|", vavrHands.get(4).toSortedSet().mkString(", "));
     }
 
     @Test
