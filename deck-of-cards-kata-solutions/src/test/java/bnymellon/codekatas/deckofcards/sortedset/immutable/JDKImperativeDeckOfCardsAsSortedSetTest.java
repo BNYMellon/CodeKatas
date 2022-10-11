@@ -98,6 +98,9 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Assertions.assertEquals(5, jdkHand.size());
         Assertions.assertEquals(47, jdkShuffle.size());
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                jdkHand.stream().sorted().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
     @Test
@@ -106,6 +109,14 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(5, jdkHands.size());
         Assertions.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
+        var hands = jdkHands.stream().map(each -> each.stream().sorted().map(Object::toString).collect(Collectors.joining(", "))).collect(Collectors.toSet());
+        Set<String> expectedHands = Set.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -116,6 +127,14 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         Assertions.assertEquals(5, jdkHands.size());
         Assertions.assertTrue(Iterate.allSatisfy(jdkHands, each -> each.size() == 5));
         Assertions.assertEquals(27, jdkShuffled.size());
+        var hands = jdkHands.stream().map(each -> each.stream().sorted().map(Object::toString).collect(Collectors.joining(", "))).collect(Collectors.toSet());
+        Set<String> expectedHands = Set.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
