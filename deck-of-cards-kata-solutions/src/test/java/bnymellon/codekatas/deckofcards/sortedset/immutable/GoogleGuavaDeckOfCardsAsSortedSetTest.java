@@ -26,9 +26,16 @@ import java.util.SortedSet;
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
+
+import com.google.common.base.Joiner;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.ImmutableSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -61,25 +68,33 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals(this.jdkDeck.diamonds(), this.ggDeck.diamonds());
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                Joiner.on(',').join(this.ggDeck.diamonds()));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals(this.jdkDeck.hearts(), this.ggDeck.hearts());
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                Joiner.on(',').join(this.ggDeck.hearts()));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals(this.jdkDeck.spades(), this.ggDeck.spades());
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                Joiner.on(',').join(this.ggDeck.spades()));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals(this.jdkDeck.clubs(), this.ggDeck.clubs());
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                Joiner.on(',').join(this.ggDeck.clubs()));
     }
 
     @Test
@@ -91,6 +106,9 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
         Set<Card> jdkHand = this.jdkDeck.deal(jdkShuffle, 5);
         Set<Card> ggHand = this.ggDeck.deal(ggShuffle, 5);
         Assertions.assertEquals(jdkHand, ggHand);
+        Assertions.assertEquals(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                Joiner.on(", ").join(Ordering.natural().sortedCopy(Set.copyOf(ggHand))));
     }
 
     @Test
@@ -99,6 +117,16 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> ggHands = this.ggDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, ggHands);
+        var sorted = Collections2.transform(
+                ggHands, o -> Joiner.on(", ").join(Ordering.natural().sortedCopy(Set.copyOf(o))));
+        var hands = Sets.newHashSet(Iterables.concat(sorted));
+        Set<String> expectedHands = ImmutableSet.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
@@ -109,6 +137,16 @@ public class GoogleGuavaDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         List<Set<Card>> ggHands = this.ggDeck.dealHands(ggShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, ggHands);
+        var sorted = Collections2.transform(
+                ggHands, o -> Joiner.on(", ").join(Ordering.natural().sortedCopy(Set.copyOf(o))));
+        var hands = Sets.newHashSet(Iterables.concat(sorted));
+        Set<String> expectedHands = ImmutableSet.of(
+                "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
+                "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
+                "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
+                "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
+                "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
+        Assertions.assertEquals(expectedHands, hands);
     }
 
     @Test
