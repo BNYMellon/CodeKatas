@@ -16,23 +16,26 @@
 
 package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
+import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.FluentIterable;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.bag.HashBag;
+import org.apache.commons.collections4.functors.ClosureTransformer;
 import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -66,28 +69,32 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
     @Test
     public void diamonds()
     {
-        Assertions.assertEquals("|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
+        Assertions.assertEquals(
+                "|A♦|, |2♦|, |3♦|, |4♦|, |5♦|, |6♦|, |7♦|, |8♦|, |9♦|, |10♦|, |J♦|, |Q♦|, |K♦|",
                 IterableUtils.toString(this.acDeck.diamonds(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void hearts()
     {
-        Assertions.assertEquals("|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
+        Assertions.assertEquals(
+                "|A♥|, |2♥|, |3♥|, |4♥|, |5♥|, |6♥|, |7♥|, |8♥|, |9♥|, |10♥|, |J♥|, |Q♥|, |K♥|",
                 IterableUtils.toString(this.acDeck.hearts(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void spades()
     {
-        Assertions.assertEquals("|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
+        Assertions.assertEquals(
+                "|A♠|, |2♠|, |3♠|, |4♠|, |5♠|, |6♠|, |7♠|, |8♠|, |9♠|, |10♠|, |J♠|, |Q♠|, |K♠|",
                 IterableUtils.toString(this.acDeck.spades(), Object::toString, ", ", "", ""));
     }
 
     @Test
     public void clubs()
     {
-        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
+        Assertions.assertEquals(
+                "|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
                 IterableUtils.toString(this.acDeck.clubs(), Object::toString, ", ", "", ""));
     }
 
@@ -111,8 +118,13 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         List<Set<Card>> acHands = this.acDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
-        var hands = acHands.stream().map(each ->
-                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toSet());
+        var hands = new HashSet<>();
+        FluentIterable.of(acHands)
+                .transform(FluentIterable::of)
+                .transform(FluentIterable::toList)
+                .transform(ClosureTransformer.closureTransformer(each -> each.sort(Comparator.naturalOrder())))
+                .transform(each -> IterableUtils.toString(each, Object::toString, ", ", "", ""))
+                .copyInto(hands);
         Set<String> expectedHands = Set.of(
                 "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
                 "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
@@ -130,8 +142,13 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         List<Set<Card>> jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         List<Set<Card>> acHands = this.acDeck.dealHands(acShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
-        var hands = acHands.stream().map(each ->
-                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toSet());
+        var hands = new HashSet<>();
+        FluentIterable.of(acHands)
+                .transform(FluentIterable::of)
+                .transform(FluentIterable::toList)
+                .transform(ClosureTransformer.closureTransformer(each -> each.sort(Comparator.naturalOrder())))
+                .transform(each -> IterableUtils.toString(each, Object::toString, ", ", "", ""))
+                .copyInto(hands);
         Set<String> expectedHands = Set.of(
                 "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
                 "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
@@ -147,6 +164,18 @@ public class ApacheCommonsDeckOfCardsAsSortedSetTest
         Map<Suit, SortedSet<Card>> jdkCardsBySuit = this.jdkDeck.getCardsBySuit();
         MultiValuedMap<Suit, Card> acCardsBySuit = this.acDeck.getCardsBySuit();
         Assertions.assertEquals(jdkCardsBySuit.get(Suit.CLUBS), new TreeSet<>(acCardsBySuit.get(Suit.CLUBS)));
+        Assertions.assertEquals(
+                "|A♣|,|2♣|,|3♣|,|4♣|,|5♣|,|6♣|,|7♣|,|8♣|,|9♣|,|10♣|,|J♣|,|Q♣|,|K♣|",
+                IterableUtils.toString(new TreeSet<>(this.acDeck.getCardsBySuit().get(Suit.CLUBS)), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♦|,|2♦|,|3♦|,|4♦|,|5♦|,|6♦|,|7♦|,|8♦|,|9♦|,|10♦|,|J♦|,|Q♦|,|K♦|",
+                IterableUtils.toString(new TreeSet<>(this.acDeck.getCardsBySuit().get(Suit.DIAMONDS)), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♠|,|2♠|,|3♠|,|4♠|,|5♠|,|6♠|,|7♠|,|8♠|,|9♠|,|10♠|,|J♠|,|Q♠|,|K♠|",
+                IterableUtils.toString(new TreeSet<>(this.acDeck.getCardsBySuit().get(Suit.SPADES)), Object::toString, ",", "", ""));
+        Assertions.assertEquals(
+                "|A♥|,|2♥|,|3♥|,|4♥|,|5♥|,|6♥|,|7♥|,|8♥|,|9♥|,|10♥|,|J♥|,|Q♥|,|K♥|",
+                IterableUtils.toString(new TreeSet<>(this.acDeck.getCardsBySuit().get(Suit.HEARTS)), Object::toString, ",", "", ""));
     }
 
     @Test

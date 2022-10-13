@@ -17,16 +17,18 @@
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.FluentIterable;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.bag.HashBag;
+import org.apache.commons.collections4.functors.ClosureTransformer;
 import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -109,8 +111,12 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.shuffleAndDeal(new Random(1), 5, 5);
         var acHands = this.acDeck.shuffleAndDeal(new Random(1), 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
-        var hands = acHands.stream().map(each ->
-                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", ""));
+        var hands = FluentIterable.of(acHands)
+                .transform(FluentIterable::of)
+                .transform(FluentIterable::toList)
+                .transform(ClosureTransformer.closureTransformer(each -> each.sort(Comparator.naturalOrder())))
+                .transform(each -> IterableUtils.toString(each, Object::toString, ", ", "", ""))
+                .toList();
         List<String> expectedHands = List.of(
                 "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
                 "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
@@ -128,8 +134,12 @@ public class ApacheCommonsDeckOfCardsAsListTest
         var jdkHands = this.jdkDeck.dealHands(jdkShuffled, 5, 5);
         var acHands = this.acDeck.dealHands(acShuffled, 5, 5);
         Assertions.assertEquals(jdkHands, acHands);
-        var hands = acHands.stream().map(each ->
-                IterableUtils.toString(each.stream().sorted().toList(), Object::toString, ", ", "", "")).collect(Collectors.toList());
+        var hands = FluentIterable.of(acHands)
+                .transform(FluentIterable::of)
+                .transform(FluentIterable::toList)
+                .transform(ClosureTransformer.closureTransformer(each -> each.sort(Comparator.naturalOrder())))
+                .transform(each -> IterableUtils.toString(each, Object::toString, ", ", "", ""))
+                .toList();
         List<String> expectedHands = List.of(
                 "|3♦|, |5♥|, |6♥|, |3♣|, |Q♣|",
                 "|10♠|, |J♠|, |10♥|, |5♣|, |9♣|",
