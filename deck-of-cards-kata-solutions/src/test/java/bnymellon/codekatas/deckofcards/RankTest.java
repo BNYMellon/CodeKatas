@@ -16,37 +16,17 @@
 
 package bnymellon.codekatas.deckofcards;
 
-public enum Rank
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class RankTest
 {
-    ACE("A"),
-    TWO("2"),
-    THREE("3"),
-    FOUR("4"),
-    FIVE("5"),
-    SIX("6"),
-    SEVEN("7"),
-    EIGHT("8"),
-    NINE("9"),
-    TEN("10"),
-    JACK("J"),
-    QUEEN("Q"),
-    KING("K");
-
-    private final String emoji;
-
-    Rank(String emoji)
+    @Test
+    public void of()
     {
-        this.emoji = emoji;
-    }
+        Card card = Rank.ACE.of(Suit.CLUBS);
 
-    @Override
-    public String toString()
-    {
-        return this.emoji;
-    }
-
-    public Card of(Suit suit)
-    {
-        return new Card(this, suit);
+        Card expectedCard = new Card(Rank.ACE, Suit.CLUBS);
+        Assertions.assertEquals(expectedCard, card);
     }
 }

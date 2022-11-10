@@ -38,7 +38,7 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card>
         return Sets.cartesianProduct(
                 EnumSet.allOf(Rank.class),
                 EnumSet.allOf(Suit.class),
-                Card::new);
+                Rank::of);
     }
 
     public static Stream<Card> streamCards()
@@ -46,7 +46,7 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card>
         return Card.cartesianProduct(
                 EnumSet.allOf(Rank.class),
                 EnumSet.allOf(Suit.class),
-                Card::new);
+                Rank::of);
     }
 
     private static <A, B, C> Stream<C> cartesianProduct(
