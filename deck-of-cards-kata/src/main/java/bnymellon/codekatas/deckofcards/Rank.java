@@ -42,6 +42,12 @@ public enum Rank
     @Override
     public String toString()
     {
-        return emoji;
+        return this.emoji;
+    }
+
+    public Card of(Suit suit)
+    {
+        // TODO Replace null with appropriate call to Card constructor
+        return null;
     }
 }

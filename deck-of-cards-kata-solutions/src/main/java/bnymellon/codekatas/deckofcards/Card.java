@@ -16,10 +16,8 @@
 
 package bnymellon.codekatas.deckofcards;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
@@ -43,35 +41,11 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card>
 
     public static Stream<Card> streamCards()
     {
-        return Card.cartesianProduct(
-                EnumSet.allOf(Rank.class),
-                EnumSet.allOf(Suit.class),
-                Rank::of);
-    }
-
-    private static <A, B, C> Stream<C> cartesianProduct(
-            Set<A> set1,
-            Set<B> set2,
-            BiFunction<A, B, C> function)
-    {
-        return set1.stream().flatMap(one -> set2.stream().map(two -> function.apply(one, two)));
-    }
-
-    @Deprecated
-    private static <A, B, C> List<C> imperativeCartesianProductOfCards(
-            Set<A> set1,
-            Set<B> set2,
-            BiFunction<A, B, C> function)
-    {
-        var result = new ArrayList<C>();
-        for (A first : set1)
-        {
-            for (B second : set2)
-            {
-                result.add(function.apply(first, second));
-            }
-        }
-        return result;
+        return EnumSet.allOf(Rank.class)
+                .stream()
+                .flatMap(rank -> EnumSet.allOf(Suit.class)
+                        .stream()
+                        .map(suit -> rank.of(suit)));
     }
 
     @Override

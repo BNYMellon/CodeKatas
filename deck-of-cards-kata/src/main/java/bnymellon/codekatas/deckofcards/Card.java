@@ -16,10 +16,6 @@
 
 package bnymellon.codekatas.deckofcards;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -34,51 +30,23 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card>
      */
     public static LazyIterable<Card> lazyCards()
     {
-        return Sets.cartesianProduct(
-                EnumSet.allOf(Rank.class),
-                EnumSet.allOf(Suit.class),
-                Card::new);
+        // TODO Return the cartesian product of Rank and Suit as a LazyIterable using Eclipse Collections
+        // Hint: Check out Sets.cartesianProduct linked above
+        return null;
     }
 
     public static Stream<Card> streamCards()
     {
-        return Card.cartesianProduct(
-                EnumSet.allOf(Rank.class),
-                EnumSet.allOf(Suit.class),
-                Card::new);
-    }
-
-    private static <A, B, C> Stream<C> cartesianProduct(
-            Set<A> set1,
-            Set<B> set2,
-            Function2<A, B, C> function)
-    {
-        // TODO Implement Cartesian Product using Java 8 Streams
+        // TODO Return the cartesian product of Rank and Suit as a Java Stream
         // Hint: Check out flatMap() and map() on Stream
-        return Card.imperativeCartesianProductOfCards(set1, set2, function).stream();
-    }
-
-    @Deprecated
-    private static <A, B, C> List<C> imperativeCartesianProductOfCards(
-            Set<A> set1,
-            Set<B> set2,
-            Function2<A, B, C> function)
-    {
-        var result = new ArrayList<C>();
-        for (A first : set1)
-        {
-            for (B second : set2)
-            {
-                result.add(function.value(first, second));
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
     public int compareTo(Card other)
     {
-        return Comparator.comparing(Card::suit).thenComparing(Card::rank).compare(this, other);
+        // TODO Use Comparator.comparing() to compare card by Suit and then Rank
+        return 0;
     }
 
     @Override
