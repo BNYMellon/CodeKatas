@@ -33,6 +33,6 @@ public enum Suit
     @Override
     public String toString()
     {
-        return emoji;
+        return this.emoji;
     }
 }
