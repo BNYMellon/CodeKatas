@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,9 @@ import org.eclipse.collections.api.block.predicate.Predicate;
 import org.eclipse.collections.api.block.procedure.Procedure;
 import org.eclipse.collections.api.block.procedure.Procedure2;
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.impl.factory.Lists;
-import org.eclipse.collections.impl.factory.Maps;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.factory.Maps;
 import org.eclipse.collections.impl.list.Interval;
-import org.eclipse.collections.impl.list.mutable.FastList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -147,7 +146,7 @@ public class EclipseCollectionsFunctionalInterfaceTest
             @Override
             public List<String> value()
             {
-                return FastList.newList();
+                return Lists.mutable.empty();
             }
         };
         Assertions.assertEquals(Lists.mutable.empty(), supplier.get());
