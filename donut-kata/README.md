@@ -17,11 +17,11 @@ classes that are shared by all of the exercises.  These are
 
 ### How to get started
 
-Java version (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) and [Records](https://openjdk.java.net/jeps/359) preview feature):
+Java version (17) (uses [Local-Variable Type Inference](http://openjdk.java.net/jeps/286) and [Records](https://openjdk.java.net/jeps/359)):
 * There are failing tests in [`DonutShopTest.java`](./src/test/java/bnymellon/codekatas/donutkata/DonutShopTest.java)
 	* Make the tests pass by following and completing the TODOs in [`DonutShop.java`](./src/main/java/bnymellon/codekatas/donutkata/DonutShop.java)
 
-Kotlin version:
+Kotlin version (1.8.0):
 * There are failing tests in [`DonutShopTest.kt`](./src/test/kotlin/bnymellon/codekatas/donutkatakotlin/DonutShopTest.kt)
 	* Make the tests pass by following and completing the TODOs in [`DonutShop.kt`](./src/main/kotlin/bnymellon/codekatas/donutkatakotlin/DonutShop.kt)
 
