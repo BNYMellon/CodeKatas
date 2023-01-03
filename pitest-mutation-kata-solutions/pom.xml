@@ -36,7 +36,7 @@
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <junit5.version>5.9.1</junit5.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <pitest-maven.version>1.9.4</pitest-maven.version>
+        <pitest-maven.version>1.10.3</pitest-maven.version>
     </properties>
     <dependencies>
         <dependency>
