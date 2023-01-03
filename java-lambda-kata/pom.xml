@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2022 The Bank of New York Mellon.
+  ~ Copyright 2023 The Bank of New York Mellon.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
-        <junit5.version>5.8.2</junit5.version>
+        <junit5.version>5.9.1</junit5.version>
     </properties>
 
     <dependencies>
