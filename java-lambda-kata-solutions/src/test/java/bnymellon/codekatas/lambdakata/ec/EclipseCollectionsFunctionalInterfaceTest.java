@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,6 @@ import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.factory.Maps;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.list.Interval;
-import org.eclipse.collections.impl.list.mutable.FastList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +104,7 @@ public class EclipseCollectionsFunctionalInterfaceTest
     @Test
     public void function0()
     {
-        Function0<FastList<String>> supplier = FastList::new;
+        Function0<List<String>> supplier = Lists.mutable::empty;
         Assertions.assertEquals(Lists.mutable.empty(), supplier.get());
         Assertions.assertNotSame(supplier.get(), supplier.get());
         List<String> list = Stream.of("1", "2", "3").collect(Collectors.toCollection(supplier));
