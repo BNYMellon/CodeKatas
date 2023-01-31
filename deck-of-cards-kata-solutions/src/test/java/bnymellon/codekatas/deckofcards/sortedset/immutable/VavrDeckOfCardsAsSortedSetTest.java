@@ -138,7 +138,7 @@ public class VavrDeckOfCardsAsSortedSetTest
     @Test
     public void countsBySuit()
     {
-        Map<Suit, Long> map = HashMap.of(Suit.CLUBS, 13L, Suit.SPADES, 13L, Suit.DIAMONDS,13L, Suit.HEARTS,13L);
+        Map<Suit, Long> map = HashMap.of(Suit.CLUBS, 13L, Suit.SPADES, 13L, Suit.DIAMONDS, 13L, Suit.HEARTS, 13L);
         Assertions.assertEquals(map, this.vavrDeck.countsBySuit());
     }
 

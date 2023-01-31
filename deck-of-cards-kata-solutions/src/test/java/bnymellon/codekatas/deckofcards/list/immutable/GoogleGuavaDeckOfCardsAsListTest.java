@@ -16,18 +16,17 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import com.google.common.base.Joiner;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multiset;
 import com.google.common.collect.Ordering;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

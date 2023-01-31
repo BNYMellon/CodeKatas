@@ -42,6 +42,11 @@
         <guava.version>31.1-jre</guava.version>
         <vavr.version>0.10.4</vavr.version>
         <junit5.version>5.9.2</junit5.version>
+
+        <checkstyle.version>10.1</checkstyle.version>
+        <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
+
+
     </properties>
 
     <dependencies>
@@ -131,6 +136,25 @@
                 <configuration>
                     <argLine>--enable-preview</argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>../checkstyle-configuration.xml</configLocation>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <cacheFile>target/checkstyleCache</cacheFile>
+                    <suppressionsLocation>../checkstyle-suppressions.xml</suppressionsLocation>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

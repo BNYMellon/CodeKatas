@@ -17,12 +17,12 @@
 package bnymellon.codekatas.deckofcards.sortedset.immutable;
 
 import java.util.Deque;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import bnymellon.codekatas.deckofcards.Card;
@@ -189,8 +189,8 @@ public class JDKImperativeDeckOfCardsAsSortedSetTest
         Map<Rank, Long> map = new HashMap<>();
         for (Rank rank: Rank.values())
         {
-            map.put(rank,4L);
+            map.put(rank, 4L);
         }
-        Assertions.assertEquals(map,this.jdkDeck.countsByRank());
+        Assertions.assertEquals(map, this.jdkDeck.countsByRank());
     }
 }

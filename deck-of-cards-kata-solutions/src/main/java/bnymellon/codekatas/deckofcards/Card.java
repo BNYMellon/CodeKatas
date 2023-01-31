@@ -19,7 +19,6 @@ package bnymellon.codekatas.deckofcards;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import org.eclipse.collections.api.LazyIterable;
