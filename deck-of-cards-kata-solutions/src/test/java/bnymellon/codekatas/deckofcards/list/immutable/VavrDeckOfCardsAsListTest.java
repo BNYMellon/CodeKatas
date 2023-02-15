@@ -17,6 +17,7 @@
 package bnymellon.codekatas.deckofcards.list.immutable;
 
 import java.util.Random;
+
 import bnymellon.codekatas.deckofcards.Rank;
 import bnymellon.codekatas.deckofcards.Suit;
 import io.vavr.collection.HashMap;
@@ -101,10 +102,7 @@ public class VavrDeckOfCardsAsListTest
                 "|2♠|, |9♠|, |4♦|, |A♣|, |10♣|",
                 "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
                 "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
-        var vavrHandsDealt = vavrHands.map(Set::toSortedSet).map(s -> {
-                    return s.mkString(", ");
-                }
-        );
+        var vavrHandsDealt = vavrHands.map(Set::toSortedSet).map(s -> s.mkString(", "));
         Assertions.assertEquals(expectedHands, vavrHandsDealt);
     }
 
@@ -128,9 +126,8 @@ public class VavrDeckOfCardsAsListTest
                 "|Q♠|, |8♦|, |4♥|, |7♣|, |J♣|",
                 "|A♦|, |A♥|, |2♥|, |J♥|, |6♣|");
         var vavrHandsDealt = vavrHands.map(Set::toSortedSet).map(s -> {
-                    return s.mkString(", ");
-                }
-        );
+            return s.mkString(", ");
+        });
         Assertions.assertEquals(expectedHands, vavrHandsDealt);
     }
 

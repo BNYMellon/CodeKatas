@@ -16,7 +16,16 @@
 
 package bnymellon.codekatas.deckofcards.list.immutable;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 import bnymellon.codekatas.deckofcards.Card;
 import bnymellon.codekatas.deckofcards.Rank;
@@ -45,7 +54,7 @@ public class JDKImperativeDeckOfCardsAsList
         return list;
     }
 
-    private Map<Suit,List<Card>> buildCardsAsMapBySuit()
+    private Map<Suit, List<Card>> buildCardsAsMapBySuit()
     {
         var map = new HashMap<Suit, List<Card>>();
         for (var card : this.cards)

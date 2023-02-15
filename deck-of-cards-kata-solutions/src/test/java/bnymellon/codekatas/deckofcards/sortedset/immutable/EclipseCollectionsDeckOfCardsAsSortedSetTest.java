@@ -88,7 +88,7 @@ public class EclipseCollectionsDeckOfCardsAsSortedSetTest
     @Test
     public void clubs()
     {
-        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|", 
+        Assertions.assertEquals("|A♣|, |2♣|, |3♣|, |4♣|, |5♣|, |6♣|, |7♣|, |8♣|, |9♣|, |10♣|, |J♣|, |Q♣|, |K♣|",
                 Iterate.makeString(this.jdkDeck.clubs()));
     }
 
