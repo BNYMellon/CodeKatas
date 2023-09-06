@@ -25,6 +25,7 @@ Guava, Apache Commons and/or Vavr on a simple domain
 * [JMH Kata](./jmh-kata) - Experiment with the Java Microbenchmark Harness by running and writing micro-benchmark performance comparisons.
 * [Pitest Mutation Kata](./pitest-mutation-kata) - Practice and learn how to improve the quality of your tests by hunting mutants.
 * [Kata of Katas](./kata-of-katas) - Practice and learn advanced methods in Eclipse Collections.
+* [Coffee Shop Kata](./coffee-shop-kata) - Practice and learn the latest Java features while comparing them with the older ones.
 
 ## Other Katas
 * [Eclipse Collections Katas](https://github.com/eclipse/eclipse-collections-kata) - Practice and

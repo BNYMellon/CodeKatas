@@ -43,5 +43,7 @@
         <module>kata-of-katas-solutions</module>
         <module>pitest-mutation-kata</module>
         <module>pitest-mutation-kata-solutions</module>
+        <module>coffee-shop-kata</module>
+        <module>coffee-shop-kata-solutions/new-java-features-solutions</module>
     </modules>
 </project>
