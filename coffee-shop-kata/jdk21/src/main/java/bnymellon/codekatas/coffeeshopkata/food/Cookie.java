@@ -16,11 +16,13 @@
 
 package bnymellon.codekatas.coffeeshopkata.food;
 
-import bnymellon.codekatas.coffeeshopkata.food.BakeryItem;
-import bnymellon.codekatas.coffeeshopkata.food.CookieType;
-
 import java.util.Objects;
 
+/**
+ * TODO: convert class to record
+ *
+ * @see <a href="https://openjdk.org/jeps/395">...</a>
+ */
 public class Cookie implements BakeryItem
 {
     private final CookieType cookieType;

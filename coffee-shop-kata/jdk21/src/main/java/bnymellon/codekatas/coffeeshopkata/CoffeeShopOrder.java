@@ -32,17 +32,19 @@ public class CoffeeShopOrder
     }
 
     /**
-     * Print out a list of custom strings for the customer's food items!
-     * Start with, "Order #[orderNumber] for [customerName] includes: "
-     * If the item is a Bagel: Print [toasted] [bagelType] with [spreadType]
-     * If the item is a Cookie: Print [warmed] [cookieType]
+     * Return a list of custom strings for the customer's food items!
+     * If the item is a Bagel: Print [bagelType] with [spreadType]
+     * If the item is a Cookie: Print [cookieType]
      * If the item is a Donut: Print [donutType]
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
+     *
+     * @see <a href="https://openjdk.org/jeps/441">...</a>
      */
-    public List<String> getFoodItemsForOrder()
-    {
+    public List<String> getFoodItemsForOrder() {
         // TODO implement method
+        // Hint: look at the Java 8 implementation in the old-java-features module,
+        // and the link above to see how pattern matching for switch can be utilized here
         return null;
     }
 
@@ -54,11 +56,13 @@ public class CoffeeShopOrder
      * Total: $Total Price
      * <p>
      * NOTE: The method highlights the usage of a record deconstruction pattern
+     *
+     * @see <a href="https://openjdk.org/jeps/440">...</a>
      */
-    public String generateReceipt()
-    {
+    public String generateReceipt() {
         // TODO: Implement the receipt generation logic here.
-        // Use the instanceof operator and the record pattern to differentiate between different food items.
+        // Hint: look at the Java 8 implementation in the old-java-features module,
+        // and the link above to see how record patterns can be utilized here
         return null;
     }
 
