@@ -47,6 +47,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Maven
-        run: mvn -pl calendar-kata-solutions,code-point-kata-solutions,deck-of-cards-kata-solutions,donut-kata-solutions,java-lambda-kata-solutions,pitest-mutation-kata-solutions,coffee-shop-kata-solutions/new-java-features-solutions,kata-of-katas-solutions verify -Dmaven.javadoc.skip=true -B -V --no-transfer-progress
+        run: mvn -pl calendar-kata-solutions,code-point-kata-solutions,deck-of-cards-kata-solutions,donut-kata-solutions,java-lambda-kata-solutions,pitest-mutation-kata-solutions,coffee-shop-kata-solutions,kata-of-katas-solutions verify -Dmaven.javadoc.skip=true -B -V --no-transfer-progress
         env:
           MAVEN_OPTS: "-Dmaven.repo.local=$HOME/.m2/repository -Xmx1g -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS"
