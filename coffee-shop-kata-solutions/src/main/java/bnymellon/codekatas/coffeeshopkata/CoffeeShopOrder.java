@@ -49,7 +49,7 @@ public class CoffeeShopOrder
     }
 
     /**
-     * Print out a list of custom strings for the customer's food items!
+     * Return a list of custom strings for the customer's food items!
      * If the item is a Bagel: Print [bagelType] with [spreadType]
      * If the item is a Cookie: Print [cookieType]
      * If the item is a Donut: Print [donutType]

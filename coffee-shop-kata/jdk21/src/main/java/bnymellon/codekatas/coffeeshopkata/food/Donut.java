@@ -18,6 +18,11 @@ package bnymellon.codekatas.coffeeshopkata.food;
 
 import java.util.Objects;
 
+/**
+ * TODO: convert class to record
+ *
+ * @see <a href="https://openjdk.org/jeps/395">...</a>
+ */
 public class Donut implements BakeryItem
 {
     private final DonutType donutType;
