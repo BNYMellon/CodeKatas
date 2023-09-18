@@ -11,11 +11,11 @@
 2. Launch the project in the IDE as a maven project. You can find instructions on how to do
    that [here](https://www.jetbrains.com/idea/guide/tutorials/working-with-maven/importing-a-project/).
 3. To verify that the Java 8 module is set up correctly,
-   run [CoffeeShopTest](/jdk8/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
-   old-java-features module - the class should compile and all tests will pass.
+   run [CoffeeShopTest](jdk8/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
+   jdk8 module - the class should compile and all tests will pass.
 4. To verify that the Java 21 module is set up correctly,
-   run [CoffeeShopTest](/jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
-   new-java-features module - the class should compile but most tests will fail.
+   run [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
+   jdk21 module - the class should compile but most tests will fail.
 
 ### Getting started
 * Follow the [README](README.md) for instructions on how to complete the kata.

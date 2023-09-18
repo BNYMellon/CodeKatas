@@ -48,9 +48,11 @@ public class CoffeeShopOrder
 
     /**
      * Return a list of custom strings for the customer's food items!
-     * If the item is a Bagel: Print [bagelType] with [spreadType]
-     * If the item is a Cookie: Print [cookieType]
-     * If the item is a Donut: Print [donutType]
+     * The string format for each food item is as follows:
+     * If the item is a Bagel: "[bagelType] with [spreadType]"
+     * If the item is a Cookie: "[cookieType]"
+     * If the item is a Donut: "[donutType]"
+     * Otherwise: throw new IllegalStateException()
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
      */
@@ -76,7 +78,7 @@ public class CoffeeShopOrder
             }
             else
             {
-                throw new IllegalStateException("Unexpected value: " + item);
+                throw new IllegalStateException();
             }
         }
         return foodItems;
@@ -126,13 +128,13 @@ public class CoffeeShopOrder
 
     /**
      * Create and print drink order
-     * First drink : Hot Americano
-     * Second drink : Hot Caramel Latte with Almond Milk
-     * Third drink : Hot Vanilla Macchiato with Whole Milk
-     * Fourth drink : MATCHA Tea
+     * First drink: Hot Americano
+     * Second drink: Hot Caramel Latte with Almond Milk
+     * Third drink: Hot Vanilla Macchiato with Whole Milk
+     * Fourth drink: Matcha Tea
      * <p>
      * NOTE: Use interface to create four drinks
-     * Use the toString() to obtain descriptions of the dinks
+     * Use the toString() to obtain descriptions of the drinks
      */
     public List<String> getDrinkForOrder()
     {

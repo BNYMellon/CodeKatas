@@ -50,9 +50,11 @@ public class CoffeeShopOrder
 
     /**
      * Return a list of custom strings for the customer's food items!
-     * If the item is a Bagel: Print [bagelType] with [spreadType]
-     * If the item is a Cookie: Print [cookieType]
-     * If the item is a Donut: Print [donutType]
+     * The string format for each food item is as follows:
+     * If the item is a Bagel: "[bagelType] with [spreadType]"
+     * If the item is a Cookie: "[cookieType]"
+     * If the item is a Donut: "[donutType]"
+     * Otherwise: throw new IllegalStateException()
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
      */
@@ -80,7 +82,6 @@ public class CoffeeShopOrder
      * Total: $Total Price
      * <p>
      * NOTE: The method highlights the usage of a record deconstruction pattern
-     * HINT: Use instanceOf
      */
     public String generateReceipt()
     {
@@ -110,12 +111,12 @@ public class CoffeeShopOrder
 
     /**
      * Return a list of custom strings for the customer's drinks!
-     * First drink : Hot Americano
-     * Second drink : Hot Caramel Latte with Almond Milk
-     * Third drink : Hot Vanilla Macchiato with Whole Milk
-     * Fourth drink : MATCHA Tea
+     * First drink: Hot Americano
+     * Second drink: Hot Caramel Latte with Almond Milk
+     * Third drink: Hot Vanilla Macchiato with Whole Milk
+     * Fourth drink: Matcha Tea
      * <p>
-     * NOTE: This method utilizes sealed classes and permit to define coffee drink types
+     * NOTE: This method utilize sealed classes and permit to define coffee drink types
      * (e.g., Americano, Latte, Macchiato) are allowed within a hierarchy.
      * However, Tea is not part of this hierarchy.
      */

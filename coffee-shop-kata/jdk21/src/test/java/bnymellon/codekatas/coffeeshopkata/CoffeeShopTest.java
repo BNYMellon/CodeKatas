@@ -62,7 +62,8 @@ public class CoffeeShopTest
     public void getFoodItemsForOrderTest()
     {
         // TODO: Complete the method getFoodItemsForOrder() in CoffeeShopOrder to make this pass
-        List<String> expected = List.of("GLAZED donut", "toasted EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE");
+        List<String> expected = List.of("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE",
+                "CHOCOLATE_CHIP cookie", "GLAZED donut");
         assertEquals(expected, coffeeShopOrder.getFoodItemsForOrder());
     }
 
