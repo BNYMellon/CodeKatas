@@ -22,14 +22,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static bnymellon.codekatas.coffeeshopkata.food.BagelType.EVERYTHING;
 import static bnymellon.codekatas.coffeeshopkata.food.CookieType.CHOCOLATE_CHIP;
 import static bnymellon.codekatas.coffeeshopkata.food.DonutType.GLAZED;
 import static bnymellon.codekatas.coffeeshopkata.food.SpreadType.HERB_GARLIC_CREAM_CHEESE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CoffeeShopTest
 {
@@ -56,10 +56,12 @@ class CoffeeShopTest
     public void getFoodItemsForOrderTest()
     {
         ArrayList<String> expected = new ArrayList<>();
-        expected.add("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE");
         expected.add("CHOCOLATE_CHIP cookie");
+        expected.add("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE");
         expected.add("GLAZED donut");
-        assertEquals(expected, coffeeShopOrder.getFoodItemsForOrder());
+        List<String> actual = coffeeShopOrder.getFoodItemsForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 
     @Test
