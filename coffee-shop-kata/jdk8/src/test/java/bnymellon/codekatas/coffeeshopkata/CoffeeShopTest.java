@@ -118,7 +118,6 @@ class CoffeeShopTest
         assertEquals(donut1.getDonutType(), GLAZED);
     }
 
-
     @Test
     public void getDrinkItems()
     {

@@ -39,7 +39,7 @@
         <kotlin.version>1.9.0</kotlin.version>
 
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
-        <junit5.version>5.9.3</junit5.version>
+        <junit5.version>5.10.0</junit5.version>
     </properties>
 
     <dependencies>

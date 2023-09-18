@@ -109,14 +109,15 @@ public class CoffeeShopOrder
     }
 
     /**
-     * Create and print drink order
+     * Return a list of custom strings for the customer's drinks!
      * First drink : Hot Americano
      * Second drink : Hot Caramel Latte with Almond Milk
      * Third drink : Hot Vanilla Macchiato with Whole Milk
      * Fourth drink : MATCHA Tea
      * <p>
-     * NOTE: Use interface to create four drinks
-     * Use the toString() to obtain descriptions of the dinks
+     * NOTE: This method utilizes sealed classes and permit to define coffee drink types
+     * (e.g., Americano, Latte, Macchiato) are allowed within a hierarchy.
+     * However, Tea is not part of this hierarchy.
      */
     public List<String> getDrinkForOrder()
     {
