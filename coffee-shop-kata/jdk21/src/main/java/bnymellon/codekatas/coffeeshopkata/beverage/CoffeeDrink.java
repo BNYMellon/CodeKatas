@@ -24,11 +24,11 @@ package bnymellon.codekatas.coffeeshopkata.beverage;
  * Modify the following class to permit only the classes
  * Latte, Macchiato, and Americano, while excluding Tea.
  *
- * <p>
  * NOTE: This class hierarchy shows the usage of sealed classes
+ * @see <a href="https://openjdk.org/jeps/395">...</a>
  */
 
-//TODO Convert to Sealed interface
+// TODO: Convert to Sealed interface
 public interface CoffeeDrink extends Beverage
 {
     int espressoShot();

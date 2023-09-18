@@ -19,10 +19,15 @@ package bnymellon.codekatas.coffeeshopkata.food;
 import java.util.Objects;
 
 /**
- * TODO: convert class to record
+ * Replace the entire class with a Record.
+ * This replaces the need for a constructor, getters, toString(),
+ * equals() and hashcode() method
+ * NOTE: This example highlights the usage of a record to replace the
+ * boilerplate of a plain Java class.
  *
  * @see <a href="https://openjdk.org/jeps/395">...</a>
  */
+// TODO: convert class to record
 public class Cookie implements BakeryItem
 {
     private final CookieType cookieType;
