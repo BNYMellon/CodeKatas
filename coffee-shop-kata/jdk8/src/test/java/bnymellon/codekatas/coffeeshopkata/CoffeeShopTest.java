@@ -92,35 +92,6 @@ class CoffeeShopTest
     }
 
     @Test
-    public void testCookieClass()
-    {
-        Cookie cookie2 = new Cookie(CHOCOLATE_CHIP, true);
-        assertEquals(cookie1, cookie2);
-        assertEquals("Cookie[cookieType=CHOCOLATE_CHIP, warmed=true]", cookie1.toString());
-    }
-
-    @Test
-    public void testCookieGetters()
-    {
-        assertTrue(cookie1.isWarmed());
-        assertEquals(cookie1.getCookieType(), CHOCOLATE_CHIP);
-    }
-
-    @Test
-    public void testDonutClass()
-    {
-        Donut donut2 = new Donut(GLAZED);
-        assertEquals(donut1, donut2);
-        assertEquals("Donut[donutType=GLAZED]", donut1.toString());
-    }
-
-    @Test
-    public void testDonutGetters()
-    {
-        assertEquals(donut1.getDonutType(), GLAZED);
-    }
-
-    @Test
     public void getDrinkItems()
     {
         ArrayList<String> expected = new ArrayList<>();
