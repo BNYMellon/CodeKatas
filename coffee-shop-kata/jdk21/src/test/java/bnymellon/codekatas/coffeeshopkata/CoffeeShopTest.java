@@ -71,11 +71,7 @@ public class CoffeeShopTest
         assertTrue(Bagel.class.isRecord());
         assertEquals(bagel1, bagel2);
         assertEquals("Bagel[bagelType=EVERYTHING, spreadType=HERB_GARLIC_CREAM_CHEESE, toasted=true]", bagel1.toString());
-    }
 
-    @Test
-    public void testBagelGetters()
-    {
         // TODO: Convert assertions to use Record getters
         assertTrue(bagel1.isToasted());
         assertEquals(bagel1.getBagelType(), EVERYTHING);
