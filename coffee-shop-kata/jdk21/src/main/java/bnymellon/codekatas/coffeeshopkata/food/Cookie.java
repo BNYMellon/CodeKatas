@@ -16,65 +16,10 @@
 
 package bnymellon.codekatas.coffeeshopkata.food;
 
-import java.util.Objects;
-
-/**
- * Replace the entire class with a Record.
- * This replaces the need for a constructor, getters, toString(),
- * equals() and hashcode() method
- * NOTE: This example highlights the usage of a record to replace the
- * boilerplate of a plain Java class.
- *
- * @see <a href="https://openjdk.org/jeps/395">...</a>
- */
-// TODO: convert class to record
-public class Cookie implements BakeryItem
-{
-    private final CookieType cookieType;
-    private final boolean warmed;
-
-    public Cookie(CookieType cookieType, boolean warmed)
-    {
-        this.cookieType = cookieType;
-        this.warmed = warmed;
-    }
+public record Cookie(CookieType cookieType, boolean warmed) implements BakeryItem {
 
     @Override
-    public double getPrice()
-    {
+    public double getPrice() {
         return 1.25;
-    }
-
-    public boolean isWarmed()
-    {
-        return warmed;
-    }
-
-    public CookieType getCookieType()
-    {
-        return cookieType;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof Cookie) {
-            Cookie cookie = (Cookie) obj;
-            return this.isWarmed() == cookie.isWarmed() && this.getCookieType() == cookie.getCookieType();
-        }
-        return false;
-    }
-
-    @Override
-    public String toString()
-    {
-        return String.format("Cookie[cookieType=%s, warmed=%s]",
-                this.getCookieType(), this.isWarmed());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(cookieType, warmed);
     }
 }

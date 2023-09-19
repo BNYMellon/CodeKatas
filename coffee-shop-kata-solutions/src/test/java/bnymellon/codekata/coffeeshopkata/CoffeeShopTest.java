@@ -95,38 +95,6 @@ public class CoffeeShopTest
     }
 
     @Test
-    public void testCookieRecord()
-    {
-        Cookie cookie2 = new Cookie(CHOCOLATE_CHIP, true);
-        assertTrue(Cookie.class.isRecord());
-        assertEquals(cookie1, cookie2);
-        assertEquals("Cookie[cookieType=CHOCOLATE_CHIP, warmed=true]", cookie1.toString());
-    }
-
-    @Test
-    public void testCookieGetters()
-    {
-        assertTrue(cookie1.warmed());
-        assertEquals(cookie1.cookieType(), CHOCOLATE_CHIP);
-    }
-
-    @Test
-    public void testDonutRecord()
-    {
-        Donut donut2 = new Donut(GLAZED);
-        assertTrue(Donut.class.isRecord());
-        assertEquals(donut1.donutType(), GLAZED);
-        assertEquals(donut1, donut2);
-        assertEquals("Donut[donutType=GLAZED]", donut1.toString());
-    }
-
-    @Test
-    public void testDonutGetters()
-    {
-        assertEquals(donut1.donutType(), GLAZED);
-    }
-
-    @Test
     public void testSealedClasses()
     {
         assertTrue(CoffeeDrink.class.isSealed());

@@ -101,41 +101,6 @@ public class CoffeeShopTest
     }
 
     @Test
-    public void testCookieRecord()
-    {
-        // TODO: Convert Cookie to record
-        Cookie cookie2 = new Cookie(CHOCOLATE_CHIP, true);
-        assertTrue(Cookie.class.isRecord());
-        assertEquals(cookie1, cookie2);
-        assertEquals("Cookie[cookieType=CHOCOLATE_CHIP, warmed=true]", cookie1.toString());
-    }
-
-    @Test
-    public void testCookieGetters()
-    {
-        // TODO: Convert assertions to use Record getters
-        assertTrue(cookie1.isWarmed());
-        assertEquals(cookie1.getCookieType(), CHOCOLATE_CHIP);
-    }
-
-    @Test
-    public void testDonutRecord()
-    {
-        // TODO: Convert Donut to record
-        Donut donut2 = new Donut(GLAZED);
-        assertTrue(Donut.class.isRecord());
-        assertEquals(donut1, donut2);
-        assertEquals("Donut[donutType=GLAZED]", donut1.toString());
-    }
-
-    @Test
-    public void testDonutGetters()
-    {
-        // TODO: Convert assertions to use Record getters
-        assertEquals(donut1.getDonutType(), GLAZED);
-    }
-
-    @Test
     public void testSealedClasses()
     {
         // TODO: Convert Coffee Drink to sealed class
