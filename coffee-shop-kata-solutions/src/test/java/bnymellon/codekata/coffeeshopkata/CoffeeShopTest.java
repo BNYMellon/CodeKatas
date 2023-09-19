@@ -28,6 +28,7 @@ import bnymellon.codekatas.coffeeshopkata.food.Donut;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static bnymellon.codekatas.coffeeshopkata.food.BagelType.EVERYTHING;
@@ -59,9 +60,10 @@ public class CoffeeShopTest
     @Test
     public void getFoodItemsForOrderTest()
     {
-        List<String> expected = List.of("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE",
-                "CHOCOLATE_CHIP cookie", "GLAZED donut");
-        assertEquals(expected, coffeeShopOrder.getFoodItemsForOrder());
+        List<String> expected = List.of("CHOCOLATE_CHIP cookie", "EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE", "GLAZED donut");
+        List<String> actual = coffeeShopOrder.getFoodItemsForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 
     @Test

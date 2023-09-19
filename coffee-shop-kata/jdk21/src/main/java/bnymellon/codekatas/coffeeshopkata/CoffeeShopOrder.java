@@ -17,6 +17,7 @@
 package bnymellon.codekatas.coffeeshopkata;
 
 
+import java.util.Collections;
 import java.util.List;
 
 public class CoffeeShopOrder
@@ -34,9 +35,9 @@ public class CoffeeShopOrder
      * Return a list of custom strings for the customer's food items!
      * The string format for each food item is as follows:
      * If the item is a Bagel: "[bagelType] with [spreadType]"
-     * If the item is a Cookie: "[cookieType]"
-     * If the item is a Donut: "[donutType]"
-     * Otherwise: throw new IllegalStateException()
+     * If the item is a Cookie: "[cookieType] cookie"
+     * If the item is a Donut: "[donutType] donut"
+     * Otherwise: it is a beverage and should not be added to the list!
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
      *
@@ -46,7 +47,7 @@ public class CoffeeShopOrder
         // TODO: implement method
         // Hint: look at the Java 8 implementation in the jdk8 module,
         // and the link above to see how pattern matching for switch can be utilized here
-        return null;
+        return Collections.emptyList();
     }
 
     /**
@@ -64,7 +65,7 @@ public class CoffeeShopOrder
         // TODO: Implement the receipt generation logic here.
         // Hint: look at the Java 8 implementation in the jdk8 module,
         // and the link above to see how record patterns can be utilized here
-        return null;
+        return "";
     }
 
     /**
@@ -81,6 +82,6 @@ public class CoffeeShopOrder
     public List<String> getDrinkForOrder()
     {
         // TODO: implement method logic here
-        return null;
+        return Collections.emptyList();
     }
 }

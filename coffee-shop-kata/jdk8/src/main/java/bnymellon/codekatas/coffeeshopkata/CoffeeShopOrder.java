@@ -40,7 +40,7 @@ public class CoffeeShopOrder
     private final String customerName;
     private final List<Item> orderItems;
 
-    public CoffeeShopOrder(String customerName, java.util.List<Item> orderItems)
+    public CoffeeShopOrder(String customerName, List<Item> orderItems)
     {
         this.customerName = customerName;
         this.orderItems = orderItems;
@@ -50,9 +50,9 @@ public class CoffeeShopOrder
      * Return a list of custom strings for the customer's food items!
      * The string format for each food item is as follows:
      * If the item is a Bagel: "[bagelType] with [spreadType]"
-     * If the item is a Cookie: "[cookieType]"
-     * If the item is a Donut: "[donutType]"
-     * Otherwise: throw new IllegalStateException()
+     * If the item is a Cookie: "[cookieType] cookie"
+     * If the item is a Donut: "[donutType] donut"
+     * Otherwise: it is a beverage and should not be added to the list!
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
      */
@@ -75,10 +75,6 @@ public class CoffeeShopOrder
             {
                 Donut donut = (Donut) item;
                 foodItems.add(donut.getDonutType() + " donut");
-            }
-            else
-            {
-                throw new IllegalStateException();
             }
         }
         return foodItems;

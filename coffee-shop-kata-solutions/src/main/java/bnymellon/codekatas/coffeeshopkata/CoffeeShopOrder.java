@@ -52,9 +52,9 @@ public class CoffeeShopOrder
      * Return a list of custom strings for the customer's food items!
      * The string format for each food item is as follows:
      * If the item is a Bagel: "[bagelType] with [spreadType]"
-     * If the item is a Cookie: "[cookieType]"
-     * If the item is a Donut: "[donutType]"
-     * Otherwise: throw new IllegalStateException()
+     * If the item is a Cookie: "[cookieType] cookie"
+     * If the item is a Donut: "[donutType] donut"
+     * Otherwise: it is a beverage and should not be added to the list!
      * <p>
      * NOTE: This method show-cases a switch-case pattern matching.
      */
@@ -68,7 +68,7 @@ public class CoffeeShopOrder
                 case Bagel bagel -> foodItems.add(bagel.bagelType() + " bagel with " + bagel.spreadType());
                 case Cookie cookie -> foodItems.add(cookie.cookieType() + " cookie");
                 case Donut donut -> foodItems.add(donut.donutType() + " donut");
-                default -> throw new IllegalStateException("Unexpected value: " + item);
+                default -> {}
             }
         }
         return foodItems;
