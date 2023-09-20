@@ -31,6 +31,7 @@ import bnymellon.codekatas.coffeeshopkata.food.Cookie;
 import bnymellon.codekatas.coffeeshopkata.food.CookieType;
 import bnymellon.codekatas.coffeeshopkata.food.Donut;
 import bnymellon.codekatas.coffeeshopkata.food.DonutType;
+import bnymellon.codekatas.coffeeshopkata.food.SpreadType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +91,10 @@ public class CoffeeShopOrder
      * NOTE: The method highlights the usage of a data extraction
      * HINT: Use instanceOf
      */
-    public String generateReceipt()
+    public String generateReceiptForFoodItems()
     {
         double total = 0.0;
-        StringBuilder receiptBuilder = new StringBuilder();
+        List<String> receiptItems = new ArrayList<>();
 
         for (Item item : this.orderItems)
         {
@@ -101,25 +102,27 @@ public class CoffeeShopOrder
             {
                 Donut donut = (Donut) item;
                 DonutType donutType = donut.getDonutType();
-                receiptBuilder.append("Donut: ").append(donutType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Donut: "+ donutType + " $" + item.getPrice());
+                total += item.getPrice();
             }
             else if (item instanceof Bagel)
             {
                 Bagel bagel = (Bagel) item;
                 BagelType bagelType = bagel.getBagelType();
-                receiptBuilder.append("Bagel: ").append(bagelType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Bagel: "+ bagelType +" $" + item.getPrice());
+                total += item.getPrice();
             }
             else if (item instanceof Cookie)
             {
                 Cookie cookie = (Cookie) item;
                 CookieType cookieType = cookie.getCookieType();
-                receiptBuilder.append("Cookie: ").append(cookieType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Cookie: " + cookieType +" $" + item.getPrice());
+                total += item.getPrice();
             }
-            total += item.getPrice();
         }
+        receiptItems.add("Total: $" + total);
 
-        receiptBuilder.append("Total: $").append(total);
-        return receiptBuilder.toString();
+        return String.join("\n", receiptItems);
     }
 
     /**

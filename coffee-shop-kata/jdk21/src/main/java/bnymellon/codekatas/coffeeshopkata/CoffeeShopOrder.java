@@ -61,7 +61,7 @@ public class CoffeeShopOrder
      *
      * @see <a href="https://openjdk.org/jeps/440">...</a>
      */
-    public String generateReceipt() {
+    public String generateReceiptForFoodItems() {
         // TODO: Implement the receipt generation logic here.
         // Hint: look at the Java 8 implementation in the jdk8 module,
         // and the link above to see how record patterns can be utilized here

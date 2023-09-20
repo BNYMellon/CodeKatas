@@ -16,7 +16,7 @@
 
 package bnymellon.codekatas.coffeeshopkata.beverage;
 
-public final class Americano implements CoffeeDrink
+public non-sealed class Americano implements CoffeeDrink
 {
     private final DrinkTemperature drinkTemperature;
 
