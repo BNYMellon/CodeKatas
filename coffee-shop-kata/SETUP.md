@@ -21,7 +21,7 @@
    jdk8 module - the class should compile and all tests will pass.
 5. To verify that the Java 21 module is set up correctly,
    run [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
-   jdk21 module - the class should compile but most tests will fail.
+   jdk21 module - the class should compile but all tests will fail.
 
 ### Getting started
 * Follow the [README](README.md) for instructions on how to complete the kata.

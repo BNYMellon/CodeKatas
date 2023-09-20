@@ -16,8 +16,6 @@
 
 package bnymellon.codekatas.coffeeshopkata.food;
 
-import java.util.Objects;
-
 /**
  * Replace the entire class with a Record.
  * This replaces the need for a constructor, getters, toString(),
@@ -60,29 +58,5 @@ public class Bagel implements BakeryItem
     public SpreadType getSpreadType()
     {
         return spreadType;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof Bagel) {
-            Bagel bagel = (Bagel) obj;
-            return this.isToasted() == bagel.isToasted() && this.getBagelType() == bagel.getBagelType()
-                    && this.getSpreadType() == bagel.getSpreadType();
-        }
-        return false;
-    }
-
-    @Override
-    public String toString()
-    {
-        return String.format("Bagel[bagelType=%s, spreadType=%s, toasted=%s]",
-                this.getBagelType(), this.getSpreadType(), this.isToasted());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(bagelType, spreadType, toasted);
     }
 }
