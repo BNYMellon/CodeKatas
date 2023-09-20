@@ -48,7 +48,7 @@ public class CoffeeShopOrder
     }
 
     /**
-     * Generate a receipt for a customer's order.
+     * Generate a receipt for a customer's food items.
      * If the item is a Donut: Print Donut: [donutType] $Price
      * If the item is a Cookie: Print Cookie: [cookieType] $Price
      * If the item is a Bagel: Print Bagel: [bagelType] $Price

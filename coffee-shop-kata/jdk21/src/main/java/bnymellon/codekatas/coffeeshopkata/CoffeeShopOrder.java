@@ -16,7 +16,6 @@
 
 package bnymellon.codekatas.coffeeshopkata;
 
-
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +28,24 @@ public class CoffeeShopOrder
     {
         this.customerName = customerName;
         this.orderItems = orderItems;
+    }
+
+    /**
+     * Generate a receipt for a customer's food items.
+     * If the item is a Donut: Print Donut: [donutType] $Price
+     * If the item is a Cookie: Print Cookie: [cookieType] $Price
+     * If the item is a Bagel: Print Bagel: [bagelType] $Price
+     * Total: $Total Price
+     * <p>
+     * NOTE: The method highlights the usage of a record deconstruction pattern
+     *
+     * @see <a href="https://openjdk.org/jeps/440">...</a>
+     */
+    public String generateReceiptForFoodItems() {
+        // TODO: Implement the receipt generation logic here.
+        // Hint: look at the Java 8 implementation in the jdk8 module,
+        // and the link above to see how record patterns can be utilized here
+        return "";
     }
 
     /**
@@ -48,24 +65,6 @@ public class CoffeeShopOrder
         // Hint: look at the Java 8 implementation in the jdk8 module,
         // and the link above to see how pattern matching for switch can be utilized here
         return Collections.emptyList();
-    }
-
-    /**
-     * Generate a receipt for a customer's order.
-     * If the item is a Donut: Print Donut: [donutType] $Price
-     * If the item is a Cookie: Print Cookie: [cookieType] $Price
-     * If the item is a Bagel: Print Bagel: [bagelType] $Price
-     * Total: $Total Price
-     * <p>
-     * NOTE: The method highlights the usage of a record deconstruction pattern
-     *
-     * @see <a href="https://openjdk.org/jeps/440">...</a>
-     */
-    public String generateReceiptForFoodItems() {
-        // TODO: Implement the receipt generation logic here.
-        // Hint: look at the Java 8 implementation in the jdk8 module,
-        // and the link above to see how record patterns can be utilized here
-        return "";
     }
 
     /**
