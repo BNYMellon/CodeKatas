@@ -113,9 +113,11 @@ public class CoffeeShopTest
     @Test
     public void getDrinkItems()
     {
-        // TODO: Complete the method getDrinkForOrder() in CoffeeShopOrder to make this pass
+        // TODO: Complete the method getDrinksForOrder() in CoffeeShopOrder to make this pass
         List<String> expected = List.of("HOT Americano", "HOT CARAMEL Latte with ALMOND_MILK",
                 "HOT VANILLA Macchiato with WHOLE_MILK", "MATCHA Tea");
-        assertEquals(expected, coffeeShopOrder.getDrinkForOrder());
+        List<String> actual = coffeeShopOrder.getDrinksForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 }

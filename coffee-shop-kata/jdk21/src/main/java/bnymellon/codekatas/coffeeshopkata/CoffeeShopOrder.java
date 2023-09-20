@@ -78,7 +78,7 @@ public class CoffeeShopOrder
      * (e.g., Americano, Latte, Macchiato) are allowed within a hierarchy.
      * However, Tea is not part of this hierarchy.
      */
-    public List<String> getDrinkForOrder()
+    public List<String> getDrinksForOrder()
     {
         // TODO: implement method logic here
         return Collections.emptyList();

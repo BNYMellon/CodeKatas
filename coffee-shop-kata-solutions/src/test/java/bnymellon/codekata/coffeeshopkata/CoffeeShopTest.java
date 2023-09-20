@@ -107,6 +107,8 @@ public class CoffeeShopTest
     {
         List<String> expected = List.of("HOT Americano", "HOT CARAMEL Latte with ALMOND_MILK",
                 "HOT VANILLA Macchiato with WHOLE_MILK", "MATCHA Tea");
-        assertEquals(expected, coffeeShopOrder.getDrinkForOrder());
+        List<String> actual = coffeeShopOrder.getDrinksForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 }

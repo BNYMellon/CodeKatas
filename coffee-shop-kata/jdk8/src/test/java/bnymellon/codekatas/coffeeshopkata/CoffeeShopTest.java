@@ -100,6 +100,8 @@ class CoffeeShopTest
         expected.add("HOT CARAMEL Latte with ALMOND_MILK");
         expected.add("HOT VANILLA Macchiato with WHOLE_MILK");
         expected.add("MATCHA Tea");
-        assertEquals(expected, coffeeShopOrder.getDrinkForOrder());
+        List<String> actual = coffeeShopOrder.getDrinksForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 }

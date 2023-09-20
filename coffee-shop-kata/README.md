@@ -21,6 +21,11 @@ classes that are shared by all the exercises. These are
 ![Diagram](CoffeeShopDomain.png)
 
 ## Overview ##
+The following Java concepts will be useful in completing the kata:
+* [Records](https://openjdk.org/jeps/395)
+* [Record patterns](https://openjdk.org/jeps/440)
+* [Pattern matching for switch](https://openjdk.org/jeps/441)
+* [Sealed classes](https://openjdk.org/jeps/409)
 This kata involves refactoring existing code and implementing missing code! All the code you need to complete is in
 the [`jdk21`](./jdk21) module, with the corresponding solutions
 in [`coffee-shop-kata-solutions`](../coffee-shop-kata-solutions). The
@@ -28,11 +33,7 @@ purpose of the [`jdk8`](./jdk8) module is to show you the Java 8 way of solving 
 problems; there are no TODOs in this module. For technical setup, follow the instructions in [`SETUP.md`](./SETUP.md)!
 
 ## Getting started ##
-The following Java concepts will be useful in completing the kata:
-* [Records](https://openjdk.org/jeps/395)
-* [Record patterns](https://openjdk.org/jeps/440)
-* [Pattern matching for switch](https://openjdk.org/jeps/441)
-* [Sealed classes](https://openjdk.org/jeps/409)
 
-There are failing tests in [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java).
-Make all the test cases pass by following the TODOs! 
+1. Run the Tests in [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java)
+2. Fix the Code Using "TODO" and "HINT" Comments
+3. Repeat step 1 and 2 until all tests pass
