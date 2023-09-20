@@ -135,7 +135,7 @@ public class CoffeeShopOrder
      * NOTE: Use interface to create four drinks
      * Use the toString() to obtain descriptions of the drinks
      */
-    public List<String> getDrinkForOrder()
+    public List<String> getDrinksForOrder()
     {
         List<String> drinkItems = new ArrayList<>();
         CoffeeDrink coffeeDrink1 = new Americano(DrinkTemperature.HOT);

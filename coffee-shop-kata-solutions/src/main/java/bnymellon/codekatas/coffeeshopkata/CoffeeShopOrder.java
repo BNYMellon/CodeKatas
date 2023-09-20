@@ -122,7 +122,7 @@ public class CoffeeShopOrder
      * (e.g., Americano, Latte, Macchiato) are allowed within a hierarchy.
      * However, Tea is not part of this hierarchy.
      */
-    public List<String> getDrinkForOrder()
+    public List<String> getDrinksForOrder()
     {
         List<String> drinkItems = new ArrayList<>();
         CoffeeDrink coffeeDrink1 = new Americano(DrinkTemperature.HOT);

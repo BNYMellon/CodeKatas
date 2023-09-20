@@ -1,7 +1,9 @@
 ## Setting up the project
 
 ### Requirements
-* [JDK 20](https://jdk.java.net/20/) installed on your computer
+* [JDK 20](https://jdk.java.net/20/) installed on your computer 
+  
+  Note: The latest version of IntelliJ only supports Java 20
 * [Maven 3.6.1+](https://maven.apache.org/download.cgi) installed on your computer
 * [IntelliJ IDEA 2023.1+](https://www.jetbrains.com/idea/download/?section=windows) or similar IDE for Java
 
