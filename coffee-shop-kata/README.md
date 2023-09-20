@@ -1,6 +1,6 @@
 ## What is the Coffee Shop Kata? ##
 
-The Coffee Kata exercise is designed to provide a hands-on experience in learning and demonstrating the usage of latest
+The Coffee Shop Kata exercise is designed to provide a hands-on experience in learning and demonstrating the usage of latest
 Java features while comparing them with older.
 
 The domain for the kata is a Coffee Shop. There are several domain
@@ -29,9 +29,9 @@ problems; there are no TODOs in this module. For technical setup, follow the ins
 
 ## Getting started ##
 The following Java concepts will be useful in completing the kata:
-* [Pattern matching for switch](https://openjdk.org/jeps/441)
 * [Records](https://openjdk.org/jeps/395)
 * [Record patterns](https://openjdk.org/jeps/440)
+* [Pattern matching for switch](https://openjdk.org/jeps/441)
 * [Sealed classes](https://openjdk.org/jeps/409)
 
 There are failing tests in [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java).

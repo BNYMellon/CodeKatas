@@ -15,6 +15,8 @@
  */
 package bnymellon.codekatas.coffeeshopkata;
 
+import bnymellon.codekatas.coffeeshopkata.beverage.Americano;
+import bnymellon.codekatas.coffeeshopkata.beverage.DrinkTemperature;
 import bnymellon.codekatas.coffeeshopkata.food.Bagel;
 import bnymellon.codekatas.coffeeshopkata.food.Cookie;
 import bnymellon.codekatas.coffeeshopkata.food.Donut;
@@ -39,40 +41,21 @@ class CoffeeShopTest
     private Cookie cookie1;
     private Donut donut1;
 
+    private Americano americano;
+
     @BeforeEach
     public void setUp()
     {
         bagel1 = new Bagel(EVERYTHING, HERB_GARLIC_CREAM_CHEESE, true);
         cookie1 = new Cookie(CHOCOLATE_CHIP, true);
         donut1 = new Donut(GLAZED);
+        americano = new Americano(DrinkTemperature.HOT);
         itemList = new ArrayList<>();
         itemList.add(bagel1);
         itemList.add(cookie1);
         itemList.add(donut1);
+        itemList.add(americano);
         coffeeShopOrder = new CoffeeShopOrder("Emilie", itemList);
-    }
-
-    @Test
-    public void getFoodItemsForOrderTest()
-    {
-        ArrayList<String> expected = new ArrayList<>();
-        expected.add("CHOCOLATE_CHIP cookie");
-        expected.add("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE");
-        expected.add("GLAZED donut");
-        List<String> actual = coffeeShopOrder.getFoodItemsForOrder();
-        Collections.sort(actual);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void generateReceiptTest()
-    {
-        String expectedReceipt =
-                "Bagel: EVERYTHING $2.5\n" +
-                        "Cookie: CHOCOLATE_CHIP $1.25\n" +
-                        "Donut: GLAZED $1.75\n" +
-                        "Total: $5.5";
-        assertEquals(expectedReceipt, coffeeShopOrder.generateReceipt());
     }
 
     @Test
@@ -89,6 +72,29 @@ class CoffeeShopTest
         assertTrue(bagel1.isToasted());
         assertEquals(bagel1.getBagelType(), EVERYTHING);
         assertEquals(bagel1.getSpreadType(), HERB_GARLIC_CREAM_CHEESE);
+    }
+
+    @Test
+    public void generateReceiptForFoodItems()
+    {
+        String expectedReceipt =
+                "Bagel: EVERYTHING $2.5\n" +
+                        "Cookie: CHOCOLATE_CHIP $1.25\n" +
+                        "Donut: GLAZED $1.75\n" +
+                        "Total: $5.5";
+        assertEquals(expectedReceipt, coffeeShopOrder.generateReceiptForFoodItems());
+    }
+
+    @Test
+    public void getFoodItemsForOrderTest()
+    {
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("CHOCOLATE_CHIP cookie");
+        expected.add("EVERYTHING bagel with HERB_GARLIC_CREAM_CHEESE");
+        expected.add("GLAZED donut");
+        List<String> actual = coffeeShopOrder.getFoodItemsForOrder();
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 
     @Test

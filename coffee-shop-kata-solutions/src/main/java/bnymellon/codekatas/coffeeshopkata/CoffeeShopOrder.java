@@ -83,30 +83,32 @@ public class CoffeeShopOrder
      * <p>
      * NOTE: The method highlights the usage of a record deconstruction pattern
      */
-    public String generateReceipt()
+    public String generateReceiptForFoodItems()
     {
         double total = 0.0;
-        StringBuilder receiptBuilder = new StringBuilder();
+        List<String> receiptItems = new ArrayList<>();
 
         for (Item item : this.orderItems)
         {
             if (item instanceof Donut(DonutType donutType))
             {
-                receiptBuilder.append("Donut: ").append(donutType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Donut: "+ donutType + " $" + item.getPrice());
+                total += item.getPrice();
             }
             else if (item instanceof Bagel(BagelType bagelType, SpreadType spreadType, boolean toasted))
             {
-                receiptBuilder.append("Bagel: ").append(bagelType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Bagel: "+ bagelType +" $" + item.getPrice());
+                total += item.getPrice();
             }
             else if (item instanceof Cookie(CookieType cookieType, boolean warmed))
             {
-                receiptBuilder.append("Cookie: ").append(cookieType).append(" $").append(item.getPrice()).append("\n");
+                receiptItems.add("Cookie: " + cookieType +" $" + item.getPrice());
+                total += item.getPrice();
             }
-            total += item.getPrice();
         }
+        receiptItems.add("Total: $" + total);
 
-        receiptBuilder.append("Total: $").append(total);
-        return receiptBuilder.toString();
+        return String.join("\n", receiptItems);
     }
 
     /**
