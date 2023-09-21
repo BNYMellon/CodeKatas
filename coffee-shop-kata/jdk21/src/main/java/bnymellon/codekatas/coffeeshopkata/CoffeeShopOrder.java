@@ -16,6 +16,23 @@
 
 package bnymellon.codekatas.coffeeshopkata;
 
+import bnymellon.codekatas.coffeeshopkata.beverage.Americano;
+import bnymellon.codekatas.coffeeshopkata.beverage.CoffeeDrink;
+import bnymellon.codekatas.coffeeshopkata.beverage.DrinkTemperature;
+import bnymellon.codekatas.coffeeshopkata.beverage.FlavorSyrup;
+import bnymellon.codekatas.coffeeshopkata.beverage.Latte;
+import bnymellon.codekatas.coffeeshopkata.beverage.Macchiato;
+import bnymellon.codekatas.coffeeshopkata.beverage.MilkType;
+import bnymellon.codekatas.coffeeshopkata.beverage.Tea;
+import bnymellon.codekatas.coffeeshopkata.beverage.TeaType;
+import bnymellon.codekatas.coffeeshopkata.food.Bagel;
+import bnymellon.codekatas.coffeeshopkata.food.BagelType;
+import bnymellon.codekatas.coffeeshopkata.food.Cookie;
+import bnymellon.codekatas.coffeeshopkata.food.CookieType;
+import bnymellon.codekatas.coffeeshopkata.food.Donut;
+import bnymellon.codekatas.coffeeshopkata.food.DonutType;
+import bnymellon.codekatas.coffeeshopkata.food.SpreadType;
+
 import java.util.Collections;
 import java.util.List;
 
