@@ -79,7 +79,7 @@ public class CoffeeShopTest
     }
 
     @Test
-    public void generateReceiptForFoodItems()
+    public void generateReceiptForFoodItemsTest()
     {
         // TODO: Complete the method generateReceipt() in CoffeeShopOrder to make this pass
         String expectedReceipt = """

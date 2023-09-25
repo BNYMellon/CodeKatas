@@ -70,7 +70,7 @@ class CoffeeShopTest
     }
 
     @Test
-    public void generateReceiptForFoodItems()
+    public void generateReceiptForFoodItemsTest()
     {
         String expectedReceipt =
                 "Bagel: EVERYTHING $2.5\n" +
