@@ -121,6 +121,9 @@ public class CoffeeShopOrder
                 Donut donut = (Donut) item;
                 foodItems.add(donut.getDonutType() + " donut");
             }
+            else {
+                // it is a beverage, do nothing!
+            }
         }
         return foodItems;
     }
