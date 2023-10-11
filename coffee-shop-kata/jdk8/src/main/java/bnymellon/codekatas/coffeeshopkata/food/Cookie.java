@@ -48,7 +48,8 @@ public class Cookie implements BakeryItem
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof Cookie) {
+        if (obj instanceof Cookie)
+        {
             Cookie cookie = (Cookie) obj;
             return this.isWarmed() == cookie.isWarmed() && this.getCookieType() == cookie.getCookieType();
         }

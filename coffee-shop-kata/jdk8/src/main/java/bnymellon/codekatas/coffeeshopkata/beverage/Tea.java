@@ -24,11 +24,13 @@ public class Tea implements Beverage
     {
         this.teaType = teaType;
     }
+
     @Override
     public String toString()
     {
         return teaType + " " + "Tea";
     }
+
     @Override
     public double getPrice()
     {

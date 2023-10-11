@@ -24,8 +24,9 @@ package bnymellon.codekatas.coffeeshopkata.beverage;
  * Modify the following class to permit only the classes
  * Latte, Macchiato, and Americano, while excluding Tea.
  * Make Americano, Macchiato "non-sealed" class and Latte as a "final" class
- *
+ * <p>
  * NOTE: This class hierarchy shows the usage of sealed classes
+ *
  * @see <a href="https://openjdk.org/jeps/395">...</a>
  */
 

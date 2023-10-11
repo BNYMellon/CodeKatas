@@ -68,21 +68,21 @@ public class CoffeeShopOrder
             {
                 Donut donut = (Donut) item;
                 DonutType donutType = donut.getDonutType();
-                receiptItems.add("Donut: "+ donutType + " $" + item.getPrice());
+                receiptItems.add("Donut: " + donutType + " $" + item.getPrice());
                 total += item.getPrice();
             }
             else if (item instanceof Bagel)
             {
                 Bagel bagel = (Bagel) item;
                 BagelType bagelType = bagel.getBagelType();
-                receiptItems.add("Bagel: "+ bagelType +" $" + item.getPrice());
+                receiptItems.add("Bagel: " + bagelType + " $" + item.getPrice());
                 total += item.getPrice();
             }
             else if (item instanceof Cookie)
             {
                 Cookie cookie = (Cookie) item;
                 CookieType cookieType = cookie.getCookieType();
-                receiptItems.add("Cookie: " + cookieType +" $" + item.getPrice());
+                receiptItems.add("Cookie: " + cookieType + " $" + item.getPrice());
                 total += item.getPrice();
             }
         }
@@ -121,7 +121,8 @@ public class CoffeeShopOrder
                 Donut donut = (Donut) item;
                 foodItems.add(donut.getDonutType() + " donut");
             }
-            else {
+            else
+            {
                 // it is a beverage, do nothing!
             }
         }

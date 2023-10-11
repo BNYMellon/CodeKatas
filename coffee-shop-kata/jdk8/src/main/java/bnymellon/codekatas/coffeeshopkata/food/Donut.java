@@ -41,7 +41,8 @@ public class Donut implements BakeryItem
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof Donut) {
+        if (obj instanceof Donut)
+        {
             Donut donut = (Donut) obj;
             return this.getDonutType() == donut.getDonutType();
         }

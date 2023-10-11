@@ -55,7 +55,8 @@ public class Bagel implements BakeryItem
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof Bagel) {
+        if (obj instanceof Bagel)
+        {
             Bagel bagel = (Bagel) obj;
             return this.isToasted() == bagel.isToasted() && this.getBagelType() == bagel.getBagelType()
                     && this.getSpreadType() == bagel.getSpreadType();

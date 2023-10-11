@@ -38,7 +38,6 @@ import java.util.List;
 
 public class CoffeeShopOrder
 {
-
     private final String customerName;
     private final List<Item> orderItems;
 
@@ -66,17 +65,17 @@ public class CoffeeShopOrder
         {
             if (item instanceof Donut(DonutType donutType))
             {
-                receiptItems.add("Donut: "+ donutType + " $" + item.getPrice());
+                receiptItems.add("Donut: " + donutType + " $" + item.getPrice());
                 total += item.getPrice();
             }
             else if (item instanceof Bagel(BagelType bagelType, SpreadType spreadType, boolean toasted))
             {
-                receiptItems.add("Bagel: "+ bagelType +" $" + item.getPrice());
+                receiptItems.add("Bagel: " + bagelType + " $" + item.getPrice());
                 total += item.getPrice();
             }
             else if (item instanceof Cookie(CookieType cookieType, boolean warmed))
             {
-                receiptItems.add("Cookie: " + cookieType +" $" + item.getPrice());
+                receiptItems.add("Cookie: " + cookieType + " $" + item.getPrice());
                 total += item.getPrice();
             }
         }
@@ -105,7 +104,9 @@ public class CoffeeShopOrder
                 case Bagel bagel -> foodItems.add(bagel.bagelType() + " bagel with " + bagel.spreadType());
                 case Cookie cookie -> foodItems.add(cookie.cookieType() + " cookie");
                 case Donut donut -> foodItems.add(donut.donutType() + " donut");
-                default -> {}
+                default ->
+                {
+                }
             }
         }
         return foodItems;

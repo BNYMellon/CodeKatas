@@ -16,10 +16,11 @@
 
 package bnymellon.codekatas.coffeeshopkata.food;
 
-public record Donut(DonutType donutType) implements BakeryItem {
-
+public record Donut(DonutType donutType) implements BakeryItem
+{
     @Override
-    public double getPrice() {
+    public double getPrice()
+    {
         return 1.75;
     }
 }
