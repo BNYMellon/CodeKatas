@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,44 +78,27 @@ public interface MutableSet<T> extends MutableCollection<T>, java.util.Set<T>, S
     default MutableSet<T> filter(Predicate<? super T> predicate)
     {
         var mutableSet = MutableSet.<T>empty();
-        for (T each : this)
-        {
-            if (predicate.test(each))
-            {
-                mutableSet.add(each);
-            }
-        }
-        return mutableSet;
+        return this.filter(predicate, mutableSet);
     }
 
     @Override
     default MutableSet<T> filterNot(Predicate<? super T> predicate)
     {
-        var mutableSet = MutableSet.<T>empty();
-        for (T each : this)
-        {
-            if (!predicate.test(each))
-            {
-                mutableSet.add(each);
-            }
-        }
-        return mutableSet;
+        return this.filter(predicate.negate());
     }
 
     @Override
     default <V> MutableSet<V> map(Function<? super T, ? extends V> function)
     {
         var mutableSet = MutableSet.<V>empty();
-        this.forEach(each -> mutableSet.add(function.apply(each)));
-        return mutableSet;
+        return this.map(function, mutableSet);
     }
 
     @Override
     default <V> MutableSet<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
     {
         var mutableSet = MutableSet.<V>empty();
-        this.forEach(each -> mutableSet.addAllIterable(function.apply(each)));
-        return mutableSet;
+        return this.flatMap(function, mutableSet);
     }
 
     default <K, V> MutableSetMultimap<K, T> groupBy(Function<? super T, ? extends K> function)

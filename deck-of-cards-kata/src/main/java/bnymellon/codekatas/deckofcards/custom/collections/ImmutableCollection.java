@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,11 @@ public sealed interface ImmutableCollection<T> extends RichIterable<T>
     default <K> ImmutableBag<K> countBy(Function<? super T, ? extends K> function)
     {
         var counts = MutableBag.<K>empty();
-        this.forEach(each -> counts.add(function.apply(each)));
-        return counts.toImmutable();
+        return this.map(function, counts).toImmutable();
+    }
+
+    default <V> ImmutableBag<V> countByEach(Function<? super T, ? extends Iterable<V>> function)
+    {
+        return this.flatMap(function, MutableBag.empty()).toImmutable();
     }
 }
