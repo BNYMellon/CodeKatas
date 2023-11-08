@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,11 @@ public interface RichIterable<T> extends Iterable<T>
 
     boolean isEmpty();
 
+    default boolean notEmpty()
+    {
+        return !this.isEmpty();
+    }
+
     default Stream<T> stream()
     {
         throw new UnsupportedOperationException();
@@ -39,11 +44,40 @@ public interface RichIterable<T> extends Iterable<T>
 
     RichIterable<T> filter(Predicate<? super T> predicate);
 
+    default <R extends Collection<T>> R filter(Predicate<? super T> predicate, R target)
+    {
+        this.forEach(each ->
+        {
+            if (predicate.test(each))
+            {
+                target.add(each);
+            }
+        });
+        return target;
+    }
+
     RichIterable<T> filterNot(Predicate<? super T> predicate);
+
+    default <R extends Collection<T>> R filterNot(Predicate<? super T> predicate, R target)
+    {
+        return this.filter(predicate.negate(), target);
+    }
 
     <V> RichIterable<V> map(Function<? super T, ? extends V> function);
 
+    default <V, R extends Collection<V>> R map(Function<? super T, ? extends V> function, R target)
+    {
+        this.forEach(each -> target.add(function.apply(each)));
+        return target;
+    }
+
     <V> RichIterable<V> flatMap(Function<? super T, ? extends Iterable<V>> function);
+
+    default <V, R extends MutableCollection<V>> R flatMap(Function<? super T, ? extends Iterable<V>> function, R target)
+    {
+        this.forEach(each -> target.addAllIterable(function.apply(each)));
+        return target;
+    }
 
     default RichIterable<T> peek(Consumer<? super T> consumer)
     {
@@ -78,6 +112,11 @@ public interface RichIterable<T> extends Iterable<T>
             }
         }
         return false;
+    }
+
+    default <V> boolean containsBy(Function<? super T, ? extends V> function, V value)
+    {
+        return this.anyMatch(each -> value.equals(function.apply(each)));
     }
 
     default boolean allMatch(Predicate<? super T> predicate)
@@ -147,10 +186,19 @@ public interface RichIterable<T> extends Iterable<T>
         return this.toCollection(MutableSet::empty, Collection::add);
     }
 
+    default MutableBag<T> toBag()
+    {
+        return this.toCollection(MutableBag::empty, Collection::add);
+    }
+
     default <R extends Collection<T>> R toCollection(Supplier<R> supplier, BiConsumer<R, T> addMethod)
     {
         R collection = supplier.get();
         this.forEach(each -> addMethod.accept(collection, each));
         return collection;
     }
+
+    <K> Bag<K> countBy(Function<? super T, ? extends K> function);
+
+    <V> Bag<V> countByEach(Function<? super T, ? extends Iterable<V>> function);
 }

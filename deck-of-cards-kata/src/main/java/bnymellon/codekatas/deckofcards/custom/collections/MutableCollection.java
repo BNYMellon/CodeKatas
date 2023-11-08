@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,12 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T>
         {
             return this.addAll(collection);
         }
-        else
+        boolean result = false;
+        for (T each : iterable)
         {
-            boolean result = false;
-            for (T each : iterable)
-            {
-                result |= this.add(each);
-            }
-            return result;
+            result |= this.add(each);
         }
+        return result;
     }
 
     @Override
@@ -70,5 +67,10 @@ public interface MutableCollection<T> extends RichIterable<T>, Collection<T>
         var counts = MutableBag.<K>empty();
         this.forEach(each -> counts.add(function.apply(each)));
         return counts;
+    }
+
+    default <V> MutableBag<V> countByEach(Function<? super T, ? extends Iterable<V>> function)
+    {
+        return this.flatMap(function, MutableBag.empty());
     }
 }

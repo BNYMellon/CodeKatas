@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,44 +81,27 @@ public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>,
     default MutableList<T> filter(Predicate<? super T> predicate)
     {
         var mutableList = MutableList.<T>empty();
-        for (T each : this)
-        {
-            if (predicate.test(each))
-            {
-                mutableList.add(each);
-            }
-        }
-        return mutableList;
+        return this.filter(predicate, mutableList);
     }
 
     @Override
     default MutableList<T> filterNot(Predicate<? super T> predicate)
     {
-        var mutableList = MutableList.<T>empty();
-        for (T each : this)
-        {
-            if (!predicate.test(each))
-            {
-                mutableList.add(each);
-            }
-        }
-        return mutableList;
+        return this.filter(predicate.negate());
     }
 
     @Override
     default <V> MutableList<V> map(Function<? super T, ? extends V> function)
     {
         var mutableList = MutableList.<V>empty();
-        this.forEach(each -> mutableList.add(function.apply(each)));
-        return mutableList;
+        return this.map(function, mutableList);
     }
 
     @Override
     default <V> MutableList<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
     {
         var mutableList = MutableList.<V>empty();
-        this.forEach(each -> mutableList.addAllIterable(function.apply(each)));
-        return mutableList;
+        return this.flatMap(function, mutableList);
     }
 
     @Override
@@ -132,6 +115,13 @@ public interface MutableList<T> extends MutableCollection<T>, java.util.List<T>,
     {
         var multimap = MutableListMultimap.<K, T>empty();
         this.forEach(each -> multimap.put(function.apply(each), each));
+        return multimap;
+    }
+
+    default <K> MutableListMultimap<K, T> groupByEach(Function<? super T, ? extends Iterable<K>> function)
+    {
+        var multimap = MutableListMultimap.<K, T>empty();
+        this.forEach(each -> function.apply(each).forEach(key -> multimap.put(key, each)));
         return multimap;
     }
 

@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -411,5 +412,44 @@ public class MutableListTest
         MutableList<Integer> list2 = MutableList.empty();
         list2.addAllIterable(expected::iterator);
         Assertions.assertEquals(expected, list2);
+    }
+
+    @Test
+    public void countByEach()
+    {
+        MutableList<MutableList<Integer>> list = MutableList.of(MutableList.of(1, 2), MutableList.of(1, 2, 3));
+        MutableBag<Integer> counts = list.countByEach(each -> each);
+        Assertions.assertEquals(2, counts.getOccurrences(1));
+        Assertions.assertEquals(2, counts.getOccurrences(2));
+        Assertions.assertEquals(1, counts.getOccurrences(3));
+    }
+
+    @Test
+    public void groupByEach()
+    {
+        MutableList<Integer> list = MutableList.of(1, 2, 3);
+        MutableListMultimap<Integer, Integer> multimap = list.groupByEach(each -> IntStream.range(0, each).boxed().toList());
+        Assertions.assertEquals(List.of(1, 2, 3), multimap.get(0));
+        Assertions.assertEquals(List.of(2, 3), multimap.get(1));
+        Assertions.assertEquals(List.of(3), multimap.get(2));
+    }
+
+    @Test
+    public void toBag()
+    {
+        MutableList<Integer> list = MutableList.of(1, 2, 2, 3, 3, 3);
+        MutableBag<Integer> bag = list.toBag();
+
+        Assertions.assertEquals(MutableBag.of(1, 2, 2, 3, 3, 3), bag);
+    }
+
+    @Test
+    public void containsBy()
+    {
+        MutableList<Integer> hasEvens = MutableList.of(1, 2, 3);
+        MutableList<Integer> onlyOdds = MutableList.of(1, 3);
+
+        Assertions.assertTrue(hasEvens.containsBy(each -> each % 2, 0));
+        Assertions.assertFalse(onlyOdds.containsBy(each -> each % 2, 0));
     }
 }

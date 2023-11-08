@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Bank of New York Mellon.
+ * Copyright 2023 The Bank of New York Mellon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,44 +79,27 @@ public interface MutableBag<T> extends MutableCollection<T>, Bag<T>
     default MutableBag<T> filter(Predicate<? super T> predicate)
     {
         var mutableBag = MutableBag.<T>empty();
-        for (T each : this)
-        {
-            if (predicate.test(each))
-            {
-                mutableBag.add(each);
-            }
-        }
-        return mutableBag;
+        return this.filter(predicate, mutableBag);
     }
 
     @Override
     default MutableBag<T> filterNot(Predicate<? super T> predicate)
     {
-        var mutableBag = MutableBag.<T>empty();
-        for (T each : this)
-        {
-            if (!predicate.test(each))
-            {
-                mutableBag.add(each);
-            }
-        }
-        return mutableBag;
+        return this.filter(predicate.negate());
     }
 
     @Override
     default <V> MutableBag<V> map(Function<? super T, ? extends V> function)
     {
         var mutableBag = MutableBag.<V>empty();
-        this.forEach(each -> mutableBag.add(function.apply(each)));
-        return mutableBag;
+        return this.map(function, mutableBag);
     }
 
     @Override
     default <V> MutableBag<V> flatMap(Function<? super T, ? extends Iterable<V>> function)
     {
         var mutableBag = MutableBag.<V>empty();
-        this.forEach(each -> mutableBag.addAllIterable(function.apply(each)));
-        return mutableBag;
+        return this.flatMap(function, mutableBag);
     }
 
     default <K> ArrayListMultimap<K, T> groupBy(Function<? super T, ? extends K> function)
