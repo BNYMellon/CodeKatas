@@ -187,4 +187,10 @@ public abstract class AbstractMutableMultimap<K, V, C extends MutableCollection<
         }
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return this.getBackingMap().toString();
+    }
 }
