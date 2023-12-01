@@ -33,7 +33,7 @@ Guava, Apache Commons and/or Vavr on a simple domain
 
 
 ## What you will need to build the katas
-1. Java 17
+1. Java 21
 2. Maven 3.6.1+
 3. IDE of your choice
 
