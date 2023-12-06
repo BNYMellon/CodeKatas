@@ -39,7 +39,7 @@
 
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <threeten-extra.version>1.7.2</threeten-extra.version>
-        <junit5.version>5.10.0</junit5.version>
+        <junit5.version>5.10.1</junit5.version>
     </properties>
 
     <dependencies>
@@ -82,7 +82,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.2.2</version>
                 <configuration>
                     <argLine>--enable-preview</argLine>
                 </configuration>
