@@ -77,4 +77,4 @@ Assertions.assertEquals(Arrays.asList("1", "2", "3"), list);
 
 That's Java Lambdas in 10 minutes!  Lambdas are awesome!  Now enjoy using them in the kata and your applications!
 
-Start converting the [tests here](./src/test/java/bnymellon/codekatas/lambdakata/) to use lambdas.
+Start converting the [tests here](./src/test/java/bny/codekatas/lambdakata/) to use lambdas.

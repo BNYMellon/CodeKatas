@@ -5,18 +5,18 @@ Java features while comparing them with older.
 
 The domain for the kata is a Coffee Shop. There are several domain
 classes that are shared by all the exercises. These are
-[`Items`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/Item.java),
-[`CoffeeShopOrder`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopOrder.java),
-[`Beverage`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/Beverage.java),
-[`Tea`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/Tea.java),
-[`CoffeeDrink`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/CoffeeDrink.java),
-[`Latte`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/Latte.java),
-[`Macchiato`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/Macchiato.java),
-[`Americano`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/beverage/Americano.java),
-[`BakeryItem`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/food/BakeryItem.java),
-[`Cookie`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/food/Cookie.java),
-[`Bagel`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/food/Bagel.java), and
-[`Donut`](jdk8/src/main/java/bnymellon/codekatas/coffeeshopkata/food/Donut.java).
+[`Items`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/Item.java),
+[`CoffeeShopOrder`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/CoffeeShopOrder.java),
+[`Beverage`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/Beverage.java),
+[`Tea`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/Tea.java),
+[`CoffeeDrink`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/CoffeeDrink.java),
+[`Latte`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/Latte.java),
+[`Macchiato`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/Macchiato.java),
+[`Americano`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/beverage/Americano.java),
+[`BakeryItem`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/food/BakeryItem.java),
+[`Cookie`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/food/Cookie.java),
+[`Bagel`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/food/Bagel.java), and
+[`Donut`](jdk8/src/main/java/bny/codekatas/coffeeshopkata/food/Donut.java).
 
 ![Diagram](CoffeeShopDomain.png)
 
@@ -34,6 +34,6 @@ problems; there are no TODOs in this module. For technical setup, follow the ins
 
 ## Getting started ##
 
-1. Run the Tests in [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java)
+1. Run the Tests in [CoffeeShopTest](jdk21/src/test/java/bny/codekatas/coffeeshopkata/CoffeeShopTest.java)
 2. Fix the Code Using "TODO" and "HINT" Comments
 3. Repeat step 1 and 2 until all tests pass
