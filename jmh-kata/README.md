@@ -8,10 +8,10 @@ tool from OpenJDK.
 
 There are two micro-benchmarks currently checked in:
 
-1. [`IntListJMHBenchmark`](./src/test/java/bnymellon/codekatas/jmhkata/IntListJMHBenchmark.java)
+1. [`IntListJMHBenchmark`](./src/test/java/bny/codekatas/jmhkata/IntListJMHBenchmark.java)
  This test compares the performance of filtering, summing and transforming a million randomly generated integers stored 
  in an `ArrayList<Integer>`, a `FastList<Integer>` and an `IntArrayList`.<br>
-2. [`PersonJMHBenchmark`](./src/test/java/bnymellon/codekatas/jmhkata/PersonJMHBenchmark.java)
+2. [`PersonJMHBenchmark`](./src/test/java/bny/codekatas/jmhkata/PersonJMHBenchmark.java)
  This test compares the performance of various algorithms applied to a `List` of class `Person` which has randomly 
  generated values for age, height and weight.  The instances of class `Person` are stored in a JDK `List` and an 
  Eclipse Collections `MutableList`<br> 

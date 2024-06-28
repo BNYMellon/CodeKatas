@@ -18,10 +18,10 @@
    - Set the Project language level to "21 - Record patterns, pattern matching for switch...".
    - Make sure you have the correct JDK selected.
 4. To verify that the Java 8 module is set up correctly,
-   run [CoffeeShopTest](jdk8/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
+   run [CoffeeShopTest](jdk8/src/test/java/bny/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
    jdk8 module - the class should compile and all tests will pass.
 5. To verify that the Java 21 module is set up correctly,
-   run [CoffeeShopTest](jdk21/src/test/java/bnymellon/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
+   run [CoffeeShopTest](jdk21/src/test/java/bny/codekatas/coffeeshopkata/CoffeeShopTest.java) in the
    jdk21 module - the class should compile but all tests will fail.
 
 ### Getting started
